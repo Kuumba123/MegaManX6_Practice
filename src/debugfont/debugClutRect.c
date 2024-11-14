@@ -1,0 +1,2 @@
+#include <gpu.h>
+RECT static playerRect = {0x100 , 0x1F0, 0x40, 0xF};

@@ -1,0 +1,2 @@
+american , output/FONT.BIN
+american , output/STATE.BIN
