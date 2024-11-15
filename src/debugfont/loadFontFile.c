@@ -9,7 +9,7 @@ static struct DISC_FILE {
 };
 
 static struct DISC_FILE files[] = {
-    {"\\FONT.BIN;1",4,0x800FDA88},
+    {"\\FONT.BIN;1",4,0x80101304},
     {"\\STATE.BIN;1",3,0x801f4e2c},
 };
 
