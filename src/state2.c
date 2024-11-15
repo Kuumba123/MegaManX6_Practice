@@ -9,7 +9,7 @@ void *freeAddress[] = {
     0x80097798, // Inverted  Clut (unused)
     0x801F8304, // Just before Thread Stack Memory
     0x801E7BC8, // End of ARC buffer
-    0x800FF444, // End of Level Overlay
+    0x801029B4, // End of Level Overlay
     0x80097438, // Layout Buffer
     0x8000A000, // Kernal RAM
     0x8000E440  // Kernal RAM
@@ -118,7 +118,7 @@ int16_t freeAddressSizes[] = {
     0x4000,
     0x65FC,
     0x2438,
-    0x3BBC,
+    0x64C,
     0x300,
     0x1900,
     0x1A00

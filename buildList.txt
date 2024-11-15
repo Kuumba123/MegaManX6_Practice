@@ -17,4 +17,4 @@ american, exe , 0x80012868 , 0x0 , src/debugfont/loadFont.s
 american, exe , 0x80014494 , 0x0 , src/debugfont/loadFont2.s
 american, exe , 0x80012254 , 0x0 , src/debugfont/fontFlushHook.s
 american, exe , 0x8006d9d4 , 0x0 , src/debugfont/debugClutRect.c
-american, FONT, 0x800FDA88 , 0x0 , src/debugfont/font.c, FONT.BIN
+american, FONT, 0x80101304 , 0x0 , src/debugfont/font.c, FONT.BIN
