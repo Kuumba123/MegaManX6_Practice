@@ -8,7 +8,7 @@
 void *freeAddress[] = {
     0x80097798, // Inverted  Clut (unused)
     0x801F8304, // Just before Thread Stack Memory
-    0x801E7BC8, // End of ARC buffer
+    0x801E4658, // End of ARC buffer
     0x801029B4, // End of Level Overlay
     0x80097438, // Layout Buffer
     0x8000A000, // Kernal RAM
@@ -114,17 +114,17 @@ uint16_t *stageBssSizes[] = {
     0,0 //ST16
 };
 
-int16_t freeAddressSizes[] = {
-    0x4000,
-    0x65FC,
-    0x2438,
-    0x64C,
-    0x300,
-    0x1900,
-    0x1A00
+uint16_t freeAddressSizes[] = {
+    0x4000, // Inverted  Clut (unused)
+    0x65FC, // Just before Thread Stack Memory
+    0x59A8, // End of ARC buffer
+    0x064C, // End of Level Overlay
+    0x0300, // Layout Buffer
+    0x1900, // Kernal RAM
+    0x1A00  // Kernal RAM
 };
 
-int16_t addressesSize[] = { //0x13BF0
+uint16_t addressesSize[] = { //0x13BF0
     0x4000, // Clut
     WEAPON_OBJECT_SLOTS * WEAPON_OBJECT_SLOT_SIZES, // Weapon Objects
     ENEMY_OBJECT_SLOTS * ENEMY_OBJECT_SLOT_SIZES,   // Main Objects

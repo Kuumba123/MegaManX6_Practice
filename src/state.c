@@ -10,7 +10,7 @@
 
 #define VariableSetsCount 21
 #define BuffersCount 7
-#define BSS_ADDR 0x801E73BC
+#define BSS_ADDR 0x801E3E4C
 
 #define RNG *(uint16_t *)0x80090e70
 #define RELOAD *(uint8_t *)0x800cc868
@@ -37,15 +37,15 @@ void LoadCompressedImage(Object *objP, int16_t x, int16_t y);
 void LoadBossRefightsArc();
 
 extern void *freeAddress[];
-extern int16_t freeAddressSizes[];
+extern uint16_t freeAddressSizes[];
 extern void *readAddress[];
-extern int16_t addressesSize[];
+extern uint16_t addressesSize[];
 
 extern void *maverickRefightBssAddresses[];
-extern uint8_t maverickRefightBssSizes[];
+extern uint16_t maverickRefightBssSizes[];
 
 extern void *stageBssAddresses[];
-extern uint8_t *stageBssSizes[];
+extern uint16_t *stageBssSizes[];
 
 
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
@@ -128,7 +128,7 @@ void SaveState()
 
             if (freeId > BuffersCount - 1)
             {
-                printf("ERROR: went past MAX buffer counts: %X\n", BuffersCount); //need to comment out to save space
+                printf("ERROR: went past MAX buffer counts: %X\n", BuffersCount);
                 return;
             }
 
@@ -245,9 +245,13 @@ void LoadState()
 
     if (game.stageId == 0xC && game.mid == 0)
     {
-        if (game.point >= 2 && game.point <= 9 && game.point != pastPoint)
+        if (game.point >= 2 && game.point <= 9 )
         {
             refightsBss = true;
+        }
+        
+        if (refightsBss && game.point != pastPoint)
+        {
             EndSong();
             LoadBossRefightsArc();
             ThreadSleep(2);
