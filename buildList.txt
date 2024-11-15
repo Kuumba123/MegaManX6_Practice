@@ -34,5 +34,6 @@ american , exe , 0x8002798c , 0x0, src/loadLayout.c
 
 american NORELOAD , bin , 0x80105000 , 0x12 * 8 + 4, src/size.c
 
+american , exe , 0x8001e920 , 0x0, src/stateResetHook.s
 american , exe , 0x80017630 , 0x0, src/state2.c src/practice.c
 american , exe , 0x801f4e2c , 0x0, src/state.c , STATE.BIN
