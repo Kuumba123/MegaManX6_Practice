@@ -1,0 +1,1 @@
+static int size = 0x8000;
