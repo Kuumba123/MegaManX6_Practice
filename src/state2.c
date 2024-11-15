@@ -40,24 +40,24 @@ void *readAddress[] = {
 };
 
 void *maverickRefightBssAddresses[] = {
-    0x800FB8EC,
-    0x800FFC2C,
-    0x800FEF98,
-    0x800FF054,
-    0x80100160,
-    0x800FFC50,
-    0x800FEEA0,
-    0x800FDC88
+    0x80100BF4,
+    0x800FEDE4,
+    0x800FE9A4,
+    0x80100520,
+    0x800FDC80,
+    0x800FEEB0,
+    0x80100D60,
+    0x800FFE18
 };
 
 uint16_t maverickRefightBssSizes[] = {
-    0x20,
+    0x710,
+    0x4,
     0x18,
-    0xA0,
-    0x04,
     0x14,
-    0x6C,
-    0x04,
+    0xC,
+    0x2C,
+    0x8,
     0x14
 };
 
@@ -79,14 +79,13 @@ void *stageBssAddresses[] = {
     0,0,          //ST0D
     0,0,          //ST0E
     0,0,          //ST0F
-    0,0, //ST10
-    0,0,          //ST11
-    0,0,  //ST12
+    0x800FD590,0, //ST10
+    0x800F9bE8,0,          //ST11
+    0x800F7798,0,  //ST12
     0,0,  //ST13
     0,0,  //ST14
     0,0,  //ST15
-    0,0,  //ST16
-    0,0   //ST17
+    0,0  //ST16
 };
 
 uint16_t *stageBssSizes[] = {
@@ -106,14 +105,13 @@ uint16_t *stageBssSizes[] = {
     0,0,    //ST0D
     0,0,    //ST0E
     0,0,    //ST0F
-    0,0, //ST10
-    0,0, //ST11
-    0,0, //ST12
+    0x18,0, //ST10
+    0x4,0, //ST11
+    0x72,0, //ST12
     0,0, //ST13
     0,0, //ST14
     0,0, //ST15
-    0,0, //ST16
-    0,0  //ST17
+    0,0 //ST16
 };
 
 int16_t freeAddressSizes[] = {
