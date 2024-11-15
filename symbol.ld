@@ -4,6 +4,9 @@ clutPointer = 0x1F800028;
 
 enemyDataPointers = 0x8007349c;
 
+title = 0x800cd3f8;
+
+LevelMidTable = 0x80071190;
 loadState = 0x8009509c;
 LoadCompressedImage = 0x80017b04;
 LoadBossRefightsArc = 0x80013d10;
