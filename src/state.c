@@ -12,6 +12,19 @@
 #define BuffersCount 7
 #define BSS_ADDR 0x801E73BC
 
+#define RNG *(uint16_t *)0x80090e70
+#define RELOAD *(uint8_t *)0x800cc868
+#define PASTBRIGHT *(uint8_t *)0x800a21b6
+#define UPDATECLUT *(uint8_t *)0x800c4560
+#define STARTSELECT_FLAG *(uint32_t*)0x80091D54
+#define SCREENBACKUP *(uint32_t *)0x800a21b0
+#define VABP *(int *)0x800e4490
+
+#define FADE_F *(uint16_t *)0x801F8200
+#define SONG_F *(bool*)0x80097418
+
+#define DECOMPRESS_ADDR 0x800c8868
+
 extern uint32_t swapTextureFlag;
 extern void *swapTexturePointer;
 extern void *clutPointer;
@@ -62,7 +75,7 @@ void SwapTexture(bool sync)
         DrawSync(0); // Wait for Images & Clut to finish transfering before doing texture swap
     }
 
-    void *p = 0x800c8868; // Decompressed Texture buffer (temporary storage)
+    void *p = DECOMPRESS_ADDR; // Decompressed Texture buffer (temporary storage)
     void *p2 = swapTexturePointer;
     RECT rect = {320, 256, 512, 8};
 
@@ -132,11 +145,11 @@ void SaveState()
     }
 
     practice.state.textureFlag = swapTextureFlag;
-    practice.state.pastBright = *(uint8_t *)0x800a21b6;
+    practice.state.pastBright = PASTBRIGHT;
     practice.state.arcP = freeArcP;
-    practice.state.reloadFlag = *(uint8_t *)0x800cc868;
+    practice.state.reloadFlag = RELOAD;
     practice.state.page = practice.page;
-    practice.state.rng = *(uint16_t *)0x80090e70;
+    practice.state.rng = RNG;
     practice.state.sigmaOvl = practice.sigmaOvl;
 
     practice.state.made = true; // Mark State as Made
@@ -152,7 +165,7 @@ void SaveState()
 
     size_t screenLength = ((*(uint32_t *)0x1F80000C) - (*(uint32_t *)0x1F800008)); // getting screen count via pointers
     practice.state.screenSize = screenLength;
-    MemoryCopy(*(uint32_t *)0x800a21b0, *(uint32_t *)0x1F800008, screenLength);
+    MemoryCopy(SCREENBACKUP, *(uint32_t *)0x1F800008, screenLength);
 }
 void LoadState()
 {
@@ -170,7 +183,7 @@ void LoadState()
     }
 
     uint8_t pastPoint = game.point;
-    uint8_t pastFile = *(uint8_t *)0x800cc868;
+    uint8_t pastFile = RELOAD;
 
     int freeId = 0;
     int freeSize = freeAddressSizes[freeId];
@@ -208,7 +221,7 @@ void LoadState()
     }
     practice.page = practice.state.page;
     swapTextureFlag = practice.state.textureFlag;
-    *(uint8_t *)0x800a21b6 = practice.state.pastBright;
+    PASTBRIGHT = practice.state.pastBright;
     if (game.startingSong != 0)
     {
         EndSong();
@@ -216,13 +229,13 @@ void LoadState()
     
 
     freeArcP = practice.state.arcP;
-    *(uint8_t *)0x800cc868 = practice.state.reloadFlag;
+    RELOAD = practice.state.reloadFlag;
     if (practice.keepRng)
     {
-        *(uint16_t *)0x80090e70 = practice.state.rng;
+        RNG = practice.state.rng;
     }
 
-    *(uint8_t *)0x800c4560 = 1; // Update Clut
+    UPDATECLUT = 1; // Update Clut
 
     bgLayers[0].update = true;
     bgLayers[1].update = true;
@@ -246,13 +259,13 @@ void LoadState()
         }
         else
         {
-            *(uint8_t *)0x800cc868 = 0;
+            RELOAD = 0;
         }
         if (practice.sigmaOvl != practice.state.sigmaOvl)
         {
             if (practice.state.sigmaOvl == 1)
             {
-                ArcSeek(0x85, 4, *(int *)0x800e4490);
+                ArcSeek(0x85, 4, VABP);
                 DrawLoad(0, 0);
                 freeArcP = practice.state.arcP;
             }
@@ -268,7 +281,7 @@ void LoadState()
         MemoryCopy(maverickRefightBssAddresses[game.point - 2], BSS_ADDR, maverickRefightBssSizes[game.point - 2]);
     }
     practice.sigmaOvl = practice.state.sigmaOvl;
-    *(uint32_t*)0x80091D54 = 1;
+    STARTSELECT_FLAG = 1;
     mega.newAnimeF = -1;
     LoadCompressedImage((Object *)&mega, 320, 0);
     if (mega.player == 0)
@@ -276,7 +289,7 @@ void LoadState()
         SwapWeaponTexturesClut(&mega);
     }
     
-    MemoryCopy(*(uint32_t *)0x1F800008, *(uint32_t *)0x800a21b0, practice.state.screenSize);
+    MemoryCopy(*(uint32_t *)0x1F800008, SCREENBACKUP, practice.state.screenSize);
 }
 
 void StateCheck(Game *gameP)
@@ -294,7 +307,7 @@ void StateCheck(Game *gameP)
         DrawDebugText(4, 4, 2, "(LOADING)");
     }
 
-    if (loadState != 1 && *(uint16_t *)0x801F8200 /*<-Fade In/Out Thread*/ == 0 && *(bool*)0x80097418 /*<-Turn Song Off flag*/ == false)
+    if (loadState != 1 && FADE_F == 0 && SONG_F == false)
     {
         if ((buttonsPressed & (PAD_L2 | PAD_R2 | PAD_SELECT)) != 0)
         {
@@ -310,3 +323,16 @@ void StateCheck(Game *gameP)
     }
     mode_A_Table[gameP->mode2](gameP);
 }
+
+#undef RNG
+#undef RELOAD
+#undef PASTBRIGHT
+#undef UPDATECLUT
+#undef STARTSELECT_FLAG
+#undef SCREENBACKUP
+#undef VABP
+
+#undef FADE_F
+#undef SONG_F
+
+#undef DECOMPRESS_ADDR
