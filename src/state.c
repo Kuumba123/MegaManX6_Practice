@@ -16,12 +16,12 @@
 #define RELOAD *(uint8_t *)0x800cc868
 #define PASTBRIGHT *(uint8_t *)0x800a21b6
 #define UPDATECLUT *(uint8_t *)0x800c4560
-#define STARTSELECT_FLAG *(uint32_t*)0x80091D54
+#define STARTSELECT_FLAG *(uint32_t *)0x80091D54
 #define SCREENBACKUP *(uint32_t *)0x800a21b0
 #define VABP *(int *)0x800e4490
 
 #define FADE_F *(uint16_t *)0x801F8200
-#define SONG_F *(bool*)0x80097418
+#define SONG_F *(bool *)0x80097418
 
 #define DECOMPRESS_ADDR 0x800c8868
 
@@ -46,7 +46,6 @@ extern uint16_t maverickRefightBssSizes[];
 
 extern void *stageBssAddresses[];
 extern uint16_t *stageBssSizes[];
-
 
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 
@@ -183,6 +182,7 @@ void LoadState()
     }
 
     uint8_t pastPoint = game.point;
+    uint8_t pastFlag = game.refights[4];
     uint8_t pastFile = RELOAD;
 
     int freeId = 0;
@@ -214,7 +214,7 @@ void LoadState()
             freeSize -= dumpSize;
         }
     }
-    
+
     if (practice.page != practice.state.page)
     {
         SwapTexture(false);
@@ -226,7 +226,6 @@ void LoadState()
     {
         EndSong();
     }
-    
 
     freeArcP = practice.state.arcP;
     RELOAD = practice.state.reloadFlag;
@@ -234,8 +233,6 @@ void LoadState()
     {
         RNG = practice.state.rng;
     }
-
-    UPDATECLUT = 1; // Update Clut
 
     bgLayers[0].update = true;
     bgLayers[1].update = true;
@@ -245,11 +242,11 @@ void LoadState()
 
     if (game.stageId == 0xC && game.mid == 0)
     {
-        if (game.point >= 2 && game.point <= 9 )
+        if (game.point >= 2 && game.point <= 9)
         {
             refightsBss = true;
         }
-        
+
         if (refightsBss && game.point != pastPoint)
         {
             EndSong();
@@ -265,16 +262,16 @@ void LoadState()
         {
             RELOAD = 0;
         }
-        if (practice.sigmaOvl != practice.state.sigmaOvl)
-        {
-            if (practice.state.sigmaOvl == 1)
-            {
-                ArcSeek(0x85, 4, VABP);
-                DrawLoad(0, 0);
-                freeArcP = practice.state.arcP;
-            }
-        }
     }
+    else if (game.stageId == 0xC && game.mid == 1 && game.refights[4] == 1 && game.point == 1 && game.refights[4] != pastFlag)
+    {
+        /*TODO: fix inverted Clut witch is caused by 2nd phase*/
+        EndSong();
+        ArcSeek(0x85, 4, VABP);
+        DrawLoad(0, 0);
+        freeArcP = practice.state.arcP;
+    }
+
     else if (stageBssAddresses[game.stageId * 2 + game.mid] != 0 && game.stageId < 0x13)
     {
         MemoryCopy(stageBssAddresses[game.stageId * 2 + game.mid], BSS_ADDR, stageBssSizes[game.stageId * 2 + game.mid]);
@@ -292,7 +289,7 @@ void LoadState()
     {
         SwapWeaponTexturesClut(&mega);
     }
-    
+    UPDATECLUT = 1; // Update Clut
     MemoryCopy(*(uint32_t *)0x1F800008, SCREENBACKUP, practice.state.screenSize);
 }
 
