@@ -17,11 +17,11 @@ void DetermineClear(Game *gameP)
     {
         /*MegaMan Dead*/
         gameP->spawnFlags = 0;
-        bool reset = true;
+        bool reset = false;
 
-        if (!(gameP->stageId == 0xC && gameP->mid == 0))
+        if (gameP->stageId == 0xC && gameP->mid == 0 && gameP->point > 1)
         {
-            reset = false;
+            reset = gameP->point < 10;
         }
 
         /* Teleporter Room in Refights */
@@ -96,7 +96,9 @@ void DetermineClear(Game *gameP)
             {
                 gameP->stageId = 0x12;
                 gameP->mode = 8;
-            }else {
+            }
+            else
+            {
                 gameP->exitType = 0xFF;
                 gameP->mode = 0xB;
             }
