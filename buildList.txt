@@ -18,6 +18,9 @@ american , ST0E_OVL, 0x800F1748 , 0x0, src/titleExtra.c
 american, exe, 0x8001ce68 , 0x0, src/titleCursor.c
 american, exe, 0x80071124 , 0x0, src/titleTable.c
 
+american, exe, 0x80017c40 , 0x0, src/dumpClut.c
+american, exe, 0x8002ad54 , 0x0, src/dumpClutAddress.s
+
 american, exe, 0x8001e174 , 0x0 , src/startSelect.s
 
 american, exe , 0x8001E32C , 0x0 , src/determineClear.c
