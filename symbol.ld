@@ -3,10 +3,15 @@ swapTexturePointer = 0x1F800044;
 
 backupClut = 0x8009e1b0;
 
+CutsceneLayoutPointers = 0x800ea514;
+
 clutPointer = 0x1F800028;
 clutRect = 0x8006e360;
 
 enemyDataPointers = 0x8007349c;
+ExitBranch = 0x80033034;
+
+FlushScreen = 0x800268b0;
 
 title = 0x800cd3f8;
 

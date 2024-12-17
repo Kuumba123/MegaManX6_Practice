@@ -1,7 +1,9 @@
 #include <common.h>
 
-
 extern int * StageLayoutPointers[];
+extern int * CutsceneLayoutPointers[];
+
+void FlushScreen(int i);
 
 void LoadLayout()
 {
@@ -9,13 +11,12 @@ void LoadLayout()
 
     if (game.stageId == 0xB)
     {
-        p = ((int*)0x800ea514)[game.point];
+        p = CutsceneLayoutPointers[game.point];
     }else{
         p = StageLayoutPointers[game.stageId * 2 + game.mid];
     }
     *(int*)0x1f800004 = p; //layout pointer
 
-    void (*screenFunc)() = 0x800268b0;
-    screenFunc(-1);
+    FlushScreen(-1);
 }
 

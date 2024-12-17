@@ -12,18 +12,29 @@
 #define BuffersCount 7
 #define BSS_ADDR 0x801E3E4C
 
+#if BUILD == 1395
 #define RNG *(uint16_t *)0x80090e70
 #define RELOAD *(uint8_t *)0x800cc868
 #define PASTBRIGHT *(uint8_t *)0x800a21b6
 #define UPDATECLUT *(uint8_t *)0x800c4560
-#define STARTSELECT_FLAG *(uint32_t *)0x80091D54
+#define STARTSELECT_FLAG *(uint32_t *)0x8008ec0c
 #define SCREENBACKUP *(uint32_t *)0x800a21b0
 #define VABP *(int *)0x800e4490
+#define DECOMPRESS_ADDR 0x800c8868
+#else
+#define RNG *(uint16_t *)0x80092530
+#define RELOAD *(uint8_t *)0x800cdf28
+#define PASTBRIGHT *(uint8_t *)0x800a3876
+#define UPDATECLUT *(uint8_t *)0x800c5c20
+#define STARTSELECT_FLAG *(uint32_t *)0x800902cc
+#define SCREENBACKUP *(uint32_t *)0x800a3870
+#define VABP *(int *)0x800e5ac0
+#define DECOMPRESS_ADDR 0x800C9F28
+#endif
 
 #define FADE_F *(uint16_t *)0x801F8200
 #define EXPO_F *(uint16_t *)0x801F8280
 
-#define DECOMPRESS_ADDR 0x800c8868
 
 extern uint32_t swapTextureFlag;
 extern void *swapTexturePointer;
@@ -31,7 +42,11 @@ extern void *clutPointer;
 extern Enemy *enemyDataPointers[];
 extern uint8_t loadState; /*1=loading*/
 
+#if BUILD == 1395
 static void (*mode_A_Table[2])(Game *) = {0x8001ea28, 0x8001eb48};
+#else
+static void (*mode_A_Table[2])(Game *) = {0x8001fe78, 0x8001ff98};
+#endif
 
 void LoadCompressedImage(Object *objP, int16_t x, int16_t y);
 void LoadBossRefightsArc();
@@ -166,7 +181,7 @@ void SaveState()
     practice.state.screenSize = screenLength;
     MemoryCopy(SCREENBACKUP, *(uint32_t *)0x1F800008, screenLength);
 }
-void LoadState()
+void LoadState() //TODO: fix Wolf's slow motion & Brightness CLUT
 {
     ThreadSleep(10); // Waiting before transfering
 
@@ -265,7 +280,6 @@ void LoadState()
     }
     else if (game.stageId == 0xC && game.mid == 1 && game.refights[4] == 1 && game.point == 1 && game.refights[4] != pastFlag)
     {
-        /*TODO: fix inverted Clut witch is caused by 2nd phase*/
         EndSong();
         ArcSeek(0x85, 4, VABP);
         DrawLoad(0, 0);

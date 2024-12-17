@@ -3,7 +3,11 @@
 #include <misc.h>
 #include "practice.h"
 
+#if BUILD == 1395
 #define RELOAD *(uint8_t *)0x800cc868
+#else
+#define RELOAD *(uint8_t *)0x800cdf28
+#endif
 
 extern bool LevelMidTable[];
 

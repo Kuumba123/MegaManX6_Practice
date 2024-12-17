@@ -1,5 +1,5 @@
 .set noreorder
     li $a1,1
     nop
-    j 0x80033034
+    j ExitBranch
     sb $a1,0x26($s0)

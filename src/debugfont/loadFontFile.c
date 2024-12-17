@@ -1,6 +1,10 @@
 #include <common.h>
 
+#if BUILD == 1395
 #define StartingThread 0x8001cb3c
+#else
+#define StartingThread 0x8001df7c
+#endif
 
 static struct DISC_FILE {
     char * fileName;

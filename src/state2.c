@@ -4,13 +4,38 @@
 #include <layer.h>
 #include "practice.h"
 
+#if BUILD == 1395
+#define OVL_ADDR 0x800e9860
+#define LAYOUT_ADDR 0x80097438
+#define INVERTED_CLUT_ADDR 0x80097798
+#define RIDE_ARMOR_ADDR 0x800CD340
+#define TEXT_INFO_ADDR 0x8008eaf0
+#define TEXT_EXTRA_ADDR 0x800e33b0
+#define BRIGHT_ADDR 0x80090D54
+#define M_BRIGHT_ADDR 0x800CF850
+#define EM_BRIGHT_ADDR 0x8009742c
+#define AFTER_IMG_ADDR 0x800972f8
+#define TBL_BRIGHT_ADDR 0x80090c90
+#else
+#define OVL_ADDR 0x800eae90
+#define LAYOUT_ADDR 0x80098af8
+#define INVERTED_CLUT_ADDR 0x80098E58
+#define RIDE_ARMOR_ADDR 0x800CEA00
+#define TEXT_INFO_ADDR 0x800901b0
+#define TEXT_EXTRA_ADDR 0x800e49ec
+#define BRIGHT_ADDR 0x80092414
+#define M_BRIGHT_ADDR 0x800d0f10
+#define EM_BRIGHT_ADDR 0x80098AEC
+#define AFTER_IMG_ADDR 0x800989b8
+#define TBL_BRIGHT_ADDR 0x80092350
+#endif
 
 void *freeAddress[] = {
-    0x80097798, // Inverted  Clut (unused)
+    INVERTED_CLUT_ADDR, // Inverted  Clut (unused)
     0x801F8304, // Just before Thread Stack Memory
     0x801E4658, // End of ARC buffer
     0x801029B4, // End of Level Overlay
-    0x80097438, // Layout Buffer
+    LAYOUT_ADDR, // Layout Buffer
     0x8000A000, // Kernal RAM
     0x8000E440  // Kernal RAM
 };
@@ -29,14 +54,14 @@ void *readAddress[] = {
     &mega, // Mega
     &bgLayers, // BG Layers
     &game, // Game Info
-    0x800CD340, // Ride Armor
-    0x8008EAf0, // Text Info
-    0x800E33B0, // Extra Text Info
-    0x80090D54, // Brightness stuff
-    0x800CF850, // More Brightness stuff
-    0x8009742C, // Also More Brightness stuff
-    0x80090C90, // Brightness Table thing
-    0x800972F8  // After Images
+    RIDE_ARMOR_ADDR, // Ride Armor
+    TEXT_INFO_ADDR, // Text Info
+    TEXT_EXTRA_ADDR, // Extra Text Info
+    BRIGHT_ADDR, // Brightness stuff
+    M_BRIGHT_ADDR, // More Brightness stuff
+    EM_BRIGHT_ADDR, // Also More Brightness stuff
+    TBL_BRIGHT_ADDR, // Brightness Table thing
+    AFTER_IMG_ADDR  // After Images
 };
 
 void *maverickRefightBssAddresses[] = {
@@ -63,30 +88,31 @@ uint16_t maverickRefightBssSizes[] = {
 
 
 void *stageBssAddresses[] = {
-    0x800FBC70,0, //ST00
-    0x800F7DC0,0, //ST01
-    0x800F76EC,0, //ST02
-    0x800F447C,0, //ST03
-    0x800F4018,0x800F981C, //ST04
-    0x800F62F0,0, //ST05
-    0x800F6BA0,0, //ST06
-    0x800FCFEC,0, //ST07
-    0x800FD510,0, //ST08
-    0,0, //ST09
-    0,0, //ST0A
-    0,0,          //ST0B
-    0,0x800F70DC,          //ST0C
-    0,0,          //ST0D
-    0,0,          //ST0E
-    0,0,          //ST0F
-    0x800FD590,0, //ST10
-    0x800F9bE8,0,          //ST11
-    0x800F7798,0,  //ST12
-    0,0,  //ST13
-    0,0,  //ST14
-    0,0,  //ST15
-    0,0  //ST16
+    OVL_ADDR + 0x00002410, 0, // ST00
+    OVL_ADDR + 0x0000E560, 0, // ST01
+    OVL_ADDR + 0x0000E08C, 0, // ST02
+    OVL_ADDR + 0x0000AC1C, 0, // ST03
+    OVL_ADDR + 0x0000A1B8, OVL_ADDR + 0x000100BC, // ST04
+    OVL_ADDR + 0x0000CA90, 0, // ST05
+    OVL_ADDR + 0x0000D340, 0, // ST06
+    OVL_ADDR + 0x0001478C, 0, // ST07
+    OVL_ADDR + 0x00014CB0, 0, // ST08
+    0, 0, // ST09
+    0, 0, // ST0A
+    0, 0, // ST0B
+    0, OVL_ADDR + 0x0000E87C, // ST0C
+    0, 0, // ST0D
+    0, 0, // ST0E
+    0, 0, // ST0F
+    OVL_ADDR + 0x00014D30, 0, // ST10
+    OVL_ADDR + 0x00001388, 0, // ST11
+    OVL_ADDR + 0x0000E938, 0, // ST12
+    0, 0, // ST13
+    0, 0, // ST14
+    0, 0, // ST15
+    0, 0  // ST16
 };
+
 
 uint16_t *stageBssSizes[] = {
     0x10,0, //ST00
@@ -147,3 +173,14 @@ uint16_t addressesSize[] = { //0x13BF0
     0x28,   // Brightness Table thing
     0x120   // After Images
 };
+
+#undef LAYOUT_ADDR
+#undef INVERTED_CLUT_ADDR
+#undef RIDE_ARMOR_ADDR
+#undef TEXT_INFO_ADDR
+#undef TEXT_EXTRA_ADDR
+#undef BRIGHT_ADDR
+#undef M_BRIGHT_ADDR
+#undef EM_BRIGHT_ADDR
+#undef AFTER_IMG_ADDR
+#undef TBL_BRIGHT_ADDR

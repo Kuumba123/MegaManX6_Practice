@@ -1,7 +1,12 @@
 #include <object.h>
 
+#if BUILD == 1395
 #define SPEC_ADDR 0x800F0B44
 #define FRAMECOUNT *(int*)0x80097420
+#else
+#define SPEC_ADDR 0x800f21b8
+#define FRAMECOUNT *(int*)0x80098ae0
+#endif
 
 static struct Title
 {

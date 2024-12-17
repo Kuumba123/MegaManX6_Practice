@@ -1,2 +1,5 @@
 american , output/FONT.BIN
 american , output/STATE.BIN
+
+japan , output/FONT.BIN
+japan , output/STATE.BIN
