@@ -1,12 +1,14 @@
 #include <common.h>
 #include <object.h>
 
+extern uint8_t exitType;
+
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 
 void MissionCleared(Game *gameP)
 {
     gameP->stageSelectMode = 5;
-    if (gameP->exitType == 0)
+    if (exitType == 2)
     {
         gameP->mode = 3;
         gameP->clearedStages = 0;

@@ -12,11 +12,14 @@
 extern bool LevelMidTable[];
 
 extern uint32_t swapTextureFlag;
+extern uint8_t exitType;
+extern uint8_t exitStage;
 
 void SwapTexture(bool sync);
 
 void DetermineClear(Game *gameP)
 {
+    exitType = gameP->clear < 1;
     if (gameP->clear == 0)
     {
         /*MegaMan Dead*/

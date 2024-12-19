@@ -10,6 +10,8 @@ clutRect = 0x8006fa1c;
 
 enemyDataPointers = 0x80074b58;
 ExitBranch = 0x80034630;
+exitType = 0x800e4800;
+exitStage = 0x800e4801;
 
 FlushScreen = 0x80027eac;
 
