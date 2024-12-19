@@ -66,6 +66,9 @@ extern uint16_t maverickRefightBssSizes[];
 extern void *stageBssAddresses[];
 extern uint16_t *stageBssSizes[];
 
+extern void * bonusBossAddresses[];
+extern uint16_t bonusBossAddressesSize[];
+
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 
 void SwapWeaponTexturesClut(Mega *megaP);
@@ -182,6 +185,10 @@ void SaveState()
     {
         MemoryCopy(BSS_ADDR, stageBssAddresses[game.stageId * 2 + game.mid], stageBssSizes[game.stageId * 2 + game.mid]);
     }
+    else if(game.stageId > 0x12)
+    {
+        MemoryCopy(BSS_ADDR, bonusBossAddresses[*((uint8_t*)((int)&game + 1083))], bonusBossAddressesSize[*((uint8_t*)((int)&game + 1083))]);
+    }
 
     size_t screenLength = ((*(uint32_t *)0x1F80000C) - (*(uint32_t *)0x1F800008)); // getting screen count via pointers
     practice.state.screenSize = screenLength;
@@ -293,10 +300,13 @@ void LoadState()
         DrawLoad(0, 0);
         freeArcP = practice.state.arcP;
     }
-
     else if (stageBssAddresses[game.stageId * 2 + game.mid] != 0 && game.stageId < 0x13)
     {
         MemoryCopy(stageBssAddresses[game.stageId * 2 + game.mid], BSS_ADDR, stageBssSizes[game.stageId * 2 + game.mid]);
+    }
+    else if(game.stageId > 0x12)
+    {
+        MemoryCopy(bonusBossAddresses[*((uint8_t*)((int)&game + 1083))], BSS_ADDR, bonusBossAddressesSize[*((uint8_t*)((int)&game + 1083))]);
     }
 
     if (refightsBss)

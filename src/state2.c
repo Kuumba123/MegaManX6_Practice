@@ -173,6 +173,16 @@ uint16_t addressesSize[] = { //0x13BF0
     0x40,   // Brightness Table thing
     0x120   // After Images
 };
+void * bonusBossAddresses[] = {
+    0x800fe284,
+    0x80102214,
+    0x800fce48
+};
+uint16_t bonusBossAddressesSize[] = {
+    0x18,
+    0x04,
+    0x20
+};
 
 #undef LAYOUT_ADDR
 #undef INVERTED_CLUT_ADDR
