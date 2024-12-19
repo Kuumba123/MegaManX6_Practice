@@ -7,9 +7,11 @@ typedef struct
     void * arcP;
     uint32_t startSelectEnable;
     int32_t screenSize; //in bytes
+    uint16_t pastBright;
+    uint16_t pastBright2;
+    uint16_t pastBright3;
     uint16_t rng;
     uint8_t sigmaOvl;
-    uint8_t pastBright;
     uint8_t reloadFlag;
     uint8_t page;
     bool made;

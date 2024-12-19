@@ -33,11 +33,11 @@
 void *freeAddress[] = {
     INVERTED_CLUT_ADDR, // Inverted  Clut (unused)
     0x801F8304, // Just before Thread Stack Memory
-    0x801E4658, // End of ARC buffer
+    0x801E4634, // End of ARC buffer
     0x801029B4, // End of Level Overlay
     LAYOUT_ADDR, // Layout Buffer
     0x8000A000, // Kernal RAM
-    0x8000E440  // Kernal RAM
+    0x8000C000  // Kernal RAM (TODO: maybe better to use a different address that isnt $8000C000 since Unirom or $8000E400 cus Kernal)
 };
 
 void *readAddress[] = {
@@ -143,7 +143,7 @@ uint16_t *stageBssSizes[] = {
 uint16_t freeAddressSizes[] = {
     0x4000, // Inverted  Clut (unused)
     0x65FC, // Just before Thread Stack Memory
-    0x59A8, // End of ARC buffer
+    0x59CC, // End of ARC buffer
     0x064C, // End of Level Overlay
     0x0300, // Layout Buffer
     0x1900, // Kernal RAM
@@ -167,10 +167,10 @@ uint16_t addressesSize[] = { //0x13BF0
     0xC0,   // Ride Armor
     0x18,   // Text Info
     0x104,  // Extra Text Info
-    8,      // Brightness stuff
-    4,      // More Brightness stuff
-    4,      // Also More Brightness stuff
-    0x28,   // Brightness Table thing
+    0xC,    // Brightness stuff
+    8,      // More Brightness stuff
+    8,      // Also More Brightness stuff
+    0x40,   // Brightness Table thing
     0x120   // After Images
 };
 

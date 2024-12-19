@@ -10,12 +10,14 @@
 
 #define VariableSetsCount 21
 #define BuffersCount 7
-#define BSS_ADDR 0x801E3E4C
+#define BSS_ADDR 0x801E3E28
 
 #if BUILD == 1395
 #define RNG *(uint16_t *)0x80090e70
 #define RELOAD *(uint8_t *)0x800cc868
-#define PASTBRIGHT *(uint8_t *)0x800a21b6
+#define PASTBRIGHT *(uint16_t *)0x80097754
+#define PASTBRIGHT2 *(uint16_t *)0x800c8858
+#define PASTBRIGHT3 *(uint16_t *)0x800a21b6
 #define UPDATECLUT *(uint8_t *)0x800c4560
 #define STARTSELECT_FLAG *(uint32_t *)0x8008ec0c
 #define SCREENBACKUP *(uint32_t *)0x800a21b0
@@ -24,7 +26,9 @@
 #else
 #define RNG *(uint16_t *)0x80092530
 #define RELOAD *(uint8_t *)0x800cdf28
-#define PASTBRIGHT *(uint8_t *)0x800a3876
+#define PASTBRIGHT *(uint16_t *)0x80098e14
+#define PASTBRIGHT2 *(uint16_t *)0x800c9f18
+#define PASTBRIGHT3 *(uint16_t *)0x800a3876
 #define UPDATECLUT *(uint8_t *)0x800c5c20
 #define STARTSELECT_FLAG *(uint32_t *)0x800902cc
 #define SCREENBACKUP *(uint32_t *)0x800a3870
@@ -160,6 +164,8 @@ void SaveState()
 
     practice.state.textureFlag = swapTextureFlag;
     practice.state.pastBright = PASTBRIGHT;
+    practice.state.pastBright2 = PASTBRIGHT2;
+    practice.state.pastBright3 = PASTBRIGHT3;
     practice.state.arcP = freeArcP;
     practice.state.reloadFlag = RELOAD;
     practice.state.page = practice.page;
@@ -181,7 +187,7 @@ void SaveState()
     practice.state.screenSize = screenLength;
     MemoryCopy(SCREENBACKUP, *(uint32_t *)0x1F800008, screenLength);
 }
-void LoadState() //TODO: fix Wolf's slow motion & Brightness CLUT
+void LoadState()
 {
     ThreadSleep(10); // Waiting before transfering
 
@@ -237,6 +243,8 @@ void LoadState() //TODO: fix Wolf's slow motion & Brightness CLUT
     practice.page = practice.state.page;
     swapTextureFlag = practice.state.textureFlag;
     PASTBRIGHT = practice.state.pastBright;
+    PASTBRIGHT2 = practice.state.pastBright2;
+    PASTBRIGHT3 = practice.state.pastBright3;
     if (game.startingSong != 0)
     {
         EndSong();
