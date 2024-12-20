@@ -8,3 +8,4 @@ Makefile
 *.o
 #MegaMan X5 Files
 *.DAT
+*.BIN
