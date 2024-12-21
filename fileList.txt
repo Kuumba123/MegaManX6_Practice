@@ -1,5 +1,7 @@
 american , output/FONT.BIN
 american , output/STATE.BIN
+american , ovl/american/OVERLAYS.BIN , ROCK_X6.BIN
 
 japan , output/FONT.BIN
 japan , output/STATE.BIN
+japan , ovl/japan/OVERLAYS.BIN , ROCK_X6.BIN

@@ -1,5 +1,9 @@
 // version, section, address, offset, path, binary name [optional]
 
+///////////////////////////////
+// North American Version    //
+///////////////////////////////
+
 american, exe , 0x8001ec68 , 0x0 , src/debugfont/loadFontFile.c
 american, exe , 0x80015630 , 0x0 , src/debugfont/loadFile.c
 american, exe , 0x80012868 , 0x0 , src/debugfont/loadFont.s
@@ -8,13 +12,13 @@ american, exe , 0x80012254 , 0x0 , src/debugfont/fontFlushHook.s
 american, exe , 0x8006d9d4 , 0x0 , src/debugfont/debugClutRect.c
 american, FONT, 0x80101304 , 0x0 , src/debugfont/font.c, FONT.BIN
 
-american NORELOAD , ST0F_OVL, 0x800E9860 , 0x0 , src/missionClear.c
+american NORELOAD , STAGE0F, 0x800E9860 , 0x0 , src/missionClear.c
 american, exe, 0x8007115C , 0x0 , src/missionClearTable.c
 american, exe, 0x8001e86c , 0x0 , src/missionClearSize.s
 
-american NORELOAD, ST0E_OVL, 0x800eda38 , 0x0, src/titleTextObject.c
-american NORELOAD , ST0E_OVL, 0x800f0b44 , 0x0, src/titleTextSpec.
-american NORELOAD , ST0E_OVL, 0x800F1748 , 0x0, src/titleExtra.c
+american NORELOAD, STAGE0E, 0x800eda38 , 0x0, src/titleTextObject.c
+american NORELOAD , STAGE0E, 0x800f0b44 , 0x0, src/titleTextSpec.
+american NORELOAD , STAGE0E, 0x800F1748 , 0x0, src/titleExtra.c , TITLE_EXTRA.BIN
 american, exe, 0x8001ce68 , 0x0, src/titleCursor.c
 american, exe, 0x80071124 , 0x0, src/titleTable.c
 
@@ -38,8 +42,6 @@ american , exe , 0x80071184 , 0x0 , src/modeTable.c
 
 american , exe , 0x8002798c , 0x0, src/loadLayout.c
 
-american NORELOAD , bin , 0x80105000 , 0x12 * 8 + 4, src/size.c
-
 american , exe , 0x8001e920 , 0x0, src/stateResetHook.s
 american , exe , 0x80017630 , 0x0, src/state2.c src/practice.c
 american , exe , 0x801f4e2c , 0x0, src/state.c , STATE.BIN
@@ -58,13 +60,13 @@ japan, exe , 0x8001368c , 0x0 , src/debugfont/fontFlushHook.s
 japan, exe , 0x8006f0b8 , 0x0 , src/debugfont/debugClutRect.c
 japan, FONT, 0x80101304 , 0x0 , src/debugfont/font.c, FONT.BIN
 
-japan NORELOAD , ST0F_OVL, 0x800EAE90 , 0x0 , src/missionClear.c
+japan NORELOAD , STAGE0F, 0x800EAE90 , 0x0 , src/missionClear.c
 japan, exe, 0x80072818 , 0x0 , src/missionClearTable.c
 japan, exe, 0x8001fcbc , 0x0 , src/missionClearSize.s
 
-japan NORELOAD, ST0E_OVL, 0x800ef07c , 0x0, src/titleTextObject.c
-japan NORELOAD , ST0E_OVL, 0x800f21b8 , 0x0, src/titleTextSpec.
-japan NORELOAD , ST0E_OVL, 0x800f2dB0 , 0x0, src/titleExtra.c
+japan NORELOAD, STAGE0E, 0x800ef07c , 0x0, src/titleTextObject.c
+japan NORELOAD , STAGE0E, 0x800f21b8 , 0x0, src/titleTextSpec.
+japan NORELOAD , STAGE0E, 0x800f2dB0 , 0x0, src/titleExtra.c , TITLE_EXTRA.BIN
 japan, exe, 0x8001e2a8 , 0x0, src/titleCursor.c
 japan, exe, 0x800727e0 , 0x0, src/titleTable.c
 
@@ -87,8 +89,6 @@ japan , exe , 0x8002904c , 0x0 , src/swapTexture.c
 japan , exe , 0x80072840 , 0x0 , src/modeTable.c
 
 japan , exe , 0x80028f88 , 0x0, src/loadLayout.c
-
-japan NORELOAD , bin , 0x80105000 , 0x12 * 8 + 4, src/size.c
 
 japan , exe , 0x8001fd70 , 0x0, src/stateResetHook.s
 japan , exe , 0x80018a68 , 0x0, src/state2.c src/practice.c
