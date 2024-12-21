@@ -16,6 +16,11 @@
 #define EM_BRIGHT_ADDR 0x8009742c
 #define AFTER_IMG_ADDR 0x800972f8
 #define TBL_BRIGHT_ADDR 0x80090c90
+/*BSS Addresses*/
+#define ST01_BSS_ADDR OVL_ADDR + 0x0000E560
+#define ST04_BSS_ADDR OVL_ADDR + 0x0000A7B8
+#define ST06_BSS_ADDR OVL_ADDR + 0x0000D340
+#define ST12_BSS_ADDR OVL_ADDR + 0x0000DF38
 #else
 #define OVL_ADDR 0x800eae90
 #define LAYOUT_ADDR 0x80098af8
@@ -28,6 +33,11 @@
 #define EM_BRIGHT_ADDR 0x80098AEC
 #define AFTER_IMG_ADDR 0x800989b8
 #define TBL_BRIGHT_ADDR 0x80092350
+/*BSS Addresses*/
+#define ST01_BSS_ADDR OVL_ADDR + 0x0000E560
+#define ST04_BSS_ADDR OVL_ADDR + 0x0000A7A8
+#define ST06_BSS_ADDR OVL_ADDR + 0x0000D2D0
+#define ST12_BSS_ADDR OVL_ADDR + 0x0000DF54
 #endif
 
 void *freeAddress[] = {
@@ -88,25 +98,25 @@ uint16_t maverickRefightBssSizes[] = {
 
 
 void *stageBssAddresses[] = {
-    OVL_ADDR + 0x00002410, 0, // ST00
-    OVL_ADDR + 0x0000E560, 0, // ST01
-    OVL_ADDR + 0x0000E08C, 0, // ST02
+    OVL_ADDR + 0x00012410, 0, // ST00
+    ST01_BSS_ADDR, 0, // ST01
+    OVL_ADDR + 0x0000DE8C, 0, // ST02
     OVL_ADDR + 0x0000AC1C, 0, // ST03
-    OVL_ADDR + 0x0000A1B8, OVL_ADDR + 0x000100BC, // ST04
+    ST04_BSS_ADDR, OVL_ADDR + 0x0000FFBC, // ST04
     OVL_ADDR + 0x0000CA90, 0, // ST05
-    OVL_ADDR + 0x0000D340, 0, // ST06
-    OVL_ADDR + 0x0001478C, 0, // ST07
-    OVL_ADDR + 0x00014CB0, 0, // ST08
+    ST06_BSS_ADDR, 0, // ST06
+    OVL_ADDR + 0x00013790, 0, // ST07
+    OVL_ADDR + 0x00013CB0, 0, // ST08
     0, 0, // ST09
     0, 0, // ST0A
     0, 0, // ST0B
-    0, OVL_ADDR + 0x0000E87C, // ST0C
+    0, OVL_ADDR + 0x0000D87C, // ST0C
     0, 0, // ST0D
     0, 0, // ST0E
     0, 0, // ST0F
-    OVL_ADDR + 0x00014D30, 0, // ST10
-    OVL_ADDR + 0x00001388, 0, // ST11
-    OVL_ADDR + 0x0000E938, 0, // ST12
+    OVL_ADDR + 0x00013D34, 0, // ST10
+    OVL_ADDR + 0x00010388, 0, // ST11
+    OVL_ADDR + 0x0000DF38, 0, // ST12
     0, 0, // ST13
     0, 0, // ST14
     0, 0, // ST15
@@ -194,3 +204,8 @@ uint16_t bonusBossAddressesSize[] = {
 #undef EM_BRIGHT_ADDR
 #undef AFTER_IMG_ADDR
 #undef TBL_BRIGHT_ADDR
+/*Undef BSS Addresses*/
+#undef ST01_BSS_ADDR
+#undef ST04_BSS_ADDR
+#undef ST06_BSS_ADDR
+#undef ST12_BSS_ADDR
