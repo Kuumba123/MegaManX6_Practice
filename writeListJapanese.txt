@@ -1,0 +1,5 @@
+// dest , source , offset
+ovl/japanese/OVL_14.BIN, output/missionClearc.bin , 0
+
+ovl/japanese/OVL_12.BIN, output/titleTextObjectc.bin , 0x800ef07c - 0x800EAE90
+ovl/japanese/OVL_12.BIN, output/titleTextSpecc.bin , 0x800f21b8 - 0x800EAE90

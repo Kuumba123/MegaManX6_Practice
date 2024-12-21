@@ -149,8 +149,8 @@
 			"command": "python",
 			"args": [
 				"datExtract.py",
-				"ovl/japan/ROCK_X6.BIN",
-				"ovl/japan",
+				"ovl/japanese/ROCK_X6.BIN",
+				"ovl/japanese",
 				"OVL"
 			],
 			"group": {
@@ -170,7 +170,7 @@
 			"command": "python",
 			"args": [
 				"write.py",
-				"writeListJapan.txt"
+				"writeListJapanese.txt"
 			],
 			"group": {
 				"kind": "none"
@@ -189,8 +189,8 @@
 			"command": "python",
 			"args": [
 				"datMerge.py",
-				"mergeListJapan.txt",
-				"ovl/japan/OVERLAYS.BIN",
+				"mergeListJapanese.txt",
+				"ovl/japanese/OVERLAYS.BIN",
 				"-d"
 			],
 			"group": {

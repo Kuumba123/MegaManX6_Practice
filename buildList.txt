@@ -52,44 +52,44 @@ american , exe , 0x801f4e2c , 0x0, src/state.c , STATE.BIN
 /////////////////////////
 
 
-japan, exe , 0x800200b8 , 0x0 , src/debugfont/loadFontFile.c
-japan, exe , 0x80016a68 , 0x0 , src/debugfont/loadFile.c
-japan, exe , 0x80013ca0 , 0x0 , src/debugfont/loadFont.s
-japan, exe , 0x800158cc , 0x0 , src/debugfont/loadFont2.s
-japan, exe , 0x8001368c , 0x0 , src/debugfont/fontFlushHook.s
-japan, exe , 0x8006f0b8 , 0x0 , src/debugfont/debugClutRect.c
-japan, FONT, 0x80101304 , 0x0 , src/debugfont/font.c, FONT.BIN
+japanese, exe , 0x800200b8 , 0x0 , src/debugfont/loadFontFile.c
+japanese, exe , 0x80016a68 , 0x0 , src/debugfont/loadFile.c
+japanese, exe , 0x80013ca0 , 0x0 , src/debugfont/loadFont.s
+japanese, exe , 0x800158cc , 0x0 , src/debugfont/loadFont2.s
+japanese, exe , 0x8001368c , 0x0 , src/debugfont/fontFlushHook.s
+japanese, exe , 0x8006f0b8 , 0x0 , src/debugfont/debugClutRect.c
+japanese, FONT, 0x80101304 , 0x0 , src/debugfont/font.c, FONT.BIN
 
-japan NORELOAD , STAGE0F, 0x800EAE90 , 0x0 , src/missionClear.c
-japan, exe, 0x80072818 , 0x0 , src/missionClearTable.c
-japan, exe, 0x8001fcbc , 0x0 , src/missionClearSize.s
+japanese NORELOAD , STAGE0F, 0x800EAE90 , 0x0 , src/missionClear.c
+japanese, exe, 0x80072818 , 0x0 , src/missionClearTable.c
+japanese, exe, 0x8001fcbc , 0x0 , src/missionClearSize.s
 
-japan NORELOAD, STAGE0E, 0x800ef07c , 0x0, src/titleTextObject.c
-japan NORELOAD , STAGE0E, 0x800f21b8 , 0x0, src/titleTextSpec.
-japan NORELOAD , STAGE0E, 0x800f2dB0 , 0x0, src/titleExtra.c , TITLE_EXTRA.BIN
-japan, exe, 0x8001e2a8 , 0x0, src/titleCursor.c
-japan, exe, 0x800727e0 , 0x0, src/titleTable.c
+japanese NORELOAD, STAGE0E, 0x800ef07c , 0x0, src/titleTextObject.c
+japanese NORELOAD , STAGE0E, 0x800f21b8 , 0x0, src/titleTextSpec.
+japanese NORELOAD , STAGE0E, 0x800f2dB0 , 0x0, src/titleExtra.c , TITLE_EXTRA.BIN
+japanese, exe, 0x8001e2a8 , 0x0, src/titleCursor.c
+japanese, exe, 0x800727e0 , 0x0, src/titleTable.c
 
-japan, exe, 0x80019078 , 0x0, src/dumpClut.c
-japan, exe, 0x8002c350 , 0x0, src/dumpClutAddress.s
+japanese, exe, 0x80019078 , 0x0, src/dumpClut.c
+japanese, exe, 0x8002c350 , 0x0, src/dumpClutAddress.s
 
-japan, exe, 0x8001f5c4 , 0x0 , src/startSelect.s
+japanese, exe, 0x8001f5c4 , 0x0 , src/startSelect.s
 
-japan, exe , 0x8001f77c , 0x0 , src/determineClear.c
+japanese, exe , 0x8001f77c , 0x0 , src/determineClear.c
 
-japan, exe , 0x800345fc , 0x0 , src/exit.s
+japanese, exe , 0x800345fc , 0x0 , src/exit.s
 
-japan , exe , 0x80041a64 , 0x0 , src/stopSongHook.s
+japanese , exe , 0x80041a64 , 0x0 , src/stopSongHook.s
 
-japan , exe , 0x80025cf0 , 0x0 , src/showPoint.s
-japan , exe , 0x80026010 , 0x0 , src/showPoint2.s
+japanese , exe , 0x80025cf0 , 0x0 , src/showPoint.s
+japanese , exe , 0x80026010 , 0x0 , src/showPoint2.s
 
-japan , exe , 0x8002904c , 0x0 , src/swapTexture.c
+japanese , exe , 0x8002904c , 0x0 , src/swapTexture.c
 
-japan , exe , 0x80072840 , 0x0 , src/modeTable.c
+japanese , exe , 0x80072840 , 0x0 , src/modeTable.c
 
-japan , exe , 0x80028f88 , 0x0, src/loadLayout.c
+japanese , exe , 0x80028f88 , 0x0, src/loadLayout.c
 
-japan , exe , 0x8001fd70 , 0x0, src/stateResetHook.s
-japan , exe , 0x80018a68 , 0x0, src/state2.c src/practice.c
-japan , exe , 0x801f4e2c , 0x0, src/state.c , STATE.BIN
+japanese , exe , 0x8001fd70 , 0x0, src/stateResetHook.s
+japanese , exe , 0x80018a68 , 0x0, src/state2.c src/practice.c
+japanese , exe , 0x801f4e2c , 0x0, src/state.c , STATE.BIN
