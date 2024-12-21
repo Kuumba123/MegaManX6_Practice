@@ -14,15 +14,30 @@
 				"kind": "build"
 			},
             "problemMatcher": {
-                "owner": "cpp",
-				"fileLocation": ["absolute"],
+                "owner": "python",
                 "pattern": {
-                    "regexp": "^.*Compilation failed.*$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Compile Japan",
+			"command": "python",
+			"args": [
+				"../../../../tools/mod-builder/main.py",
+				"1",
+				"2"
+			],
+			"group": {
+				"kind": "build"
+			},
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
                 }
             }
 		},
@@ -38,11 +53,70 @@
 				"kind": "build"
 			},
             "problemMatcher": {
-                "owner": "cpp",
-				"fileLocation": ["absolute"],
+                "owner": "python",
                 "pattern": {
-                    "regexp": "^.*error.*$",
-                    "severity": 1,
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Extract Overlay",
+			"command": "python",
+			"args": [
+				"datExtract.py",
+				"ovl/american/ROCK_X6.BIN",
+				"ovl/american",
+				"OVL"
+			],
+			"group": {
+				"kind": "none"
+			},
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Write",
+			"command": "python",
+			"args": [
+				"write.py",
+				"writeListAmerican.txt"
+			],
+			"group": {
+				"kind": "none"
+			},
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Merge",
+			"command": "python",
+			"args": [
+				"datMerge.py",
+				"mergeListAmerican.txt",
+				"ovl/american/OVERLAYS.BIN",
+				"-d"
+			],
+			"group": {
+				"kind": "none"
+			},
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
                     "message": 1
                 }
             }
@@ -59,12 +133,95 @@
 			"group": {
 				"kind": "build"
 			},
+			"dependsOn":["Extract Overlay","Write","Merge"],
+			"dependsOrder": "sequence",
             "problemMatcher": {
-                "owner": "cpp",
-				"fileLocation": ["absolute"],
+                "owner": "python",
                 "pattern": {
-                    "regexp": "^.*error.*$",
-                    "severity": 1,
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Extract Overlay Japan",
+			"command": "python",
+			"args": [
+				"datExtract.py",
+				"ovl/japan/ROCK_X6.BIN",
+				"ovl/japan",
+				"OVL"
+			],
+			"group": {
+				"kind": "none"
+			},
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Write Japan",
+			"command": "python",
+			"args": [
+				"write.py",
+				"writeListJapan.txt"
+			],
+			"group": {
+				"kind": "none"
+			},
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Merge Japan",
+			"command": "python",
+			"args": [
+				"datMerge.py",
+				"mergeListJapan.txt",
+				"ovl/japan/OVERLAYS.BIN",
+				"-d"
+			],
+			"group": {
+				"kind": "none"
+			},
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
+                    "message": 1
+                }
+            }
+		},
+		{
+			"type": "shell",
+			"label": "Build Disc Japan",
+			"command": "python",
+			"args": [
+				"../../../../tools/mod-builder/main.py",
+				"4",
+				"2"
+			],
+			"group": {
+				"kind": "build"
+			},
+			"dependsOn":["Extract Overlay Japan","Write Japan","Merge Japan"],
+			"dependsOrder": "sequence",
+            "problemMatcher": {
+                "owner": "python",
+                "pattern": {
+                    "regexp": "^(ERROR:.*)$",
                     "message": 1
                 }
             }
@@ -82,11 +239,9 @@
 				"kind": "build"
 			},
             "problemMatcher": {
-                "owner": "cpp",
-				"fileLocation": ["absolute"],
+                "owner": "python",
                 "pattern": {
-                    "regexp": "^.*error.*$",
-                    "severity": 1,
+                    "regexp": "^(ERROR:.*)$",
                     "message": 1
                 }
             }
