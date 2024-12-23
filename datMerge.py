@@ -29,7 +29,7 @@ class Entry:
         else:
             print("No files in the list.")
 
-def process_text_file(text_file_path, output_file_name, doubleSector):
+def process_text_file(text_file_path, output_file_name, doubleSector,skipPaddingSubEntry):
     entries = []
     #Open the actual text file
     with open(text_file_path, 'r') as file:
@@ -70,6 +70,8 @@ def process_text_file(text_file_path, output_file_name, doubleSector):
             if os.path.exists(file):
                 with open(file, "rb") as readFile:
                     filesData.extend(bytearray(readFile.read()))
+                if not skipPaddingSubEntry and (len(filesData) % 4) != 0:
+                    filesData += bytearray(4 - (len(filesData) % 4))
             else:
                 print(f"ERROR: file - {file} does not exits")
                 sys.exit(1)
@@ -116,18 +118,25 @@ def process_text_file(text_file_path, output_file_name, doubleSector):
 if len(sys.argv) < 3:
     print("Made by PogChampGuy AKA Kuumba")
     print("This Program is used for merging data info the file archive format used in MegaMan X5/X6")
-    print("Usage: python datMerge.py <input_textFileList> <output_fileName> [-d]")
+    print("Usage: python datMerge.py <input_textFileList> <output_fileName> [-d] [-s]")
 else:
     text_file_path = sys.argv[1]
     output_file_name = sys.argv[2]
     doubleSectorHeader = False
+    skipPaddingSubEntry = False
     if len(sys.argv) > 3:
         if sys.argv[3] == "-d":
             doubleSectorHeader = True
-    
+        if sys.argv[4] == "-s":
+            skipPaddingSubEntry
+    if len(sys.argv) > 4:
+        if sys.argv[3] == "-d":
+            doubleSectorHeader = True
+        if sys.argv[4] == "-s":
+            skipPaddingSubEntry = True
     if os.path.exists(text_file_path):
         try:
-            process_text_file(text_file_path,output_file_name, doubleSectorHeader)
+            process_text_file(text_file_path,output_file_name, doubleSectorHeader,skipPaddingSubEntry)
         except Exception as e:
             print(f"ERROR: {e}", file=sys.stderr)
             sys.exit(1)
