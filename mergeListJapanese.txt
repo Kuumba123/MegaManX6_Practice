@@ -14,7 +14,7 @@ ovl/japanese/OVL_C.BIN
 ovl/japanese/OVL_D.BIN
 ovl/japanese/OVL_E.BIN
 ovl/japanese/OVL_F.BIN
-output/missionClears.bin
+output/missionClearc.bin
 ovl/japanese/OVL_11.BIN
 ovl/japanese/OVL_12.BIN , output/TITLE_EXTRA.BIN
 ovl/japanese/OVL_13.BIN
