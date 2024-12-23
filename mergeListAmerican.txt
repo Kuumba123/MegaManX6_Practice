@@ -14,11 +14,11 @@ ovl/american/OVL_C.BIN
 ovl/american/OVL_D.BIN
 ovl/american/OVL_E.BIN
 ovl/american/OVL_F.BIN
-output/missionClearc.bin
+ovl/american/OVL_10.BIN
 ovl/american/OVL_11.BIN
 ovl/american/OVL_12.BIN , output/TITLE_EXTRA.BIN
 ovl/american/OVL_13.BIN
-ovl/american/OVL_14.BIN
+output/missionClearc.bin
 ovl/american/OVL_15.BIN
 ovl/american/OVL_16.BIN
 ovl/american/OVL_17.BIN
