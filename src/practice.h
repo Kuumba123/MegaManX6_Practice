@@ -33,4 +33,12 @@ typedef struct{
 
 extern Practice practice;
 
+#if BUILD == 1395
+#define CONFIRM PAD_CROSS
+#define CANCEL PAD_TRIANGLE
+#else
+#define CONFIRM PAD_CIRCLE
+#define CANCEL PAD_CROSS
+#endif
+
 #endif
