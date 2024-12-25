@@ -68,7 +68,12 @@
 				"datExtract.py",
 				"ovl/american/ROCK_X6.BIN",
 				"ovl/american",
-				"OVL"
+				"-b",
+				"OVL",
+				"-e",
+				"0x10",
+				"-e",
+				"0x10"
 			],
 			"group": {
 				"kind": "none"
@@ -151,7 +156,12 @@
 				"datExtract.py",
 				"ovl/japanese/ROCK_X6.BIN",
 				"ovl/japanese",
-				"OVL"
+				"-b",
+				"OVL",
+				"-e",
+				"0x10",
+				"-e",
+				"0x12"
 			],
 			"group": {
 				"kind": "none"
