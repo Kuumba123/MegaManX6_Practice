@@ -127,10 +127,10 @@ else:
     if len(sys.argv) > 3:
         if sys.argv[3] == "-d":
             doubleSectorHeader = True
-        if sys.argv[4] == "-s":
+        if sys.argv[3] == "-s":
             skipPaddingSubEntry
     if len(sys.argv) > 4:
-        if sys.argv[3] == "-d":
+        if sys.argv[4] == "-d":
             doubleSectorHeader = True
         if sys.argv[4] == "-s":
             skipPaddingSubEntry = True
