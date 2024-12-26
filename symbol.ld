@@ -4,6 +4,7 @@ swapTexturePointer = 0x1F800044;
 backupClut = 0x8009e1b0;
 
 CutsceneLayoutPointers = 0x800ea514;
+CreateTitleScreenThread = 0x8001d25c;
 
 clutPointer = 0x1F800028;
 clutRect = 0x8006e360;
