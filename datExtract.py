@@ -1,10 +1,10 @@
 import sys
 import os
 
-def process_arc_file(input_file_path, output_directory,baseName):
+def process_arc_file(input_file_path, output_directory,baseName, entriesToExtract):
     with open(input_file_path, "rb") as file:
         data = file.read()
-
+    count = 0
     sector = 0
     fileId = 0
     ms = bytearray(data)
@@ -12,6 +12,16 @@ def process_arc_file(input_file_path, output_directory,baseName):
     sector = int.from_bytes(ms[offset:offset + 3], byteorder='little')
 
     while sector != 0:
+        if len(entriesToExtract) != 0:
+            if not fileId in entriesToExtract:
+                offset += 8
+                fileId += 1
+                if fileId > 512:
+                    print("ERROR: Max File Id exceeded")
+                    sys.exit(1)
+                sector = int.from_bytes(ms[offset:offset + 3], byteorder='little')
+                continue
+
         size = int.from_bytes(ms[offset + 4:offset + 7], byteorder='little')
         backup = offset
         
@@ -37,32 +47,63 @@ def process_arc_file(input_file_path, output_directory,baseName):
         offset = backup
         offset += 8
         fileId += 1
+        count += 1
         if fileId > 512:
-            print("Max File Id exceeded")
-            return
+            print("ERROR: Max File Id exceeded")
+            sys.exit(1)
         sector = int.from_bytes(ms[offset:offset + 3], byteorder='little')
     #=========
-    print("Program Completed, " + str(fileId) + " Files were created.")
+    print("Program Completed, " + str(count) + " Files were created.")
     sys.exit(0)
 
 #Start of Program
 if len(sys.argv) < 3:
     print("Made by PogChampGuy AKA Kuumba")
     print("This Program is used for extracting MegaMan X5/X6 DAT files into ARC/BIN files")
-    print("Usage: python main.py <input_file> <output_directory> [base_fileName]")
+    print("Usage: python main.py <input_file> <output_directory> [-b] [-e]")
 else:
     input_file_path = sys.argv[1]
     output_directory = sys.argv[2]
 
+    entriesToExtract = []
+
     baseName = "ARC"
-    if len(sys.argv) == 4:
-        baseName = sys.argv[3]
+
+    if len(sys.argv) > 3:
+        args = sys.argv[3:]
+        arg_count = len(args)
+        i = 0
+        try:
+            while i < arg_count:
+                current_arg = args[i]
+                
+                #Check for -b optional flag
+                if current_arg == "-b":
+                    if i + 1 < arg_count:
+                        baseName = args[i + 1]
+                        i += i
+                    else:
+                        print("ERROR: Not enough arguments for -b flag")
+                        sys.exit(1)
+                if current_arg == "-e":
+                    if i + 1 < arg_count:
+                        entriesToExtract.append(int(args[i + 1], 0))
+                        i += 1
+                    else:
+                        print("ERROR: Not enough arguments for -b flag")
+                        sys.exit(1)
+                ########
+                i += 1
+
+        except Exception as e:
+            print(f"ERROR: {e}", file=sys.stderr)
+            sys.exit(1)
     
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
     try:
-        process_arc_file(input_file_path, output_directory,baseName)
+        process_arc_file(input_file_path, output_directory,baseName,entriesToExtract)
     except Exception as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(1)
