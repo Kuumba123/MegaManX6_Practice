@@ -1,0 +1,40 @@
+{
+  "quads": [
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 161,
+      "x": -25,
+      "y": -10
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 180,
+      "x": -11,
+      "y": -10
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 165,
+      "x": 2,
+      "y": -10
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 161,
+      "x": 13,
+      "y": -10
+    }
+  ]
+}

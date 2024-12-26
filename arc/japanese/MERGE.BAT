@@ -1,0 +1,1 @@
+python ../../datMerge.py merge.txt DATA.DAT -d

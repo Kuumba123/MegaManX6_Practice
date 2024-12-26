@@ -1,0 +1,85 @@
+{
+  "quads": [
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 206,
+      "x": -34,
+      "y": -13
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 201,
+      "x": -23,
+      "y": -13
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 199,
+      "x": -19,
+      "y": -13
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 200,
+      "x": -9,
+      "y": -13
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 214,
+      "x": 1,
+      "y": -13
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 205,
+      "x": -31,
+      "y": -3
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 193,
+      "x": -19,
+      "y": -3
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 212,
+      "x": -8,
+      "y": -3
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 197,
+      "x": 3,
+      "y": -3
+    }
+  ]
+}

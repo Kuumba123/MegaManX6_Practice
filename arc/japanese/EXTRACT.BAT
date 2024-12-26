@@ -1,0 +1,1 @@
+python ../../datExtract.py ROCK_X6.DAT ARC

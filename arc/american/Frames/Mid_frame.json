@@ -1,0 +1,31 @@
+{
+  "quads": [
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 173,
+      "x": -40,
+      "y": -8
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 169,
+      "x": -24,
+      "y": -8
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 164,
+      "x": -19,
+      "y": -8
+    }
+  ]
+}
