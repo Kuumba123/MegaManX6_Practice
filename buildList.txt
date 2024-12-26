@@ -22,6 +22,12 @@ american NORELOAD , STAGE0E, 0x800F1748 , 0x0, src/titleExtra.c , TITLE_EXTRA.BI
 american, exe, 0x8001ce68 , 0x0, src/titleCursor.c
 american, exe, 0x80071124 , 0x0, src/titleTable.c
 
+american NORELOAD , STAGE0D, 0x800ead14 , 0x0, src/stageSelect/disableR1.s
+american NORELOAD , STAGE0D, 0x800f107c , 0x0, src/stageSelect/configTable.c
+american NORELOAD , STAGE0D, 0x800f126c , 0x0, src/stageSelect/miscObject2D_Table.c
+american NORELOAD , STAGE0D, 0x800f257c , 0x0, src/stageSelect/areaSelectTable.c
+american NORELOAD , STAGE0D, 0x800f1cfc , 0x0, src/stageSelect/configPage.c src/stageSelect/miscObject2D.c src/stageSelect/areaSelect.c, STAGESELECT_EXTRA.BIN
+
 american, exe, 0x80017c40 , 0x0, src/dumpClut.c
 american, exe, 0x8002ad54 , 0x0, src/dumpClutAddress.s
 
@@ -69,6 +75,12 @@ japanese NORELOAD , STAGE0E, 0x800f21b8 , 0x0, src/titleTextSpec.
 japanese NORELOAD , STAGE0E, 0x800f2dB0 , 0x0, src/titleExtra.c , TITLE_EXTRA.BIN
 japanese, exe, 0x8001e2a8 , 0x0, src/titleCursor.c
 japanese, exe, 0x800727e0 , 0x0, src/titleTable.c
+
+japanese NORELOAD , STAGE0D, 0x800ec344 , 0x0, src/stageSelect/disableR1.s
+japanese NORELOAD , STAGE0D, 0x800f26a8 , 0x0, src/stageSelect/configTable.c
+japanese NORELOAD , STAGE0D, 0x800f2898 , 0x0, src/stageSelect/miscObject2D_Table.c
+japanese NORELOAD , STAGE0D, 0x800f257c , 0x0, src/stageSelect/areaSelectTable.c
+japanese NORELOAD , STAGE0D, 0x800f3324 , 0x0, src/stageSelect/configPage.c src/stageSelect/miscObject2D.c src/stageSelect/areaSelect.c, STAGESELECT_EXTRA.BIN
 
 japanese, exe, 0x80019078 , 0x0, src/dumpClut.c
 japanese, exe, 0x8002c350 , 0x0, src/dumpClutAddress.s

@@ -1,0 +1,1 @@
+python ../datExtract.py japanese/ROCK_X6.BIN japanese -b OVL

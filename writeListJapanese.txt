@@ -1,5 +1,8 @@
 // dest , source , offset
-ovl/japanese/OVL_14.BIN, output/missionClearc.bin , 0
+ovl/japanese/OVL_10.BIN, output/disableR1s.bin , 0x800ec344 - 0x800EAE90
+ovl/japanese/OVL_10.BIN, output/configTablec.bin , 0x800f26a8 - 0x800EAE90
+ovl/japanese/OVL_10.BIN, output/miscObject2D_Tablec.bin , 0x800f2898 - 0x800EAE90
+ovl/japanese/OVL_10.BIN, output/areaSelectTablec.bin , 0x800f257c - 0x800EAE90
 
 ovl/japanese/OVL_12.BIN, output/titleTextObjectc.bin , 0x800ef07c - 0x800EAE90
 ovl/japanese/OVL_12.BIN, output/titleTextSpecc.bin , 0x800f21b8 - 0x800EAE90
