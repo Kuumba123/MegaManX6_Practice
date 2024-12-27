@@ -24,7 +24,7 @@ void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 
 void CreateTitleScreenThread();
 
-static char* CategoryStrings[8] = {"ALL STAGES","ANY%","100%","ALL STAGES UN-ARMORED","ANY% ULTIMATE ARMOR","ANY% BLACK ZERO","MINIMALIST X-TREME","CUSTOM"};
+static char* CategoryStrings[9] = {"ALL STAGES","ALL STAGES (OLD ROUTE)","ANY%","100%","ALL STAGES UN-ARMORED","ANY% ULTIMATE ARMOR","ANY% BLACK ZERO","MINIMALIST X-TREME","CUSTOM"};
 static char* DifficultyStrings[] = {"EASY","NORMAL","X-TREME"};
 
 void ConfigPage(Game * gameP) //Mode 4-6
@@ -81,7 +81,7 @@ void ConfigPage(Game * gameP) //Mode 4-6
     {
         if ((buttonsPressed & PAD_RIGHT) != 0)
         {
-            if (practice.category == 7)
+            if (practice.category == 8)
             {
                 practice.category = 0;
             }
@@ -94,7 +94,7 @@ void ConfigPage(Game * gameP) //Mode 4-6
         {
             if (practice.category == 0)
             {
-                practice.category = 7;
+                practice.category = 8;
             }
             else
             {
