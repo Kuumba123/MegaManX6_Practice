@@ -33,6 +33,17 @@ typedef struct{
 
 extern Practice practice;
 
+enum Categories {
+    ALL_STAGES,
+    ANY_PERCENT,
+    HUNDO,
+    ALL_STAGES_UNARMORED,
+    ANY_PERCENT_ULTIMATE,
+    ANY_PERCENT_ZERO,
+    MIN_XTREME,
+    CUSTOM
+};
+
 #if BUILD == 1395
 #define CONFIRM PAD_CROSS
 #define CANCEL PAD_TRIANGLE
