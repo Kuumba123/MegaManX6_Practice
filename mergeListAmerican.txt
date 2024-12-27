@@ -15,7 +15,7 @@ ovl/american/OVL_D.BIN
 ovl/american/OVL_E.BIN
 ovl/american/OVL_F.BIN
 ovl/american/OVL_10.BIN , output/STAGESELECT_EXTRA.BIN
-ovl/american/OVL_11.BIN
+output/customc.bin
 ovl/american/OVL_12.BIN , output/TITLE_EXTRA.BIN
 ovl/american/OVL_13.BIN
 output/missionClearc.bin

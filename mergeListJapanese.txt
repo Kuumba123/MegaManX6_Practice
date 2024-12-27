@@ -15,7 +15,7 @@ ovl/japanese/OVL_D.BIN
 ovl/japanese/OVL_E.BIN
 ovl/japanese/OVL_F.BIN
 ovl/japanese/OVL_10.BIN , output/STAGESELECT_EXTRA.BIN
-ovl/japanese/OVL_11.BIN
+output/customc.bin
 ovl/japanese/OVL_12.BIN , output/TITLE_EXTRA.BIN
 ovl/japanese/OVL_13.BIN
 output/missionClearc.bin

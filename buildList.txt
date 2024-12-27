@@ -16,6 +16,10 @@ american NORELOAD , STAGE0F, 0x800E9860 , 0x0 , src/missionClear.c
 american, exe, 0x8007115C , 0x0 , src/missionClearTable.c
 american, exe, 0x8001e86c , 0x0 , src/missionClearSize.s
 
+american , exe , 0x8001e7c0 , 0x0 , src/customLoad.c
+american , exe , 0x80071144 , 0x0 , src/customTable.c
+american NORELOAD , STAGE0D_1 , 0x800E9860 , 0x0 , src/custom.c
+
 american NORELOAD, STAGE0E, 0x800eda38 , 0x0, src/titleTextObject.c
 american NORELOAD , STAGE0E, 0x800f0b44 , 0x0, src/titleTextSpec.
 american NORELOAD , STAGE0E, 0x800F1748 , 0x0, src/titleExtra.c , TITLE_EXTRA.BIN
@@ -69,6 +73,10 @@ japanese, FONT, 0x80101304 , 0x0 , src/debugfont/font.c, FONT.BIN
 japanese NORELOAD , STAGE0F, 0x800EAE90 , 0x0 , src/missionClear.c
 japanese, exe, 0x80072818 , 0x0 , src/missionClearTable.c
 japanese, exe, 0x8001fcbc , 0x0 , src/missionClearSize.s
+
+japanese , exe , 0x8001fc10 , 0x0 , src/customLoad.c
+japanese , exe , 0x80072800 , 0x0 , src/customTable.c
+japanese NORELOAD , STAGE0D_1 , 0x800eae90 , 0x0 , src/custom.c
 
 japanese NORELOAD, STAGE0E, 0x800ef07c , 0x0, src/titleTextObject.c
 japanese NORELOAD , STAGE0E, 0x800f21b8 , 0x0, src/titleTextSpec.
