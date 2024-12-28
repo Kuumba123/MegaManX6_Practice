@@ -40,7 +40,7 @@ void MiscObject_2D_StartUp(Object * objP)
         }
         else
         {
-            objP->animeInfo.sprtFrame = game.var[0] + game.refights[2] * 2 + 1;
+            objP->animeInfo.sprtFrame = game.var[0] + game.refights[2] * 2 + 2;
         }
         objP->act = 3;
     }
@@ -55,6 +55,6 @@ void MiscObject_2D_AreaOptionText(Object * objP)
     }
     else
     {
-        objP->animeInfo.sprtFrame = game.var[0] + game.refights[2] * 2 + 1;
+        objP->animeInfo.sprtFrame = game.var[0] + game.refights[2] * 2 + 2;
     }
 }

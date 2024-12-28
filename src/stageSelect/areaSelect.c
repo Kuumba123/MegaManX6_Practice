@@ -60,9 +60,9 @@ void AreaSelect(Game *gameP)
         {
             if (Cursor < 0)
             {
-                Cursor = 2;
+                Cursor = 3;
             }
-            Cursor %= 3;
+            Cursor %= 4;
         }
     }
     if (pastCursor == Cursor)

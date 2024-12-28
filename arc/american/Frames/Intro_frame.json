@@ -5,8 +5,17 @@
       "clut": 0,
       "flipH": false,
       "flipV": false,
-      "tex": 181,
-      "x": -36,
+      "tex": 169,
+      "x": -33,
+      "y": -8
+    },
+    {
+      "tpage": 0,
+      "clut": 0,
+      "flipH": false,
+      "flipV": false,
+      "tex": 174,
+      "x": -28,
       "y": -8
     },
     {
@@ -15,16 +24,7 @@
       "flipH": false,
       "flipV": false,
       "tex": 182,
-      "x": -24,
-      "y": -8
-    },
-    {
-      "tpage": 0,
-      "clut": 0,
-      "flipH": false,
-      "flipV": false,
-      "tex": 161,
-      "x": -12,
+      "x": -15,
       "y": -8
     },
     {
@@ -33,7 +33,7 @@
       "flipH": false,
       "flipV": false,
       "tex": 180,
-      "x": 1,
+      "x": -3,
       "y": -8
     },
     {
@@ -41,8 +41,8 @@
       "clut": 0,
       "flipH": false,
       "flipV": false,
-      "tex": 182,
-      "x": 13,
+      "tex": 177,
+      "x": 9,
       "y": -8
     }
   ]
