@@ -39,6 +39,8 @@ american, exe, 0x8001e174 , 0x0 , src/startSelect.s
 
 american, exe , 0x8001E32C , 0x0 , src/determineClear.c
 
+american, exe , 0x80013de8 , 0x0 , src/loadLevel.c
+
 american, exe , 0x80033000 , 0x0 , src/exit.s
 
 american , exe , 0x80040490 , 0x0 , src/stopSongHook.s
@@ -96,6 +98,8 @@ japanese, exe, 0x8002c350 , 0x0, src/dumpClutAddress.s
 japanese, exe, 0x8001f5c4 , 0x0 , src/startSelect.s
 
 japanese, exe , 0x8001f77c , 0x0 , src/determineClear.c
+
+japanese, exe , 0x80015220 , 0x0 , src/loadLevel.c
 
 japanese, exe , 0x800345fc , 0x0 , src/exit.s
 
