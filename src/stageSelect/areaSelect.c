@@ -9,12 +9,45 @@
 /*All Stages (New Route)%*/
 static uint8_t mavericksClearedTable[8] = {0, 0, 0, 0, 0, 0, 0, 0x40};
 
+/////////////////////////
+static int8_t sigmaStageTable[4] = {0x10, 0x11, 0xC, 0x0};
+
+static bool isRevist = false;
+static bool isNightmare = false;
+
+static int8_t sigmaStage = -1;
+
 void AreaSelectInit(Game *gameP)
 {
     Cursor = 0;
     AreaMode = 0;
+    isRevist = false;
+    isNightmare = false;
     gameP->refights[3] = 0;
     gameP->refights[4] = 0;
+    gameP->mid = 0;
+
+    /*
+     *   0 = Sigma 1,2,3, & Intro
+     *   1 = Start & Mid
+     *   2 = Vist & ReVist
+     *   3 = Normal & Nightmare
+     */
+
+    if (gameP->stageId != 0xC)
+    {
+        AreaMode = 1;
+
+        if (gameP->stageId == 6 && (practice.category == ALL_STAGES || practice.category == ALL_STAGES_OLD))
+        {
+            AreaMode = 2;
+        }
+        else if (practice.category == ALL_STAGES || practice.category == ALL_STAGES_OLD)
+        {
+            gameP->mode3 = 6;
+            return;
+        }
+    }
 
     Object *p = GetMiscObject();
     p->flags = 1;
@@ -30,11 +63,6 @@ void AreaSelectInit(Game *gameP)
     p->flags = 1;
     p->id = 0x2B;
     p->stageVar = 2;
-
-    if (gameP->stageId != 0xC)
-    {
-        AreaMode = 1;
-    }
 
     gameP->mode3 = 5;
 }
@@ -78,11 +106,72 @@ void AreaSelect(Game *gameP)
         }
         else
         {
-            /*Determine Area Select Option (Sigma 1,2,3 or Start,Mid or Vist,ReVist or Normal,Nightmare)*/
-            // TODO: add route checks and such here
+            // route checks and such here
+            PlaySound(5, 1, 0);
+            if (gameP->stageId == 0xC && AreaMode == 0)
+            {
+                sigmaStage = Cursor;
+            }
+
+            if (gameP->stageId <= 8)
+            {
+                if (gameP->stageId == 6 && (practice.category == ALL_STAGES || practice.category == ALL_STAGES_OLD))
+                {
+                    if (AreaMode == 2) // Vist/ReVist
+                    {
+                        isRevist = Cursor;
+                    }
+
+                    if (isRevist == false)
+                    {
+                        AreaMode = 3;
+                        Cursor = 0;
+                        return;
+                    }
+                    else
+                    {
+                        isNightmare = Cursor;
+                    }
+                }
+            }
+            else
+            {
+                if (sigmaStage == 3)
+                {
+                    gameP->stageId = 0;
+                }
+                else
+                {
+                    if (AreaMode == 0)
+                    {
+                        if (sigmaStage == 1 || sigmaStage == 2)
+                        {
+                            AreaMode = 1;
+                            Cursor = 0;
+                            return;
+                        }
+                        gameP->stageId = sigmaStageTable[sigmaStage];
+                    }
+                    else
+                    {
+                        if (sigmaStage == 1 && Cursor != 0)
+                        {
+                            gameP->stageId = 0x12;
+                        }
+                        else if(sigmaStage == 2)
+                        {
+                            gameP->mid = Cursor;
+                        }
+                        else
+                        {
+                            gameP->stageId = sigmaStageTable[sigmaStage];
+                        }
+                    }
+                }
+            }
+
             gameP->mode3 = 7;
             Timer = 0;
-            PlaySound(5, 1, 0);
         }
     }
     else
@@ -125,7 +214,7 @@ void AreaDetermine(Game *gameP)
         gameP->equipedParts[0] = 0;
         gameP->equipedParts[1] = 0;
         gameP->armorParts = 0;
-        gameP->armors = 0;
+        gameP->armors = 0x11;
         gameP->clearedStages = 0;
         gameP->tanks = 0;
         gameP->hearts = 0;
@@ -154,7 +243,7 @@ void AreaDetermine(Game *gameP)
         gameP->player = 1; // Default to Zero
         gameP->armorType = 5;
 
-        //Clear Re-Fights
+        // Clear Re-Fights
         for (size_t i = 0; i < 8; i++)
         {
             gameP->refights[i] = 0;
@@ -176,6 +265,8 @@ void AreaDetermine(Game *gameP)
         if (gameP->stageId == 0) // Intro
         {
             gameP->stageSelectMode = 0;
+            gameP->player = 0;
+            gameP->armorType = 1;
         }
         else
         {
