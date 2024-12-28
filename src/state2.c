@@ -44,7 +44,7 @@ void *freeAddress[] = {
     INVERTED_CLUT_ADDR, // Inverted  Clut (unused)
     0x801F8304, // Just before Thread Stack Memory
     0x801E4634, // End of ARC buffer
-    0x801029B4, // End of Level Overlay
+    0x801F6000, // Demo Buffer
     LAYOUT_ADDR, // Layout Buffer
     0x8000A000, // Kernal RAM
     0x8000C000  // Kernal RAM (TODO: maybe better to use a different address that isnt $8000C000 since Unirom or $8000E400 cus Kernal)
@@ -154,10 +154,10 @@ uint16_t freeAddressSizes[] = {
     0x4000, // Inverted  Clut (unused)
     0x65FC, // Just before Thread Stack Memory
     0x59CC, // End of ARC buffer
-    0x064C, // End of Level Overlay
+    0x2000, // Demo Buffer
     0x0300, // Layout Buffer
     0x1900, // Kernal RAM
-    0x1A00  // Kernal RAM
+    0x1800  // Kernal RAM
 };
 
 uint16_t addressesSize[] = { //0x13BF0
