@@ -18,6 +18,8 @@ FlushScreen = 0x800268b0;
 
 title = 0x800cd3f8;
 
+textRects = 0x80102218;
+
 LevelMidTable = 0x80071190;
 loadState = 0x8009509c;
 LoadCompressedImage = 0x80017b04;

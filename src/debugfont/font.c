@@ -4,10 +4,10 @@
 #include <stdarg.h>
 
 #define _TAB_SIZE_ 2
-#define MAX_CHAR_COUNT 255
+#define MAX_CHAR_COUNT 0xDE
 #define FONT8X8_FILE_ID 73
 
-SPRT_8 static textRects[MAX_CHAR_COUNT];
+extern SPRT_8 textRects[MAX_CHAR_COUNT];
 
 int debugTextCount = 0;
 char hexDigits[] = "0123456789ABCDEF";
