@@ -16,6 +16,7 @@ extern uint8_t exitType;
 extern uint8_t exitStage;
 
 void SwapTexture(bool sync);
+void LoadScreens();
 
 void DetermineClear(Game *gameP)
 {
@@ -39,16 +40,7 @@ void DetermineClear(Game *gameP)
 
         EndSong(); // PS2 POPS Fix
 
-        LoadLevel();
-
-        RELOAD = 0; // for non refight boss textures
-
-        if (practice.page != 0)
-        {
-            SwapTexture(false);
-            practice.page = 1;
-        }
-        practice.state.made = false;
+        LoadScreens();
 
         gameP->mode = 9;
     }

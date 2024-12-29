@@ -9,6 +9,8 @@ CreateTitleScreenThread = 0x8001e69c;
 clutPointer = 0x1F800028;
 clutRect = 0x8006fa1c;
 
+datFileInfo = 0x800e1a58;
+
 enemyDataPointers = 0x80074b58;
 ExitBranch = 0x80034630;
 exitType = 0x800e4800;
