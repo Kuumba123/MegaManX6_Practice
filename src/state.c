@@ -190,9 +190,7 @@ void SaveState()
         MemoryCopy(BSS_ADDR, bonusBossAddresses[*((uint8_t*)((int)&game + 1083))], bonusBossAddressesSize[*((uint8_t*)((int)&game + 1083))]);
     }
 
-    size_t screenLength = ((*(uint32_t *)0x1F80000C) - (*(uint32_t *)0x1F800008)); // getting screen count via pointers
-    practice.state.screenSize = screenLength;
-    MemoryCopy(SCREENBACKUP, *(uint32_t *)0x1F800008, screenLength);
+    MemoryCopy(SCREENBACKUP, *(uint32_t *)0x1F800008, practice.state.screenSize);
 }
 void LoadState()
 {
