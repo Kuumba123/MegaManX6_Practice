@@ -9,6 +9,8 @@
 /*All Stages (New Route)%*/
 static uint8_t mavericksClearedTable[8] = {0, 0, 0, 0, 0, 0, 0, 0x40};
 
+//TODO: define 1 byte per maverick stage used for determining Start,Mid or Vist,ReVist or Normal,Nightmare
+
 /////////////////////////
 static int8_t sigmaStageTable[4] = {0x10, 0x11, 0xC, 0x0};
 
