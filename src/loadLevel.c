@@ -53,6 +53,12 @@ void LoadLevel()
     BinSeek(LevelOvlTable[stageId * 2 + mid],LEVEL_OVL_ADDR);
     FileCollect2();
 
+    if (stageId == 0xF || (stageId == 0xD && mid != 0))
+    {
+        return;
+    }
+    
+
     *(int*)0x1F800080 = LevelMainObjectsFunction_Table[stageId * 2 + mid];
     *(int*)0x1F800084 = LevelVisualObjectsFunction_Table[stageId * 2 + mid];
     *(int*)0x1F800088 = LevelShotObjectsFunction_Table[stageId * 2 + mid];
