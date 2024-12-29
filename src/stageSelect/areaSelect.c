@@ -1,15 +1,36 @@
 #include <common.h>
 #include <object.h>
 #include <gpu.h>
+#include <misc.h>
 #include "../practice.h"
 #define Cursor gameP->var[0]
 #define AreaMode gameP->refights[2]
 #define Timer *(uint16_t *)((int)gameP + 8)
+#define CategoryOptionData *(uint8_t *)((int)gameP + 4)
 
 /*All Stages (New Route)%*/
-static uint8_t mavericksClearedTable[8] = {0, 0, 0, 0, 0, 0, 0, 0x40};
+static uint8_t allStagesMavericksClearedTable[2][8] = {{0xC0, 0xE1, 0xFB, 0xE3, 0xEB, 0, 0, 0x40}, {0xE0, 0xE1, 0xEB, 0xE3, 0xEF, 0, 0, 0x40}};
+static uint8_t allStagesMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 0, 1, 1, 1}, {1, 1, 0, 1, 0, 1, 1, 1}};
 
-//TODO: define 1 byte per maverick stage used for determining Start,Mid or Vist,ReVist or Normal,Nightmare
+static uint8_t categoryMaverickOptionTable[9][8] = {
+    {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0xC0, 0xC0, 0xC0, 0x50, 0xC0, 0xC0, 0xC0, 0xC0}}; // Custom
+
+/*
+ *   bbxm rrvv
+ *
+ * b = Beginning Area Mode (0-3)
+ * m = Goto nightmare Area Mode Option after Start Option is selected
+ * r = Area Mode to goto after Revist Option is selected
+ * v = Area Mode to goto after Vist Option is selected
+ */
 
 /////////////////////////
 static int8_t sigmaStageTable[4] = {0x10, 0x11, 0xC, 0x0};
@@ -19,16 +40,10 @@ static bool isNightmare = false;
 
 static int8_t sigmaStage = -1;
 
+void CalculateNightmareLevel(int8_t stageId, int8_t *stageIdP, int8_t *midP);
+
 void AreaSelectInit(Game *gameP)
 {
-    Cursor = 0;
-    AreaMode = 0;
-    isRevist = false;
-    isNightmare = false;
-    gameP->refights[3] = 0;
-    gameP->refights[4] = 0;
-    gameP->mid = 0;
-
     /*
      *   0 = Sigma 1,2,3, & Intro
      *   1 = Start & Mid
@@ -36,17 +51,22 @@ void AreaSelectInit(Game *gameP)
      *   3 = Normal & Nightmare
      */
 
+    Cursor = 0;
+    AreaMode = 0;
+    Timer = 0;
+    isRevist = false;
+    isNightmare = false;
+    gameP->refights[3] = 0;
+    gameP->refights[4] = 0;
+    gameP->mid = 0;
+
     if (gameP->stageId != 0xC)
     {
-        AreaMode = 1;
-
-        if (gameP->stageId == 6 && (practice.category == ALL_STAGES || practice.category == ALL_STAGES_OLD))
+        CategoryOptionData = categoryMaverickOptionTable[practice.category][gameP->stageId - 1];
+        AreaMode = CategoryOptionData >> 6;
+        if (AreaMode == 0)
         {
-            AreaMode = 2;
-        }
-        else if (practice.category == ALL_STAGES || practice.category == ALL_STAGES_OLD)
-        {
-            gameP->mode3 = 6;
+            gameP->mode3 = 7;
             return;
         }
     }
@@ -117,23 +137,38 @@ void AreaSelect(Game *gameP)
 
             if (gameP->stageId <= 8)
             {
-                if (gameP->stageId == 6 && (practice.category == ALL_STAGES || practice.category == ALL_STAGES_OLD))
+                uint8_t option = 0;
+                if (AreaMode == 2) // Vist & ReVist
                 {
-                    if (AreaMode == 2) // Vist/ReVist
-                    {
-                        isRevist = Cursor;
-                    }
-
+                    isRevist = Cursor;
                     if (isRevist == false)
+                    {
+                        option = CategoryOptionData & 3;
+                    }
+                    else
+                    {
+                        option = (CategoryOptionData >> 2) & 3;
+                    }
+                    if (option != 0)
+                    {
+                        AreaMode = option;
+                        Cursor = 0;
+                        return;
+                    }
+                }
+                else if (AreaMode == 1) // Start & Mid
+                {
+                    gameP->mid = Cursor;
+                    if ((CategoryOptionData & 16) != 0 && Cursor == 0)
                     {
                         AreaMode = 3;
                         Cursor = 0;
                         return;
                     }
-                    else
-                    {
-                        isNightmare = Cursor;
-                    }
+                }
+                else // Normal & Nightmare
+                {
+                    isNightmare = Cursor;
                 }
             }
             else
@@ -160,7 +195,7 @@ void AreaSelect(Game *gameP)
                         {
                             gameP->stageId = 0x12;
                         }
-                        else if(sigmaStage == 2)
+                        else if (sigmaStage == 2)
                         {
                             gameP->mid = Cursor;
                         }
@@ -230,6 +265,11 @@ void AreaDetermine(Game *gameP)
         gameP->ranks[0] = 5;
         gameP->ranks[1] = 3;
         gameP->bonusBoss = 1;
+        gameP->igt = 0;
+        gameP->stageTime = 0;
+        gameP->playerSouls[0] = 0;
+        gameP->playerSouls[1] = 0;
+        gameP->souls = 0;
 
         // Pre-Clear Nightmare Effect
         for (size_t i = 0; i < 16; i++)
@@ -254,9 +294,18 @@ void AreaDetermine(Game *gameP)
         {
             gameP->refights[0] = 1; // Skip Text
         }
+        for (size_t i = 0; i < 128; i++)
+        {
+            SetReploidStatus(i, 0);
+        }
 
         if (practice.category == CUSTOM)
         {
+            if (isNightmare && gameP->stageId != 0 && gameP->stageId < 9)
+            {
+                CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+            }
+
             gameP->mode = 5;
             gameP->mode2 = 0;
             gameP->mode3 = 0;
@@ -272,11 +321,182 @@ void AreaDetermine(Game *gameP)
         }
         else
         {
+            uint8_t difficulty = gameP->difficulty;
+            if (difficulty == 2)
+            {
+                difficulty = 1;
+            }
+
             if (practice.category == ALL_STAGES)
             {
-                if (gameP->stageId <= 8)
+                if (gameP->stageId == 0xC)
                 {
-                    gameP->clearedStages = mavericksClearedTable[gameP->stageId - 1];
+                    gameP->clearedStages = 0xFF;
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                    gameP->clearedStages = 0xFF;
+                }
+                else
+                {
+                    int8_t i = gameP->stageId - 1;
+                    gameP->clearedStages = allStagesMavericksClearedTable[difficulty][i];
+                    gameP->player = allStagesMavericksPlayerTable[difficulty][i];
+
+                    if (isRevist) // for Rainy Turtloid
+                    {
+                        gameP->player = 1;
+                        if (difficulty == 0)
+                        {
+                            gameP->clearedStages = 0xC1;
+                        }
+                        else
+                        {
+                            gameP->clearedStages = 0xC0;
+                        }
+                    }
+
+                    if (gameP->player == 0)
+                    {
+                        gameP->armorType = 1; // Falcon Armor
+                    }
+                    if (isNightmare)
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
+                }
+            }
+            else if (practice.category == ALL_STAGES_OLD)
+            {
+                if (gameP->stageId == 0xC)
+                {
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                }
+                else
+                {
+                    if (!isNightmare)
+                    {
+                    }
+                    else
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
+                }
+            }
+            else if (practice.category == ANY_PERCENT)
+            {
+                if (gameP->stageId == 0xC)
+                {
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                }
+                else
+                {
+                    if (!isNightmare)
+                    {
+                    }
+                    else
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
+                }
+            }
+            else if (practice.category == HUNDO)
+            {
+                if (gameP->stageId == 0xC)
+                {
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                }
+                else
+                {
+                    if (!isNightmare)
+                    {
+                    }
+                    else
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
+                }
+            }
+            else if (practice.category == ALL_STAGES_UNARMORED)
+            {
+                if (gameP->stageId == 0xC)
+                {
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                }
+                else
+                {
+                    if (!isNightmare)
+                    {
+                    }
+                    else
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
+                }
+            }
+            else if (practice.category == ANY_PERCENT_ULTIMATE)
+            {
+                if (gameP->stageId == 0xC)
+                {
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                }
+                else
+                {
+                    if (!isNightmare)
+                    {
+                    }
+                    else
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
+                }
+            }
+            else if (practice.category == ANY_PERCENT_ZERO)
+            {
+                if (gameP->stageId == 0xC)
+                {
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                }
+                else
+                {
+                    if (!isNightmare)
+                    {
+                    }
+                    else
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
+                }
+            }
+            else // MIN X-Treme
+            {
+                if (gameP->stageId == 0xC)
+                {
+                }
+                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
+                {
+                }
+                else
+                {
+                    if (!isNightmare)
+                    {
+                    }
+                    else
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                    }
                 }
             }
         }
@@ -293,3 +513,4 @@ void AreaDetermine(Game *gameP)
 #undef Cursor
 #undef AreaMode
 #undef Timer
+#undef CategoryOptionData

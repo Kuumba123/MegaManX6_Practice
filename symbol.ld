@@ -3,6 +3,7 @@ swapTexturePointer = 0x1F800044;
 
 backupClut = 0x8009e1b0;
 
+CalculateNightmareLevel = 0x80042f7c;
 CutsceneLayoutPointers = 0x800ea514;
 CreateTitleScreenThread = 0x8001d25c;
 
