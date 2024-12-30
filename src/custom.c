@@ -72,7 +72,7 @@ void CustomRoute(Game *gameP)
             }
             
 
-            gameP->equipedParts[gameP->armorType] = parts;
+            gameP->equipedParts[gameP->player] = parts;
             gameP->parts = parts;
 
             gameP->stageId = gameP->slowMotion;
@@ -357,7 +357,19 @@ void CustomRoute(Game *gameP)
             {
                 DrawDebugText(21, 5 + i, 0, "%d", (parts & (4 << i)) != 0);
             }
-            DrawDebugText(4, 5, 0, "WEAPON 1\nWEAPON 2\nWEAPON 3\nWEAPON 4\nWEAPON 5\nWEAPON 6\nWEAPON 7\nWEAPON 8\nWEAPON 9\nWEAPON 10\nWEAPON 11\nWEAPON 12\nWEAPON 13\nWEAPON 14\nWEAPON 15\nWEAPON 16");
+
+            //TODO: put this on 2 pages
+
+            DrawDebugText(4, 5, 0, "SPEEDSTER\nJUMPER\nHYPER DASH\nENERGY SAVER\nSUPER RECOVER\nBUSTER PLUS\nSPEED SHOT\nSHOCK BUFFER\nD-BARRIER\nD-CONVERTER\nHYPER DRIVE\nPOWER DRIVE\nWEAPON DRIVE\nLIFE RECOVER\nW.RECOVER\nOVER DRIVE");
+
+            if (gameP->player == 0)
+            {
+                DrawDebugText(4, 5 + 16,0, "RAPID S\nULTIMATE BUSTER\nQUICK CHARGE\nWEAPON PLUS");
+            }
+            else
+            {
+                DrawDebugText(4, 5 + 16,0, "SABER PLUS\nSABER EXTEND\nSHOT ERASER\nMASTER SABER");
+            }
 
             break;
 
