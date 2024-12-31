@@ -8,19 +8,34 @@
 #define Timer *(uint16_t *)((int)gameP + 8)
 #define CategoryOptionData *(uint8_t *)((int)gameP + 4)
 
+static enum Ranks {
+    UH,
+    PA,
+    GA,
+    SA,
+    A,
+    B,
+    C,
+    D
+};
+
 /*All Stages (New Route)%*/
 static uint8_t allStagesMavericksClearedTable[2][8] = {{0xC0, 0xE1, 0xFB, 0xE3, 0xEB, 0, 0, 0x40}, {0xE0, 0xE1, 0xEB, 0xE3, 0xEF, 0, 0, 0x40}};
 static uint8_t allStagesMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 0, 1, 1, 1}, {1, 1, 0, 1, 0, 1, 1, 1}};
+static uint32_t allStagesMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0x400010, 0, 0}, {0x400010, 0x400010, 0, 0x400010, 0, 0, 0, 0}};
+static uint8_t allStagesMavericksNightmareTable[2][8] = {{8, 7, 4, 2, 4, 0, 0, 0}, {6, 7, 4, 2, 4, 0, 0, 0}};
+static uint8_t allStageMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
+static uint8_t allStagesMavericksHealthTable[2][8] = {{32, 32, 32, 32, 32, 32, 32, 32}, {32, 32, 32, 32, 32, 32, 32, 32}};
 
 static uint8_t categoryMaverickOptionTable[9][8] = {
-    {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // All Stages (Old Route)
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any%
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // 100%
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // All Stages Un-Armored
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any% Ultimate
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any% Zero
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Min X-Treme
     {0xC0, 0xC0, 0xC0, 0x50, 0xC0, 0xC0, 0xC0, 0xC0}}; // Custom
 
 /*
@@ -262,8 +277,8 @@ void AreaDetermine(Game *gameP)
         gameP->tanksAmmo[0] = 0;
         gameP->tanksAmmo[1] = 0;
         gameP->tanksAmmo[2] = 0;
-        gameP->ranks[0] = 5;
-        gameP->ranks[1] = 3;
+        gameP->ranks[0] = D;
+        gameP->ranks[1] = D;
         gameP->bonusBoss = 1;
         gameP->igt = 0;
         gameP->stageTime = 0;
@@ -329,23 +344,32 @@ void AreaDetermine(Game *gameP)
 
             if (practice.category == ALL_STAGES)
             {
-                if (gameP->stageId == 0xC)
+                if (gameP->stageId > 8)
                 {
                     gameP->clearedStages = 0xFF;
-                }
-                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
-                {
-                    gameP->clearedStages = 0xFF;
+                    parts = 0x400010;
+                    gameP->ranks[1] = GA;
                 }
                 else
                 {
                     int8_t i = gameP->stageId - 1;
                     gameP->clearedStages = allStagesMavericksClearedTable[difficulty][i];
                     gameP->player = allStagesMavericksPlayerTable[difficulty][i];
+                    parts = allStagesMavericksPartsTable[difficulty][i];
+                    gameP->nightmareEffects[gameP->stageId] = allStagesMavericksNightmareTable[difficulty][i];
+                    gameP->ranks[gameP->player] = allStageMavericksRankTable[difficulty][i];
 
                     if (isRevist) // for Rainy Turtloid
                     {
+                        for (size_t i = 0; i < 20; i++)
+                        {
+                            gameP->seenTextBoxes[i] = 0xFF;
+                        }
+
+                        gameP->ranks[1] = A;
                         gameP->player = 1;
+                        gameP->nightmareEffects[6] = 8;
+                        parts = 0x400010;
                         if (difficulty == 0)
                         {
                             gameP->clearedStages = 0xC1;
@@ -500,7 +524,7 @@ void AreaDetermine(Game *gameP)
                 }
             }
         }
-
+        gameP->equipedParts[gameP->player] = parts;
         /**************/
 
         gameP->mode = 7;
