@@ -9,7 +9,7 @@ static int page;
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 void SaveRestore();
 
-static char * rankText[] = {"MEH","PA","GA","SA","A","B","C","E"};
+static char * rankText[] = {"UH","PA","GA","SA","A","B","C","D"};
 
 void CustomRoute(Game *gameP)
 {
