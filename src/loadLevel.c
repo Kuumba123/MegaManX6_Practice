@@ -106,7 +106,7 @@ void LoadLevel()
     SCREENBACKUP = freeArcP;
     //Get Rid of this line for save states to carry over between deaths
     MemoryCopy(freeArcP,*(uint32_t *)0x1F800008,screenLength);
-    freeArcP = (int)freeArcP + screenLength;
+    void* results = (void*)((uint8_t*)freeArcP + practice.state.screenSize);
 
     layoutWidth = LevelLayoutSizeTable[stageId * 2 + mid].width;
     layoutHeight = LevelLayoutSizeTable[stageId * 2 + mid].height;
@@ -157,6 +157,7 @@ void LoadLevel()
             FileCollect();
         }
     }
+    freeArcP = results;
 }
 
 

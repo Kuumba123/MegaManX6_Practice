@@ -44,6 +44,8 @@ void LoadScreens()
     uint16_t offset = ScreenSectorOffset[game.stageId * 2 + game.mid];
     datFileInfo[73].lba = datFileInfo[fileId].lba + offset;
     datFileInfo[73].size = practice.state.screenSize;
+    void * temp = freeArcP;
     ArcBinSeek(73,*(uint32_t *)0x1F800008);
     FileCollect();
+    freeArcP = temp;
 }
