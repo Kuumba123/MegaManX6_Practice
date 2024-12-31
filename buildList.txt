@@ -11,6 +11,9 @@ american, exe , 0x80014494 , 0x0 , src/debugfont/loadFont2.s
 american, exe , 0x80012254 , 0x0 , src/debugfont/fontFlushHook.s
 american, exe , 0x8006d9d4 , 0x0 , src/debugfont/debugClutRect.c
 
+american, exe , 0x8005222c , 0x0 , src/textureFixes/cameraTextureHook.s
+american, exe , 0x8001bd40 , 0x0 , src/textureFixes/cameraTexture.c
+
 american NORELOAD , STAGE0F, 0x800E9860 , 0x0 , src/missionClear.c
 american, exe, 0x8007115C , 0x0 , src/missionClearTable.c
 american, exe, 0x8001e86c , 0x0 , src/missionClearSize.s
@@ -70,6 +73,9 @@ japanese, exe , 0x80013ca0 , 0x0 , src/debugfont/loadFont.s
 japanese, exe , 0x800158cc , 0x0 , src/debugfont/loadFont2.s
 japanese, exe , 0x8001368c , 0x0 , src/debugfont/fontFlushHook.s
 japanese, exe , 0x8006f0b8 , 0x0 , src/debugfont/debugClutRect.c
+
+japanese, exe , 0x80053830 , 0x0 , src/textureFixes/cameraTextureHook.s
+japanese, exe , 0x8001d180 , 0x0 , src/textureFixes/cameraTexture.c
 
 japanese NORELOAD , STAGE0F, 0x800EAE90 , 0x0 , src/missionClear.c
 japanese, exe, 0x80072818 , 0x0 , src/missionClearTable.c
