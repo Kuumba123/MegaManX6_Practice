@@ -5,7 +5,7 @@ extern uint32_t swapTextureFlag;
 
 void CheckTexturePage(Object *objP)
 {
-    if (practice.page != 0)
+    if (practice.page == 0)
     {
         swapTextureFlag = 1;
     }
