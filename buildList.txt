@@ -36,6 +36,9 @@ american NORELOAD , STAGE0D, 0x800f1cfc , 0x0, src/stageSelect/configPage.c src/
 
 american, exe, 0x80017c40 , 0x0, src/dumpClut.c
 american, exe, 0x8002ad54 , 0x0, src/dumpClutAddress.s
+american, exe, 0x8002ad44 , 0x0, src/dumpClutAddress2.s
+american, exe, 0x8002ad30 , 0x0, src/dumpClutAddress3.s
+american, exe, 0x8002ad1c , 0x0, src/dumpClutAddress4.s
 
 american, exe, 0x8001e174 , 0x0 , src/startSelect.s
 
@@ -99,6 +102,9 @@ japanese NORELOAD , STAGE0D, 0x800f3324 , 0x0, src/stageSelect/configPage.c src/
 
 japanese, exe, 0x80019078 , 0x0, src/dumpClut.c
 japanese, exe, 0x8002c350 , 0x0, src/dumpClutAddress.s
+japanese, exe, 0x8002c340 , 0x0, src/dumpClutAddress2.s
+japanese, exe, 0x8002c32c , 0x0, src/dumpClutAddress3.s
+japanese, exe, 0x8002c318 , 0x0, src/dumpClutAddress4.s
 
 japanese, exe, 0x8001f5c4 , 0x0 , src/startSelect.s
 

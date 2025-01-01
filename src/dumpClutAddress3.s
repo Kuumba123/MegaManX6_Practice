@@ -1,3 +1,2 @@
 .set noreorder
 lui $v0, %hi(backupClut)
-addiu $t5, $v0, %lo(backupClut)
