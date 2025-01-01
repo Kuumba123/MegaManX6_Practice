@@ -9,8 +9,8 @@
  */
 
 #define VariableSetsCount 21
-#define BuffersCount 7
-#define BSS_ADDR 0x801E3E28
+#define BuffersCount 8
+#define BSS_ADDR 0x8000E910
 
 #if BUILD == 1395
 #define RNG *(uint16_t *)0x80090e70

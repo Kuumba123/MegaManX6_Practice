@@ -43,11 +43,12 @@
 void *freeAddress[] = {
     INVERTED_CLUT_ADDR, // Inverted  Clut (unused)
     0x801F8304, // Just before Thread Stack Memory
-    0x801E4634, // End of ARC buffer
+    0x801E67DC, // End of ARC buffer
     0x801F6000, // Demo Buffer
     LAYOUT_ADDR, // Layout Buffer
     0x8000A000, // Kernal RAM
-    0x8000C000  // Kernal RAM (TODO: maybe better to use a different address that isnt $8000C000 since Unirom or $8000E400 cus Kernal)
+    0x8000C000, // Kernal RAM
+    0x8000E640  // Kernal RAM
 };
 
 void *readAddress[] = {
@@ -152,15 +153,16 @@ uint16_t *stageBssSizes[] = {
 
 uint16_t freeAddressSizes[] = {
     0x4000, // Inverted  Clut (unused)
-    0x65FC, // Just before Thread Stack Memory
-    0x59CC, // End of ARC buffer
+    0x6624, // Just before Thread Stack Memory
+    0x3824, // End of ARC buffer
     0x2000, // Demo Buffer
     0x0300, // Layout Buffer
     0x1900, // Kernal RAM
-    0x1800  // Kernal RAM
+    0x1F00, // Kernal RAM
+    0x02D0  // Kernal RAM
 };
 
-uint16_t addressesSize[] = { //0x13BF0
+uint16_t addressesSize[] = { //0x13C14
     0x4000, // Clut
     WEAPON_OBJECT_SLOTS * WEAPON_OBJECT_SLOT_SIZES, // Weapon Objects
     ENEMY_OBJECT_SLOTS * ENEMY_OBJECT_SLOT_SIZES,   // Main Objects
