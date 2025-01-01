@@ -21,8 +21,8 @@ static enum Ranks {
 
 /*All Stages (New Route)%*/
 static uint8_t allStagesMavericksClearedTable[2][8] = {{0xC0, 0xE1, 0xFB, 0xE3, 0xEB, 0, 0, 0x40}, {0xE0, 0xE1, 0xEB, 0xE3, 0xEF, 0, 0, 0x40}};
-static uint8_t allStagesMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 0, 1, 1, 1}, {1, 1, 0, 1, 0, 1, 1, 1}};
-static uint32_t allStagesMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0x400010, 0, 0}, {0x400010, 0x400010, 0, 0x400010, 0, 0, 0, 0}};
+static uint8_t allStagesMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 0, 0, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 1}};
+static uint32_t allStagesMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0, 0x400010, 0, 0, 0, 0}};
 static uint8_t allStagesMavericksNightmareTable[2][8] = {{8, 7, 4, 2, 4, 0, 0, 0}, {6, 7, 4, 2, 4, 0, 0, 0}};
 static uint8_t allStageMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
 static uint8_t allStagesMavericksHealthTable[2][8] = {{32, 32, 32, 32, 32, 32, 32, 32}, {32, 32, 32, 32, 32, 32, 32, 32}};
@@ -358,6 +358,11 @@ void AreaDetermine(Game *gameP)
                     parts = allStagesMavericksPartsTable[difficulty][i];
                     gameP->nightmareEffects[gameP->stageId] = allStagesMavericksNightmareTable[difficulty][i];
                     gameP->ranks[gameP->player] = allStageMavericksRankTable[difficulty][i];
+
+                    if (isRevist == false && gameP->stageId == 6) //Fighting Zero instead of High-Max
+                    {
+                        gameP->bonusBoss = 0;
+                    }
 
                     if (isRevist) // for Rainy Turtloid
                     {
