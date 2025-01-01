@@ -8,6 +8,7 @@ void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 void MissionCleared(Game *gameP)
 {
     gameP->stageSelectMode = 5;
+    gameP->bonusBoss = 1;
     if (exitType == 2)
     {
         gameP->mode = 3;
