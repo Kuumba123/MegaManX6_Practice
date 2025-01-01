@@ -15,7 +15,7 @@ static uint16_t ScreenSectorOffset[] = {
     0,0,        //ST09
     0,0,        //ST0A
     0,0,        //ST0B
-    0x139,0x169,//ST0C
+    0x139,0x162,//ST0C
     0,0,        //ST0D
     0,0,        //ST0E
     0,0,        //ST0F
