@@ -21,6 +21,8 @@
 #define ST04_BSS_ADDR OVL_ADDR + 0x0000A7B8
 #define ST06_BSS_ADDR OVL_ADDR + 0x0000D340
 #define ST12_BSS_ADDR OVL_ADDR + 0x0000DF38
+/*BSS Addresses of Refights*/
+#define MAV6_BSS_ADDR 0x0x800FEEB0
 #else
 #define OVL_ADDR 0x800eae90
 #define LAYOUT_ADDR 0x80098af8
@@ -38,6 +40,8 @@
 #define ST04_BSS_ADDR OVL_ADDR + 0x0000A7A8
 #define ST06_BSS_ADDR OVL_ADDR + 0x0000D2CC
 #define ST12_BSS_ADDR OVL_ADDR + 0x0000DF54
+/*BSS Addresses of Refights*/
+#define MAV6_BSS_ADDR 0x800fee3c
 #endif
 
 void *freeAddress[] = {
@@ -81,7 +85,7 @@ void *maverickRefightBssAddresses[] = {
     0x800FE9A4,
     0x80100520,
     0x800FDC80,
-    0x800FEEB0,
+    MAV6_BSS_ADDR,
     0x80100D60,
     0x800FFE18
 };
@@ -211,3 +215,5 @@ uint16_t bonusBossAddressesSize[] = {
 #undef ST04_BSS_ADDR
 #undef ST06_BSS_ADDR
 #undef ST12_BSS_ADDR
+/*Undef Refights BSS*/
+#undef MAV6_BSS_ADDR
