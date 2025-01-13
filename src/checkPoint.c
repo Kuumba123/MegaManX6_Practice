@@ -4,7 +4,7 @@
 
 #if BUILD == 1395
 #define MENU_TXT "X = SPAWN\nO = RESTART\n^ = EXIT"
-#define RESET PAD_CROSS
+#define RESET PAD_CIRCLE
 #define RELOAD *(uint8_t *)0x800cc868
 #define MAIN_THREAD 0x8001e6e4
 #else
