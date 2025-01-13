@@ -60,6 +60,8 @@ american , exe , 0x80071184 , 0x0 , src/modeTable.c
 
 american , exe , 0x8002798c , 0x0, src/loadLayout.c
 
+american , exe , 0x8001ba1c , 0x0, src/checkPoint.c
+
 american , exe , 0x8001e920 , 0x0, src/stateResetHook.s
 american , exe , 0x80017630 , 0x0, src/state2.c src/practice.c
 american , exe , 0x801f4e2c , 0x0, src/state.c src/debugfont/font.c, STATE.BIN
@@ -125,6 +127,8 @@ japanese , exe , 0x8002904c , 0x0 , src/swapTexture.c
 japanese , exe , 0x80072840 , 0x0 , src/modeTable.c
 
 japanese , exe , 0x80028f88 , 0x0, src/loadLayout.c
+
+japanese , exe , 0x8001ce5c , 0x0, src/checkPoint.c
 
 japanese , exe , 0x8001fd70 , 0x0, src/stateResetHook.s
 japanese , exe , 0x80018a68 , 0x0, src/state2.c src/practice.c
