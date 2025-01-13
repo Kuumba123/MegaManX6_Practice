@@ -22,7 +22,7 @@
 #define ST06_BSS_ADDR OVL_ADDR + 0x0000D340
 #define ST12_BSS_ADDR OVL_ADDR + 0x0000DF38
 /*BSS Addresses of Refights*/
-#define MAV6_BSS_ADDR 0x0x800FEEB0
+#define MAV6_BSS_ADDR 0x800FEEB0
 #else
 #define OVL_ADDR 0x800eae90
 #define LAYOUT_ADDR 0x80098af8
