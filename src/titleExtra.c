@@ -1,4 +1,5 @@
 #include <common.h>
+#include "practice.h"
 
 #if BUILD == 1395
 #define TITLE_X 10
@@ -30,6 +31,7 @@ void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 
 void ShowPracticeTitleText()
 {
+    practice.page = 0;
     DrawDebugText(TITLE_X, TITLE_Y, TITLE_CLUT, "PRACTICE BETA");
     DrawDebugText(NAME_X, NAME_Y, NAME_CLUT, "@POGCHAMPGUY");
 }
