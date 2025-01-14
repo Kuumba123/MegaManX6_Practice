@@ -33,12 +33,18 @@ static uint32_t allStagesMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x
 static uint8_t allStagesMavericksNightmareTable[2][8] = {{8, 7, 4, 2, 4, 0, 0, 0}, {6, 7, 4, 2, 4, 0, 0, 0}};
 static uint8_t allStagesMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
 
+/*All Stages Un-Armored X*/
+static uint8_t allStagesUnArmoredMavericksClearedTable[8] = {0x44, 4, 0, 0x47, 0x4F, 0, 4, 0x5F};
+static uint8_t allStagesUnArmoredMavericksBonusBossTable[8] = {1, 0, 0, 1, 1, 0, 1, 1};
+static uint32_t allStagesUnArmoredMavericksPartsTable[8] = {0x80018, 0, 0, 0x80010, 0x80010, 0, 0, 0x80010};
+static uint8_t allStagesUnArmoredRankTable[8] = {A, B, D, SA, SA, D, B, GA};
+
 static uint8_t categoryMaverickOptionTable[9][8] = {
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (Old Route)
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (New Route)
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any%
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // 100%
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // All Stages Un-Armored
+    {0x00, 0x83, 0x00, 0x00, 0x00, 0x83, 0x00, 0x00},  // All Stages Un-Armored
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any% Ultimate
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any% Zero
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Min X-Treme
@@ -517,21 +523,47 @@ void AreaDetermine(Game *gameP)
             }
             else if (practice.category == ALL_STAGES_UNARMORED)
             {
-                if (gameP->stageId == 0xC)
+                gameP->player = 0;
+                gameP->armorType = 0;
+
+                if (gameP->stageId > 8)
                 {
-                }
-                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
-                {
+                    parts = 0x88010;
+                    gameP->ranks[0] = GA;
                 }
                 else
                 {
-                    if (!isNightmare)
+                    int8_t i = gameP->stageId - 1;
+                    gameP->clearedStages = allStagesUnArmoredMavericksClearedTable[i];
+                    gameP->bonusBoss = allStagesUnArmoredMavericksBonusBossTable[i];
+                    parts = allStagesUnArmoredMavericksPartsTable[i];
+                    gameP->ranks[0] = allStagesUnArmoredRankTable[i];
+
+                    if (isRevist)
                     {
+                        gameP->bonusBoss = 1;
+                        if (gameP->stageId == 6)
+                        {
+                            gameP->clearedStages = 0xDF;
+                            parts = 0x88010;
+                            gameP->ranks[0] = GA;
+                        }
+                        else
+                        {
+                            gameP->clearedStages = 5;
+                            parts = 0x80018;
+                        }
                     }
-                    else
+
+                    if (isNightmare)
                     {
                         CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
+                }
+                if ((gameP->clearedStages & 1) != 0) // give player sub tank
+                {
+                    gameP->tanks |= 0x1000;
+                    gameP->tanksAmmo[0] = 12;
                 }
             }
             else if (practice.category == ANY_PERCENT_ULTIMATE)
