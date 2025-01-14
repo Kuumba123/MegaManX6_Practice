@@ -89,6 +89,7 @@ void LoadRestore()
     game.mid = restore.mid;
     game.igt = 0;
     game.stageTime = 0;
+    *(int8_t*)((int)&game + 1124) = 0;
     
     uint16_t val = 0;
     if (restore.seen)
@@ -148,6 +149,7 @@ void CheckPointCheck(Game *gameP)
                     game.point = 0;
                     game.mid = 0;
                     RELOAD = 0;
+                    TurnOffSounds();
                     EndSong();
                     LoadRestore();
                     NewThread2(MAIN_THREAD);
