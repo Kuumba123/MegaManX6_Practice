@@ -69,6 +69,7 @@ static bool isNightmare = false;
 static int8_t sigmaStage = -1;
 
 void CalculateNightmareLevel(int8_t stageId, int8_t *stageIdP, int8_t *midP);
+void SaveRestore();
 
 void AreaSelectInit(Game *gameP)
 {
@@ -639,6 +640,7 @@ void AreaDetermine(Game *gameP)
         gameP->mode2 = 0;
         gameP->mode3 = 0;
         gameP->mode4 = 0;
+        SaveRestore();
     }
 }
 

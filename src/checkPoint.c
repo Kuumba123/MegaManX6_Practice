@@ -14,6 +14,21 @@
 #define MAIN_THREAD 0x8001fb34
 #endif
 
+static struct Restore
+{
+    uint32_t reploids[16];
+    uint32_t hearts;
+    uint16_t tanks;
+    int8_t maxHP;
+    int8_t maxAmmo;
+    uint8_t armors;
+    uint8_t armorParts;
+    int8_t stageId;
+    int8_t mid;
+    bool seen;
+};
+static struct Restore restore;
+
 int8_t checkPointNew = 0xFF;
 
 int8_t maxCheckPoint[] =
@@ -45,7 +60,41 @@ int8_t maxCheckPoint[] =
 
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 
-void LoadRestore();
+void SaveRestore()
+{
+    restore.hearts = game.hearts;
+    restore.tanks = game.tanks;
+    restore.maxHP = game.maxHPs[game.player];
+    restore.maxAmmo = game.maxAmmos[game.player];
+    restore.armors = game.armors;
+    restore.armorParts = game.armorParts;
+    restore.stageId = game.stageId;
+    restore.mid = game.mid;
+    restore.seen = game.seenTextBoxes[0];
+    memcpy(&restore.reploids, &game.reploids, 16 * 4);
+}
+void LoadRestore()
+{
+    game.hearts = restore.hearts;
+    game.tanks = restore.tanks;
+    game.maxHPs[game.player] = restore.maxHP;
+    game.maxAmmos[game.player] = restore.maxAmmo;
+    game.armors = restore.armors;
+    game.armorParts = restore.armorParts;
+    game.stageId = restore.stageId;
+    game.mid = restore.mid;
+    
+    uint16_t val = 0;
+    if (restore.seen)
+    {
+        val = 0xFFFF;
+    }
+    for (size_t i = 0; i < 20; i++)
+    {
+        game.seenTextBoxes[i] = val;
+    }
+    memcpy(&game.reploids, &restore.reploids, 16 * 4);
+}
 
 void CheckPointCheck(Game *gameP)
 {
