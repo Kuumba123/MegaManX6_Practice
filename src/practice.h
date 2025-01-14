@@ -34,8 +34,8 @@ typedef struct{
 extern Practice practice;
 
 enum Categories {
-    ALL_STAGES,
     ALL_STAGES_OLD,
+    ALL_STAGES,
     ANY_PERCENT,
     HUNDO,
     ALL_STAGES_UNARMORED,
