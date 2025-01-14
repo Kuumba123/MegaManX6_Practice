@@ -539,6 +539,7 @@ void AreaDetermine(Game *gameP)
                     gameP->clearedStages = allStagesUnArmoredMavericksClearedTable[i];
                     gameP->bonusBoss = allStagesUnArmoredMavericksBonusBossTable[i];
                     parts = allStagesUnArmoredMavericksPartsTable[i];
+                    gameP->nightmareEffects[gameP->stageId] = allStagesUnArmoredMavericksNightmareTable[i];
                     gameP->ranks[0] = allStagesUnArmoredRankTable[i];
 
                     if (isRevist)
