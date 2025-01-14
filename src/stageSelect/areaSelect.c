@@ -23,6 +23,7 @@ static enum Ranks {
 static uint8_t allStagesOldMavericksClearedTable[2][8] = {{0xC0, 0xED, 0xE9, 0xE1, 0xEF, 0, 0, 0x40}, {0xE0, 0xED, 0xE9, 0xE1, 0xEF, 0, 0, 0x40}};
 static uint8_t allStagesOldMavericksPlayerTable[2][8] = {{1, 1, 0, 1, 0, 0, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 1}};
 static uint32_t allStagesOldMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}};
+static uint8_t allStagesOldMavericksNightmareTable[2][8] = {{8, 3, 4, 0, 4, 0, 0, 0}, {6, 3, 4, 0, 4, 0, 0, 0}};
 
 /*All Stages (New Route)%*/
 static uint8_t allStagesMavericksClearedTable[2][8] = {{0xC0, 0xE1, 0xFB, 0xE3, 0xEB, 0, 0, 0x40}, {0xE0, 0xE1, 0xEB, 0xE3, 0xEF, 0, 0, 0x40}};
@@ -413,6 +414,7 @@ void AreaDetermine(Game *gameP)
                     gameP->clearedStages = allStagesOldMavericksClearedTable[difficulty][i];
                     gameP->player = allStagesOldMavericksPlayerTable[difficulty][i];
                     parts = allStagesOldMavericksPartsTable[difficulty][i];
+                    gameP->nightmareEffects[gameP->stageId] = allStagesOldMavericksNightmareTable[difficulty][i];
 
                     if (isRevist == false && gameP->stageId == 6) // Fighting Zero instead of High-Max
                     {
@@ -449,12 +451,17 @@ void AreaDetermine(Game *gameP)
                         CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
-                if ((gameP->clearedStages & 1) != 0)
+                if ((gameP->clearedStages & 1) != 0) //give player sub tank + life up
                 {
                     gameP->tanks |= 0x1000;
                     gameP->tanksAmmo[0] = 12;
                     parts |= 0x8000;
                 }
+                if ((gameP->clearedStages & 8) != 0) //give zero heart tank from metal shark
+                {
+                    gameP->maxHPs[1] = 34;
+                }
+                
             }
             else if (practice.category == ANY_PERCENT)
             {
