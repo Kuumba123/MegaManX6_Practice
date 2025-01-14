@@ -3,7 +3,7 @@
 
 #if BUILD == 1395
 #define TITLE_X 10
-#define TITLE_Y 15
+#define TITLE_Y 14
 #define TITLE_CLUT 0
 #define NAME_X 32
 #define NAME_Y 26
