@@ -453,17 +453,16 @@ void AreaDetermine(Game *gameP)
                         CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
-                if ((gameP->clearedStages & 1) != 0) //give player sub tank + life up
+                if ((gameP->clearedStages & 1) != 0) // give player sub tank + life up
                 {
                     gameP->tanks |= 0x1000;
                     gameP->tanksAmmo[0] = 12;
                     parts |= 0x8000;
                 }
-                if ((gameP->clearedStages & 8) != 0) //give zero heart tank from metal shark
+                if ((gameP->clearedStages & 8) != 0) // give zero heart tank from metal shark
                 {
                     gameP->maxHPs[1] = 34;
                 }
-                
             }
             else if (practice.category == ANY_PERCENT)
             {
@@ -480,12 +479,20 @@ void AreaDetermine(Game *gameP)
                         gameP->armorType = 1; // Falcon Armor
                         if (isRevist)
                         {
+                            for (size_t i = 0; i < 20; i++)
+                            {
+                                gameP->seenTextBoxes[i] = 0xFF;
+                            }
                             gameP->clearedStages = 0x40;
                         }
                         else
                         {
                             gameP->bonusBoss = 0;
                         }
+                    }
+                    if (isNightmare)
+                    {
+                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
             }
