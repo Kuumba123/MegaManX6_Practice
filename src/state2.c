@@ -121,7 +121,7 @@ void *stageBssAddresses[] = {
     0, 0, // ST0F
     OVL_ADDR + 0x00013D34, 0, // ST10
     OVL_ADDR + 0x00010388, 0, // ST11
-    OVL_ADDR + 0x0000DF38, 0, // ST12
+    ST12_BSS_ADDR, 0, // ST12
     0, 0, // ST13
     0, 0, // ST14
     0, 0, // ST15
