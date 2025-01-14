@@ -161,12 +161,4 @@ void ResetState()
     practice.sigmaOvl = 0;
     LoadLevel();
 }
-void SaveRestore()
-{
-    
-}
-void LoadRestore()
-{
-
-}
 #undef RELOAD
