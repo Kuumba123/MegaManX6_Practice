@@ -541,6 +541,10 @@ void AreaDetermine(Game *gameP)
 
                     if (isRevist)
                     {
+                        for (size_t i = 0; i < 20; i++)
+                        {
+                            gameP->seenTextBoxes[i] = 0xFF;
+                        }
                         gameP->bonusBoss = 1;
                         if (gameP->stageId == 6)
                         {
@@ -552,6 +556,7 @@ void AreaDetermine(Game *gameP)
                         {
                             gameP->clearedStages = 5;
                             parts = 0x80018;
+                            gameP->ranks[0] = A;
                         }
                     }
 
