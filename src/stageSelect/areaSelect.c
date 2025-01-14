@@ -24,13 +24,14 @@ static uint8_t allStagesOldMavericksClearedTable[2][8] = {{0xC0, 0xED, 0xE9, 0xE
 static uint8_t allStagesOldMavericksPlayerTable[2][8] = {{1, 1, 0, 1, 0, 0, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 1}};
 static uint32_t allStagesOldMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}};
 static uint8_t allStagesOldMavericksNightmareTable[2][8] = {{8, 3, 4, 0, 4, 0, 0, 0}, {6, 3, 4, 0, 4, 0, 0, 0}};
+static uint8_t allStagesOldMavericksRankTable[2][8] = {{A, SA, D, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
 
 /*All Stages (New Route)%*/
 static uint8_t allStagesMavericksClearedTable[2][8] = {{0xC0, 0xE1, 0xFB, 0xE3, 0xEB, 0, 0, 0x40}, {0xE0, 0xE1, 0xEB, 0xE3, 0xEF, 0, 0, 0x40}};
 static uint8_t allStagesMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 0, 0, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 1}};
 static uint32_t allStagesMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0, 0x400010, 0, 0, 0, 0}};
 static uint8_t allStagesMavericksNightmareTable[2][8] = {{8, 7, 4, 2, 4, 0, 0, 0}, {6, 7, 4, 2, 4, 0, 0, 0}};
-static uint8_t allStageMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
+static uint8_t allStagesMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
 
 static uint8_t categoryMaverickOptionTable[9][8] = {
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (Old Route)
@@ -362,7 +363,7 @@ void AreaDetermine(Game *gameP)
                     gameP->player = allStagesMavericksPlayerTable[difficulty][i];
                     parts = allStagesMavericksPartsTable[difficulty][i];
                     gameP->nightmareEffects[gameP->stageId] = allStagesMavericksNightmareTable[difficulty][i];
-                    gameP->ranks[gameP->player] = allStageMavericksRankTable[difficulty][i];
+                    gameP->ranks[gameP->player] = allStagesMavericksRankTable[difficulty][i];
 
                     if (isRevist == false && gameP->stageId == 6) // Fighting Zero instead of High-Max
                     {
@@ -415,6 +416,7 @@ void AreaDetermine(Game *gameP)
                     gameP->player = allStagesOldMavericksPlayerTable[difficulty][i];
                     parts = allStagesOldMavericksPartsTable[difficulty][i];
                     gameP->nightmareEffects[gameP->stageId] = allStagesOldMavericksNightmareTable[difficulty][i];
+                    gameP->ranks[gameP->player] = allStagesOldMavericksRankTable[difficulty][i];
 
                     if (isRevist == false && gameP->stageId == 6) // Fighting Zero instead of High-Max
                     {
