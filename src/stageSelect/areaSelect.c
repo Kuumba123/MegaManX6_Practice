@@ -36,7 +36,7 @@ static uint8_t allStagesMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C},
 static uint8_t categoryMaverickOptionTable[9][8] = {
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (Old Route)
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (New Route)
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any%
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any%
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // 100%
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // All Stages Un-Armored
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any% Ultimate
@@ -467,20 +467,25 @@ void AreaDetermine(Game *gameP)
             }
             else if (practice.category == ANY_PERCENT)
             {
-                if (gameP->stageId == 0xC)
+                if (gameP->stageId > 8)
                 {
-                }
-                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
-                {
+                    gameP->clearedStages = 0x40;
+                    gameP->bonusBoss = 2;
                 }
                 else
                 {
-                    if (!isNightmare)
+                    if (gameP->stageId == 8)
                     {
-                    }
-                    else
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                        gameP->player = 0;
+                        gameP->armorType = 1; // Falcon Armor
+                        if (isRevist)
+                        {
+                            gameP->clearedStages = 0x40;
+                        }
+                        else
+                        {
+                            gameP->bonusBoss = 0;
+                        }
                     }
                 }
             }
