@@ -19,17 +19,21 @@ static enum Ranks {
     D
 };
 
+/*All Stages (Old Route)%*/
+static uint8_t allStagesOldMavericksClearedTable[2][8] = {{0xC0, 0xED, 0xE9, 0xE1, 0xEF, 0, 0, 0x40}, {0xE0, 0xED, 0xE9, 0xE1, 0xEF, 0, 0, 0x40}};
+static uint8_t allStagesOldMavericksPlayerTable[2][8] = {{1, 1, 0, 1, 0, 0, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 1}};
+static uint32_t allStagesOldMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}};
+
 /*All Stages (New Route)%*/
 static uint8_t allStagesMavericksClearedTable[2][8] = {{0xC0, 0xE1, 0xFB, 0xE3, 0xEB, 0, 0, 0x40}, {0xE0, 0xE1, 0xEB, 0xE3, 0xEF, 0, 0, 0x40}};
 static uint8_t allStagesMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 0, 0, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 1}};
 static uint32_t allStagesMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0, 0x400010, 0, 0, 0, 0}};
 static uint8_t allStagesMavericksNightmareTable[2][8] = {{8, 7, 4, 2, 4, 0, 0, 0}, {6, 7, 4, 2, 4, 0, 0, 0}};
 static uint8_t allStageMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
-static uint8_t allStagesMavericksHealthTable[2][8] = {{32, 32, 32, 32, 32, 32, 32, 32}, {32, 32, 32, 32, 32, 32, 32, 32}};
 
 static uint8_t categoryMaverickOptionTable[9][8] = {
-    {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // All Stages (Old Route)
+    {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (Old Route)
+    {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (New Route)
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any%
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // 100%
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // All Stages Un-Armored
@@ -359,7 +363,7 @@ void AreaDetermine(Game *gameP)
                     gameP->nightmareEffects[gameP->stageId] = allStagesMavericksNightmareTable[difficulty][i];
                     gameP->ranks[gameP->player] = allStageMavericksRankTable[difficulty][i];
 
-                    if (isRevist == false && gameP->stageId == 6) //Fighting Zero instead of High-Max
+                    if (isRevist == false && gameP->stageId == 6) // Fighting Zero instead of High-Max
                     {
                         gameP->bonusBoss = 0;
                     }
@@ -397,21 +401,59 @@ void AreaDetermine(Game *gameP)
             }
             else if (practice.category == ALL_STAGES_OLD)
             {
-                if (gameP->stageId == 0xC)
+                if (gameP->stageId > 8)
                 {
-                }
-                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
-                {
+                    gameP->clearedStages = 0xFF;
+                    parts = 0x400010;
+                    gameP->ranks[1] = GA;
                 }
                 else
                 {
-                    if (!isNightmare)
+                    int8_t i = gameP->stageId - 1;
+                    gameP->clearedStages = allStagesOldMavericksClearedTable[difficulty][i];
+                    gameP->player = allStagesOldMavericksPlayerTable[difficulty][i];
+                    parts = allStagesOldMavericksPartsTable[difficulty][i];
+
+                    if (isRevist == false && gameP->stageId == 6) // Fighting Zero instead of High-Max
                     {
+                        gameP->bonusBoss = 0;
                     }
-                    else
+
+                    if (isRevist) // for Rainy Turtloid
+                    {
+                        for (size_t i = 0; i < 20; i++)
+                        {
+                            gameP->seenTextBoxes[i] = 0xFF;
+                        }
+
+                        gameP->ranks[1] = A;
+                        gameP->player = 1;
+                        gameP->nightmareEffects[6] = 8;
+                        parts = 0x400010;
+                        if (difficulty == 0)
+                        {
+                            gameP->clearedStages = 0xC1;
+                        }
+                        else
+                        {
+                            gameP->clearedStages = 0xC0;
+                        }
+                    }
+
+                    if (gameP->player == 0)
+                    {
+                        gameP->armorType = 1; // Falcon Armor
+                    }
+                    if (isNightmare)
                     {
                         CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
+                }
+                if ((gameP->clearedStages & 1) != 0)
+                {
+                    gameP->tanks |= 0x1000;
+                    gameP->tanksAmmo[0] = 12;
+                    parts |= 0x8000;
                 }
             }
             else if (practice.category == ANY_PERCENT)
