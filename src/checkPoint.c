@@ -83,6 +83,8 @@ void LoadRestore()
     game.armorParts = restore.armorParts;
     game.stageId = restore.stageId;
     game.mid = restore.mid;
+    game.igt = 0;
+    game.stageTime = 0;
     
     uint16_t val = 0;
     if (restore.seen)
