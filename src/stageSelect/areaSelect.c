@@ -381,7 +381,7 @@ void AreaDetermine(Game *gameP)
                     {
                         for (size_t i = 0; i < 20; i++)
                         {
-                            gameP->seenTextBoxes[i] = 0xFF;
+                            gameP->seenTextBoxes[i] = 0xFFFF;
                         }
 
                         gameP->ranks[1] = A;
@@ -434,7 +434,7 @@ void AreaDetermine(Game *gameP)
                     {
                         for (size_t i = 0; i < 20; i++)
                         {
-                            gameP->seenTextBoxes[i] = 0xFF;
+                            gameP->seenTextBoxes[i] = 0xFFFF;
                         }
 
                         gameP->ranks[1] = A;
@@ -488,7 +488,7 @@ void AreaDetermine(Game *gameP)
                         {
                             for (size_t i = 0; i < 20; i++)
                             {
-                                gameP->seenTextBoxes[i] = 0xFF;
+                                gameP->seenTextBoxes[i] = 0xFFFF;
                             }
                             gameP->clearedStages = 0x40;
                         }
@@ -544,7 +544,7 @@ void AreaDetermine(Game *gameP)
                     {
                         for (size_t i = 0; i < 20; i++)
                         {
-                            gameP->seenTextBoxes[i] = 0xFF;
+                            gameP->seenTextBoxes[i] = 0xFFFF;
                         }
                         gameP->bonusBoss = 1;
                         if (gameP->stageId == 6)
