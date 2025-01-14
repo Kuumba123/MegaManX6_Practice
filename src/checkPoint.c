@@ -116,7 +116,7 @@ void CheckPointCheck(Game *gameP)
                 DrawDebugText(3, 5 + mouse, 1, ">");
                 for (size_t i = 0; i < (max + 1); i++)
                 {
-                    DrawDebugText(4, 5 + i, 0, "CHECKPOINT %d", i);
+                    DrawDebugText(4, 5 + i, 0, "POINT %d", i);
                 }
                 DrawDebugText(18, 22, 1, MENU_TXT);
                 DrawDebugText(12, 3, 2, "CHECKPOINT PAGE");
