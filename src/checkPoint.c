@@ -25,6 +25,7 @@ static struct Restore
     uint8_t armorParts;
     int8_t stageId;
     int8_t mid;
+    int8_t tanksAmmo[3];
     bool seen;
 };
 static struct Restore restore;
@@ -71,6 +72,9 @@ void SaveRestore()
     restore.stageId = game.stageId;
     restore.mid = game.mid;
     restore.seen = game.seenTextBoxes[0];
+    restore.tanksAmmo[0] = game.tanksAmmo[0];
+    restore.tanksAmmo[1] = game.tanksAmmo[1];
+    restore.tanksAmmo[2] = game.tanksAmmo[2];
     memcpy(&restore.reploids, &game.reploids, 16 * 4);
 }
 void LoadRestore()
@@ -95,6 +99,9 @@ void LoadRestore()
     {
         game.seenTextBoxes[i] = val;
     }
+    game.tanksAmmo[0] = restore.tanksAmmo[0];
+    game.tanksAmmo[1] = restore.tanksAmmo[1];
+    game.tanksAmmo[2] = restore.tanksAmmo[2];
     memcpy(&game.reploids, &restore.reploids, 16 * 4);
 }
 
