@@ -45,8 +45,8 @@ static uint8_t categoryMaverickOptionTable[9][8] = {
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (New Route)
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any%
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // 100%
-    {0x00, 0x83, 0x00, 0x00, 0x00, 0x83, 0x00, 0x00},  // All Stages Un-Armored
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any% Ultimate
+    {0x00, 0x83, 0x00, 0x50, 0x00, 0x83, 0x00, 0x00},  // All Stages Un-Armored
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any% Ultimate
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Any% Zero
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Min X-Treme
     {0xC0, 0xC0, 0xC0, 0x50, 0xC0, 0xC0, 0xC0, 0xC0}}; // Custom
@@ -346,7 +346,14 @@ void AreaDetermine(Game *gameP)
         {
             gameP->stageSelectMode = 0;
             gameP->player = 0;
-            gameP->armorType = 1;
+            if (practice.category == ANY_PERCENT_ULTIMATE)
+            {
+                gameP->armorType = 4;
+            }
+            else
+            {
+                gameP->armorType = 1;
+            }
         }
         else
         {
@@ -578,18 +585,24 @@ void AreaDetermine(Game *gameP)
             }
             else if (practice.category == ANY_PERCENT_ULTIMATE)
             {
-                if (gameP->stageId == 0xC)
+                gameP->player = 0;
+                gameP->armorType = 4;
+
+                if (gameP->stageId > 8)
                 {
-                }
-                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
-                {
+                    gameP->clearedStages = 2;
                 }
                 else
                 {
-                    if (!isNightmare)
+                    if (gameP->stageId == 8)
                     {
+                        gameP->clearedStages = 2;
+                        if (!isRevist)
+                        {
+                            gameP->bonusBoss = 0;
+                        }
                     }
-                    else
+                    if (isNightmare)
                     {
                         CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
