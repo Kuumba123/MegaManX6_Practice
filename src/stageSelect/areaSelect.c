@@ -322,6 +322,7 @@ void AreaDetermine(Game *gameP)
         if (gameP->stageId != 0xC || gameP->mid != 0)
         {
             gameP->refights[0] = 1; // Skip Text
+            gameP->refights[1] = 1; // Skip Text (Gate)
         }
         for (size_t i = 0; i < 128; i++)
         {
