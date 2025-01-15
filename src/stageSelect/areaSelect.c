@@ -378,6 +378,7 @@ void AreaDetermine(Game *gameP)
                     gameP->player = allStagesMavericksPlayerTable[difficulty][i];
                     parts = allStagesMavericksPartsTable[difficulty][i];
                     gameP->nightmareEffects[gameP->stageId] = allStagesMavericksNightmareTable[difficulty][i];
+                    gameP->nightmareEffectId = allStagesMavericksNightmareTable[difficulty][i];
                     gameP->ranks[gameP->player] = allStagesMavericksRankTable[difficulty][i];
 
                     if (isRevist == false && gameP->stageId == 6) // Fighting Zero instead of High-Max
@@ -395,6 +396,7 @@ void AreaDetermine(Game *gameP)
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
+                        gameP->nightmareEffectId = 8;
                         parts = 0x400010;
                         if (difficulty == 0)
                         {
@@ -431,6 +433,7 @@ void AreaDetermine(Game *gameP)
                     gameP->player = allStagesOldMavericksPlayerTable[difficulty][i];
                     parts = allStagesOldMavericksPartsTable[difficulty][i];
                     gameP->nightmareEffects[gameP->stageId] = allStagesOldMavericksNightmareTable[difficulty][i];
+                    gameP->nightmareEffectId = allStagesOldMavericksNightmareTable[difficulty][i];
                     gameP->ranks[gameP->player] = allStagesOldMavericksRankTable[difficulty][i];
 
                     if (isRevist == false && gameP->stageId == 6) // Fighting Zero instead of High-Max
@@ -448,6 +451,7 @@ void AreaDetermine(Game *gameP)
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
+                        gameP->nightmareEffectId = 8;
                         parts = 0x400010;
                         if (difficulty == 0)
                         {
@@ -553,6 +557,7 @@ void AreaDetermine(Game *gameP)
                     gameP->bonusBoss = allStagesUnArmoredMavericksBonusBossTable[i];
                     parts = allStagesUnArmoredMavericksPartsTable[i];
                     gameP->nightmareEffects[gameP->stageId] = allStagesUnArmoredMavericksNightmareTable[i];
+                    gameP->nightmareEffectId = allStagesUnArmoredMavericksNightmareTable[i];
                     gameP->ranks[0] = allStagesUnArmoredRankTable[i];
 
                     if (isRevist)
@@ -568,6 +573,7 @@ void AreaDetermine(Game *gameP)
                             parts = 0x88018;
                             gameP->ranks[0] = GA;
                             gameP->nightmareEffects[6] = 8;
+                            gameP->nightmareEffectId = 8;
                         }
                         else
                         {
@@ -575,6 +581,7 @@ void AreaDetermine(Game *gameP)
                             parts = 0x80018;
                             gameP->ranks[0] = A;
                             gameP->nightmareEffects[2] = 7;
+                            gameP->nightmareEffectId = 7;
                         }
                     }
 
