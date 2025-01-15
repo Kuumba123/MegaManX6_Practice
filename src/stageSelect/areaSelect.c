@@ -542,7 +542,8 @@ void AreaDetermine(Game *gameP)
 
                 if (gameP->stageId > 8)
                 {
-                    parts = 0x88010;
+                    parts = 0x88018;
+                    gameP->clearedStages = 0xFF;
                     gameP->ranks[0] = GA;
                 }
                 else
@@ -564,7 +565,7 @@ void AreaDetermine(Game *gameP)
                         if (gameP->stageId == 6)
                         {
                             gameP->clearedStages = 0xDF;
-                            parts = 0x88010;
+                            parts = 0x88018;
                             gameP->ranks[0] = GA;
                             gameP->nightmareEffects[6] = 8;
                         }
