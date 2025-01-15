@@ -149,7 +149,7 @@ void CheckPointCheck(Game *gameP)
                     game.point = 0;
                     game.mid = 0;
                     RELOAD = 0;
-                    TurnOffSounds(0xFF,0);
+                    TurnOffSound(0xFF,0);
                     EndSong();
                     LoadRestore();
                     NewThread2(MAIN_THREAD);
