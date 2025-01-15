@@ -14,6 +14,15 @@ american, exe , 0x8006d9d4 , 0x0 , src/debugfont/debugClutRect.c
 american, exe , 0x8005222c , 0x0 , src/textureFixes/cameraTextureHook.s
 american, exe , 0x80017cd8 , 0x0 , src/textureFixes/cameraTexture.c
 
+american NORELOAD, STAGE00 , 0x800f93f0 , 0x0 , src/textSkips/textSkip.s
+american NORELOAD, STAGE00 , 0x800f9f18 , 0x0 , src/textSkips/textSkip2.s
+american NORELOAD, STAGE00 , 0x800f23dc , 0x0 , src/textSkips/textSkip3.s
+american NORELOAD, STAGE00 , 0x800f3014 , 0x0 , src/textSkips/textSkip4.s
+american NORELOAD, STAGE00 , 0x800f6580 , 0x0 , src/textSkips/textSkip5.s
+american NORELOAD, STAGE0C_1 , 0x800eec2c , 0x0 , src/textSkips/textSkip6.s
+american NORELOAD, STAGE0C_1 , 0x800f0720 , 0x0 , src/textSkips/textSkip7.s
+american NORELOAD, STAGE0C_1 , 0x800f2364 , 0x0 , src/textSkips/textSkip8.s
+
 american NORELOAD , STAGE0F, 0x800E9860 , 0x0 , src/missionClear.c
 american, exe, 0x8007115C , 0x0 , src/missionClearTable.c
 american, exe, 0x8001e86c , 0x0 , src/missionClearSize.s
@@ -81,6 +90,15 @@ japanese, exe , 0x8006f0b8 , 0x0 , src/debugfont/debugClutRect.c
 
 japanese, exe , 0x80053830 , 0x0 , src/textureFixes/cameraTextureHook.s
 japanese, exe , 0x80019110 , 0x0 , src/textureFixes/cameraTexture.c
+
+japanese NORELOAD, STAGE00 , 0x800faa20 , 0x0 , src/textSkips/textSkip.s
+japanese NORELOAD, STAGE00 , 0x800fb548 , 0x0 , src/textSkips/textSkip2.s
+japanese NORELOAD, STAGE00 , 0x800f3a10 , 0x0 , src/textSkips/textSkip3.s
+japanese NORELOAD, STAGE00 , 0x800f4644 , 0x0 , src/textSkips/textSkip4.s
+japanese NORELOAD, STAGE00 , 0x800f7bb0 , 0x0 , src/textSkips/textSkip5.s
+japanese NORELOAD, STAGE0C_1 , 0x800f025c , 0x0 , src/textSkips/textSkip6.s
+japanese NORELOAD, STAGE0C_1 , 0x800f1d50 , 0x0 , src/textSkips/textSkip7.s
+japanese NORELOAD, STAGE0C_1 , 0x800f3994 , 0x0 , src/textSkips/textSkip8.s
 
 japanese NORELOAD , STAGE0F, 0x800EAE90 , 0x0 , src/missionClear.c
 japanese, exe, 0x80072818 , 0x0 , src/missionClearTable.c

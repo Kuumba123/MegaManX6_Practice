@@ -6,3 +6,12 @@ ovl/japanese/OVL_10.BIN, output/areaSelectTablec.bin , 0x800f257c - 0x800EAE90
 
 ovl/japanese/OVL_12.BIN, output/titleTextObjectc.bin , 0x800ef07c - 0x800EAE90
 ovl/japanese/OVL_12.BIN, output/titleTextSpecc.bin , 0x800f21b8 - 0x800EAE90
+
+ovl/japanese/OVL_2.BIN, output/textSkips.bin , 0x800faa20 - 0x800EAE90
+ovl/japanese/OVL_2.BIN, output/textSkip2s.bin , 0x800fb548 - 0x800EAE90
+ovl/japanese/OVL_2.BIN, output/textSkip3s.bin , 0x800f3a10 - 0x800EAE90
+ovl/japanese/OVL_2.BIN, output/textSkip4s.bin , 0x800f4644 - 0x800EAE90
+ovl/japanese/OVL_2.BIN, output/textSkip5s.bin , 0x800f7bb0 - 0x800EAE90
+ovl/japanese/OVL_F.BIN, output/textSkip6s.bin , 0x800f025c - 0x800EAE90
+ovl/japanese/OVL_F.BIN, output/textSkip7s.bin , 0x800f1d50 - 0x800EAE90
+ovl/japanese/OVL_F.BIN, output/textSkip8s.bin , 0x800f3994 - 0x800EAE90

@@ -6,3 +6,12 @@ ovl/american/OVL_10.BIN, output/areaSelectTablec.bin , 0x800f0f50 - 0x800E9860
 
 ovl/american/OVL_12.BIN, output/titleTextObjectc.bin , 0x800eda38 - 0x800E9860
 ovl/american/OVL_12.BIN, output/titleTextSpecc.bin , 0x800f0b44 - 0x800E9860
+
+ovl/american/OVL_2.BIN, output/textSkips.bin , 0x800f93f0 - 0x800E9860
+ovl/american/OVL_2.BIN, output/textSkip2s.bin , 0x800f9f18 - 0x800E9860
+ovl/american/OVL_2.BIN, output/textSkip3s.bin , 0x800f23dc - 0x800E9860
+ovl/american/OVL_2.BIN, output/textSkip4s.bin , 0x800f3014 - 0x800E9860
+ovl/american/OVL_2.BIN, output/textSkip5s.bin , 0x800f6580 - 0x800E9860
+ovl/american/OVL_F.BIN, output/textSkip6s.bin , 0x800eec2c - 0x800E9860
+ovl/american/OVL_F.BIN, output/textSkip7s.bin , 0x800f0720 - 0x800E9860
+ovl/american/OVL_F.BIN, output/textSkip8s.bin , 0x800f2364 - 0x800E9860
