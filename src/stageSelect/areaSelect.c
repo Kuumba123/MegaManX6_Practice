@@ -22,7 +22,7 @@ static enum Ranks {
 /*All Stages (Old Route)%*/
 static uint8_t allStagesOldMavericksClearedTable[2][8] = {{0xC0, 0xED, 0xE9, 0xE1, 0xEF, 0, 0, 0x40}, {0xE0, 0xED, 0xE9, 0xE1, 0xEF, 0, 0, 0x40}};
 static uint8_t allStagesOldMavericksPlayerTable[2][8] = {{1, 1, 0, 1, 0, 0, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 1}};
-static uint32_t allStagesOldMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}};
+static uint32_t allStagesOldMavericksPartsTable[2][8] = {{0, 0x400010, 0, 0x400010, 0, 0, 0, 0}, {0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0, 0}};
 static uint8_t allStagesOldMavericksNightmareTable[2][8] = {{8, 3, 4, 0, 4, 0, 0, 0}, {6, 3, 4, 0, 4, 0, 0, 0}};
 static uint8_t allStagesOldMavericksRankTable[2][8] = {{A, SA, D, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
 
