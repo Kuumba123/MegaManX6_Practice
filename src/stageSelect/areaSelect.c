@@ -336,6 +336,7 @@ void AreaDetermine(Game *gameP)
 
         if (practice.category == CUSTOM)
         {
+            practice.orginStage = gameP->stageId;
             if (isNightmare && gameP->stageId != 0 && gameP->stageId < 9)
             {
                 CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);

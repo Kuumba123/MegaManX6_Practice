@@ -26,7 +26,7 @@ typedef struct{
     uint8_t sigmaOvl;
     uint8_t category;
     bool keepRng;
-    uint8_t skipRefights;
+    uint8_t orginStage;
     bool ultimateArmor;
     bool cancelXA;
 }Practice;
