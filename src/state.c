@@ -18,6 +18,7 @@
 #define PASTBRIGHT *(uint16_t *)0x80097754
 #define PASTBRIGHT2 *(uint16_t *)0x800c8858
 #define PASTBRIGHT3 *(uint16_t *)0x800a21b6
+#define UPDATECLUT *(uint8_t *)0x800c4560
 #define STARTSELECT_FLAG *(uint32_t *)0x8008ec0c
 #define SCREENBACKUP *(uint32_t *)0x800a21b0
 #define VABP *(int *)0x800e4490
@@ -28,6 +29,7 @@
 #define PASTBRIGHT *(uint16_t *)0x80098e14
 #define PASTBRIGHT2 *(uint16_t *)0x800c9f18
 #define PASTBRIGHT3 *(uint16_t *)0x800a3876
+#define UPDATECLUT *(uint8_t *)0x800c5c20
 #define STARTSELECT_FLAG *(uint32_t *)0x800902cc
 #define SCREENBACKUP *(uint32_t *)0x800a3870
 #define VABP *(int *)0x800e5ac0
@@ -190,7 +192,7 @@ void SaveState()
     {
         MemoryCopy(BSS_ADDR, bonusBossAddresses[*((uint8_t*)((int)&game + 1083))], bonusBossAddressesSize[*((uint8_t*)((int)&game + 1083))]);
     }
-
+    UPDATECLUT = 1; // Update Clut
     MemoryCopy(SCREENBACKUP, *(uint32_t *)0x1F800008, practice.state.screenSize);
 }
 void LoadState()
@@ -366,7 +368,7 @@ void StateCheck(Game *gameP)
 #undef STARTSELECT_FLAG
 #undef SCREENBACKUP
 #undef VABP
-
+#undef UPDATECLUT
 #undef FADE_F
 #undef EXPO_F
 
