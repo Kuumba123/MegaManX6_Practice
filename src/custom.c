@@ -1,4 +1,5 @@
 #include <common.h>
+#include <misc.h>
 #include "practice.h"
 
 #define PAGE_TOTAL 5
@@ -401,7 +402,7 @@ void CustomRoute(Game *gameP)
         case 4: // OTHER PAGE
             if ((buttonsPressed & PAD_DOWN) != 0)
             {
-                if (Cursor != 4)
+                if (Cursor != 5)
                 {
                     Cursor += 1;
                 }
@@ -418,7 +419,7 @@ void CustomRoute(Game *gameP)
                 }
                 else
                 {
-                    Cursor = 4;
+                    Cursor = 5;
                 }
             }
 
@@ -465,7 +466,7 @@ void CustomRoute(Game *gameP)
                     gameP->ranks[gameP->player] -= 1;
                 }
             }
-            else
+            else if(Cursor == 4)
             {
                 if ((buttonsPressed & PAD_RIGHT) != 0 && gameP->bonusBoss != 2)
                 {
@@ -476,11 +477,35 @@ void CustomRoute(Game *gameP)
                     gameP->bonusBoss -= 1;
                 }
             }
+            else if(practice.orginStage < 9 && practice.orginStage != 0)
+            {
+                if ((buttonsPressed & PAD_RIGHT) != 0)
+                {
+                    gameP->mode4 += 1;
+                }
+                else if ((buttonsPressed & PAD_LEFT) != 0)
+                {
+                    gameP->mode4 -= 1;
+                }
+                gameP->mode4 &= 0xF;
+                
+                if (toggle)
+                {
+                    if (GetReploidStatus(practice.orginStage * 16 + gameP->mode4) == 0)
+                    {
+                        SetReploidStatus(practice.orginStage * 16 + gameP->mode4, 2);
+                    }
+                    else
+                    {
+                        SetReploidStatus(practice.orginStage * 16 + gameP->mode4, 0);
+                    }
+                }
+            }
 
             DrawDebugText(12, 3, 2, "OTHER PAGE");
             DrawDebugText(3, 5 + Cursor, 1, ">");
-            DrawDebugText(4, 5, 0, "NIGHTMARE SOURCE\nSELECT MODE\nSEEN BOXES\nPLAYER RANK\nBONUS BOSS");
-            DrawDebugText(21, 5, 0, "%d\n%d\n%d\n%s\n%d", gameP->nightmareEffects[practice.orginStage], gameP->stageSelectMode, gameP->seenTextBoxes[0] != 0, rankText[gameP->ranks[gameP->player]], gameP->bonusBoss);
+            DrawDebugText(4, 5, 0, "NIGHTMARE SOURCE\nSELECT MODE\nSEEN BOXES\nPLAYER RANK\nBONUS BOSS\nREPLOID");
+            DrawDebugText(21, 5, 0, "%d\n%d\n%d\n%s\n%d\n%d", gameP->nightmareEffects[practice.orginStage], gameP->stageSelectMode, gameP->seenTextBoxes[0] != 0, rankText[gameP->ranks[gameP->player]], gameP->bonusBoss, GetReploidStatus(practice.orginStage * 16 + gameP->mode4) != 0);
             break;
 
         default:
