@@ -9,7 +9,7 @@ static int page;
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
 void SaveRestore();
 
-static char * rankText[] = {"UH","PA","GA","SA","A","B","C","D"};
+static char *rankText[] = {"UH", "PA", "GA", "SA", "A", "B", "C", "D"};
 
 void CustomRoute(Game *gameP)
 {
@@ -40,6 +40,10 @@ void CustomRoute(Game *gameP)
             {
                 gameP->armorType = 5;
             }
+            else if (gameP->player == 0 && gameP->armorType > 4)
+            {
+                gameP->armorType = 0;
+            }
             if ((gameP->armorParts & 0xF) == 0xF || gameP->armorType == 2) // Blade Armor
             {
                 gameP->armorParts |= 0xF;
@@ -66,14 +70,13 @@ void CustomRoute(Game *gameP)
             {
                 gameP->tanksAmmo[1] |= 0x80;
             }
-            if (gameP->player == 1 || gameP->bonusBoss > 0) //Unlocked Zero
+            if (gameP->player == 1 || gameP->bonusBoss > 0) // Unlocked Zero
             {
                 gameP->armors |= 0x10;
             }
-            
 
-            gameP->equipedParts[gameP->player] = parts;
-            gameP->parts = parts;
+            gameP->equipedParts[gameP->player] |= parts;
+            gameP->parts = gameP->equipedParts[gameP->player];
 
             gameP->stageId = gameP->slowMotion;
             gameP->mid = gameP->maverickShow;
@@ -82,7 +85,7 @@ void CustomRoute(Game *gameP)
             gameP->mode2 = 0;
             gameP->mode3 = 0;
             gameP->mode4 = 0;
-            //SaveRestore();
+            SaveRestore();
             break;
         }
 
@@ -324,7 +327,7 @@ void CustomRoute(Game *gameP)
 
             if ((buttonsPressed & PAD_DOWN) != 0)
             {
-                if (Cursor != 15)
+                if (Cursor != 19)
                 {
                     Cursor += 1;
                 }
@@ -341,36 +344,58 @@ void CustomRoute(Game *gameP)
                 }
                 else
                 {
-                    Cursor = 15;
+                    Cursor = 19;
                 }
             }
 
             if (toggle)
             {
-                parts ^= 4 << Cursor;
+                if (Cursor < 16)
+                {
+                    parts ^= 4 << Cursor;
+                }
+                else if (gameP->player == 0)
+                {
+                    gameP->equipedParts[0] ^= 4 << Cursor;
+                }
+                else
+                {
+                    gameP->equipedParts[1] ^= 0x40 << Cursor;
+                }
             }
 
             DrawDebugText(12, 3, 2, "PARTS PAGE");
-            DrawDebugText(3, 5 + Cursor, 1, ">");
 
-            for (size_t i = 0; i < 16; i++)
+            if (Cursor < 16) // 1st 16 Parts
             {
-                DrawDebugText(21, 5 + i, 0, "%d", (parts & (4 << i)) != 0);
+                DrawDebugText(3, 5 + Cursor, 1, ">");
+                for (size_t i = 0; i < 16; i++)
+                {
+                    DrawDebugText(21, 5 + i, 0, "%d", (parts & (4 << i)) != 0);
+                }
+                DrawDebugText(4, 5, 0, "SPEEDSTER\nJUMPER\nHYPER DASH\nENERGY SAVER\nSUPER RECOVER\nBUSTER PLUS\nSPEED SHOT\nSHOCK BUFFER\nD-BARRIER\nD-CONVERTER\nHYPER DRIVE\nPOWER DRIVE\nWEAPON DRIVE\nLIFE RECOVER\nW.RECOVER\nOVER DRIVE");
             }
-
-            //TODO: put this on 2 pages
-
-            DrawDebugText(4, 5, 0, "SPEEDSTER\nJUMPER\nHYPER DASH\nENERGY SAVER\nSUPER RECOVER\nBUSTER PLUS\nSPEED SHOT\nSHOCK BUFFER\nD-BARRIER\nD-CONVERTER\nHYPER DRIVE\nPOWER DRIVE\nWEAPON DRIVE\nLIFE RECOVER\nW.RECOVER\nOVER DRIVE");
-
-            if (gameP->player == 0)
+            else // Player specfic parts
             {
-                DrawDebugText(4, 5 + 16,0, "RAPID S\nULTIMATE BUSTER\nQUICK CHARGE\nWEAPON PLUS");
-            }
-            else
-            {
-                DrawDebugText(4, 5 + 16,0, "SABER PLUS\nSABER EXTEND\nSHOT ERASER\nMASTER SABER");
-            }
+                int val;
 
+                if (gameP->player == 0)
+                {
+                    val = 0x40000;
+                    DrawDebugText(4, 5, 0, "RAPID S\nULTIMATE BUSTER\nQUICK CHARGE\nWEAPON PLUS");
+                }
+                else
+                {
+                    val = 0x400000;
+                    DrawDebugText(4, 5, 0, "SABER PLUS\nSABER EXTEND\nSHOT ERASER\nMASTER SABER");
+                }
+                for (size_t i = 0; i < 4; i++)
+                {
+                    DrawDebugText(21, 5 + i, 0, "%d", (gameP->equipedParts[gameP->player] & (val << i)) != 0);
+                }
+                DrawDebugText(3, 5 + Cursor - 16, 1, ">");
+            }
+            DrawDebugText(28, 22, 2, "%d/%d", (Cursor > 15) + 1, 2);
             break;
 
         case 4: // OTHER PAGE
@@ -397,15 +422,15 @@ void CustomRoute(Game *gameP)
                 }
             }
 
-            if (Cursor == 0 && gameP->slowMotion > 0 && gameP->slowMotion < 9)
+            if (Cursor == 0 && practice.orginStage > 0 && practice.orginStage < 9)
             {
                 if ((buttonsPressed & PAD_RIGHT) != 0)
                 {
-                    gameP->nightmareEffects[gameP->slowMotion] += 1;
+                    gameP->nightmareEffects[practice.orginStage] += 1;
                 }
                 else if ((buttonsPressed & PAD_LEFT) != 0)
                 {
-                    gameP->nightmareEffects[gameP->slowMotion] -= 1;
+                    gameP->nightmareEffects[practice.orginStage] -= 1;
                 }
             }
             else if (Cursor == 1)
@@ -455,7 +480,7 @@ void CustomRoute(Game *gameP)
             DrawDebugText(12, 3, 2, "OTHER PAGE");
             DrawDebugText(3, 5 + Cursor, 1, ">");
             DrawDebugText(4, 5, 0, "NIGHTMARE SOURCE\nSELECT MODE\nSEEN BOXES\nPLAYER RANK\nBONUS BOSS");
-            DrawDebugText(21, 5, 0, "%d\n%d\n%d\n%s\n%d", gameP->nightmareEffects[gameP->slowMotion], gameP->stageSelectMode, gameP->seenTextBoxes[0] != 0, rankText[gameP->ranks[gameP->player]], gameP->bonusBoss);
+            DrawDebugText(21, 5, 0, "%d\n%d\n%d\n%s\n%d", gameP->nightmareEffects[practice.orginStage], gameP->stageSelectMode, gameP->seenTextBoxes[0] != 0, rankText[gameP->ranks[gameP->player]], gameP->bonusBoss);
             break;
 
         default:
