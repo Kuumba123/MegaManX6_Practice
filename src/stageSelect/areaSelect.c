@@ -37,8 +37,13 @@ static uint8_t allStagesMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C},
 static uint8_t allStagesUnArmoredMavericksClearedTable[8] = {0x44, 4, 0, 0x47, 0x4F, 0, 4, 0x5F};
 static uint8_t allStagesUnArmoredMavericksBonusBossTable[8] = {1, 0, 0, 1, 1, 0, 1, 1};
 static uint32_t allStagesUnArmoredMavericksPartsTable[8] = {0x80018, 0, 0, 0x80010, 0x80010, 0, 0, 0x80010};
-static uint8_t allStagesUnArmoredMavericksNightmareTable[8] = {6, 3, 0, 2, 4, 0, 0, 4};
+static uint8_t allStagesUnArmoredMavericksNightmareTable[8] = {6, 3, 4, 2, 4, 0, 1, 0};
 static uint8_t allStagesUnArmoredRankTable[8] = {A, B, D, SA, SA, D, B, GA};
+
+/*Minimalist X-Treme*/
+static uint8_t minimalistMavericksCleartedTable[8] = {0xB2, 0x90, 0xFB, 0xF3, 0, 0x92, 0xB3, 0x10};
+static uint8_t minimalistMavericksNightmareTable[8] = {6, 0, 0, 2, 0, 8, 1, 0};
+static uint8_t minimalistRankTable[8] = {SA, A, GA, GA, D, SA, GA, B};
 
 static uint8_t categoryMaverickOptionTable[9][8] = {
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (Old Route)
@@ -48,7 +53,7 @@ static uint8_t categoryMaverickOptionTable[9][8] = {
     {0x00, 0x83, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages Un-Armored
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any% Ultimate
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any% Zero
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // Min X-Treme
+    {0x00, 0x8C, 0x00, 0x40, 0x00, 0x00, 0x00, 0x00},  // Min X-Treme
     {0xC0, 0xC0, 0xC0, 0x50, 0xC0, 0xC0, 0xC0, 0xC0}}; // Custom
 
 /*
@@ -631,20 +636,36 @@ void AreaDetermine(Game *gameP)
             }
             else // MIN X-Treme
             {
-                if (gameP->stageId == 0xC)
+                gameP->player = 0;
+                gameP->armorType = 0;
+
+                if (gameP->stageId > 8)
                 {
-                }
-                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
-                {
+                    gameP->clearedStages = 0xFF;
+                    gameP->ranks[0] = GA;
+                    if (gameP->stageId == 0x10)
+                    {
+                        parts = 8;
+                    }
                 }
                 else
                 {
-                    if (!isNightmare)
+                    int8_t i = gameP->stageId - 1;
+                    gameP->clearedStages = minimalistMavericksCleartedTable[i];
+                    gameP->ranks[0] = minimalistRankTable[i];
+                    gameP->nightmareEffects[gameP->stageId] = minimalistMavericksNightmareTable[i];
+                    gameP->nightmareEffectId = minimalistMavericksNightmareTable[i];
+
+                    if (isRevist)
                     {
-                    }
-                    else
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                        gameP->clearedStages = 0xFF;
+                        gameP->ranks[0] = GA;
+                        gameP->nightmareEffects[6] = 3;
+                        gameP->nightmareEffectId = 3;
+                        if (isNightmare)
+                        {
+                            CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+                        }
                     }
                 }
             }
