@@ -661,7 +661,7 @@ void AreaDetermine(Game *gameP)
                     {
                         gameP->clearedStages = 0xFF;
                         gameP->ranks[0] = GA;
-                        gameP->nightmareEffects[6] = 3;
+                        gameP->nightmareEffects[2] = 3;
                         gameP->nightmareEffectId = 3;
                         if (isNightmare)
                         {
