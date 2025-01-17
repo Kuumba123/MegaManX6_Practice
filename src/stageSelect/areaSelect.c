@@ -33,6 +33,12 @@ static uint32_t allStagesMavericksPartsTable[2][8] = {{0, 0x400010, 0x400010, 0x
 static uint8_t allStagesMavericksNightmareTable[2][8] = {{8, 7, 4, 2, 4, 0, 0, 0}, {6, 7, 4, 2, 4, 0, 0, 0}};
 static uint8_t allStagesMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
 
+/*100%*/
+static uint8_t hundoMavericksClearedTable[2][8] = {{0xC0, 0xF1, 0xFB, 0xF3, 0xE1, 0, 0, 0x40}, {0, 0xFF, 0xFF, 0xFF, 0xFF, 0xC1, 0xFF, 0xFF}}; 
+static uint8_t hundoMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 1, 0, 1, 1,},{0, 1, 0, 0, 0, 1, 0, 1,}};
+static uint8_t hundoMavericksArmorTypeTable[2][8] = {{5, 5, 5, 5, 5, 1, 5, 5}, {0, 5, 3, 1, 3, 5, 1, 5}};
+static uint8_t hundMavericksArmorPartsTable[2][8] = {{0x40, 0x49, 0x49, 0x49, 0x48, 0, 0x40, 0x40,}, {0, 0x7F, 0x5F, 0x4D, 0x5F, 0x48, 0x49, 0x5D}};
+
 /*All Stages Un-Armored X*/
 static uint8_t allStagesUnArmoredMavericksClearedTable[8] = {0x44, 4, 0, 0x47, 0x4F, 0, 4, 0x5F};
 static uint8_t allStagesUnArmoredMavericksBonusBossTable[8] = {1, 0, 0, 1, 1, 0, 1, 1};
@@ -50,7 +56,7 @@ static uint8_t categoryMaverickOptionTable[9][8] = {
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (Old Route)
     {0x00, 0x00, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages (New Route)
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any%
-    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},  // 100%
+    {0x00, 0x8C, 0x8C, 0x8D, 0x8C, 0x83, 0x8C, 0x8C},  // 100%
     {0x00, 0x83, 0x00, 0x40, 0x00, 0x83, 0x00, 0x00},  // All Stages Un-Armored
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any% Ultimate
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8F},  // Any% Zero
@@ -510,14 +516,56 @@ void AreaDetermine(Game *gameP)
             }
             else if (practice.category == HUNDO)
             {
-                if (gameP->stageId == 0xC)
+                if (gameP->stageId > 8)
                 {
-                }
-                else if (gameP->stageId >= 0x10 && gameP->stageId < 0x13)
-                {
+                    gameP->clearedStages = 0xFF;
+                    gameP->bonusBoss = 2;
+                    if (gameP->stageId >= 0x10 || gameP->stageId <= 0x12)
+                    {
+                        gameP->player = 0;
+                        gameP->armorType = 3;
+                    }
+                    else
+                    {
+                    }
                 }
                 else
                 {
+                    int8_t i = gameP->stageId - 1;
+                    gameP->clearedStages = hundoMavericksClearedTable[isRevist][i];
+                    gameP->player = hundoMavericksPlayerTable[isRevist][i];
+                    gameP->armorType = hundoMavericksArmorTypeTable[isRevist][i];
+                    gameP->armorParts = hundMavericksArmorPartsTable[isRevist][i];
+
+                    if ((gameP->armorParts & 0xF) == 0xF)
+                    {
+                        gameP->armors |= 2;
+                    }
+                    if ((gameP->armorParts & 0xF0) == 0xF0)
+                    {
+                        gameP->armors |= 4;
+                    }
+                    
+                    if (isRevist)
+                    {
+                        if (gameP->stageId == 6)
+                        {
+                            SetSeenText(2);
+                        }
+                        else if (gameP->stageId == 8)
+                        {
+                            SetSeenText(1);
+                        }
+                    }
+                    else if (gameP->stageId == 6)
+                    {
+                        gameP->bonusBoss = 0;
+                    }
+
+                    if (gameP->clearedStages == 0xFF)
+                    {
+                        gameP->bonusBoss = 2;
+                    }
                 }
             }
             else if (practice.category == ALL_STAGES_UNARMORED)
