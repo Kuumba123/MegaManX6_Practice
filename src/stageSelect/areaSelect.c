@@ -395,11 +395,7 @@ void AreaDetermine(Game *gameP)
 
                     if (isRevist) // for Rainy Turtloid
                     {
-                        for (size_t i = 0; i < 20; i++)
-                        {
-                            gameP->seenTextBoxes[i] = 0xFFFF;
-                        }
-
+                        SetSeenText(2);
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
@@ -418,10 +414,6 @@ void AreaDetermine(Game *gameP)
                     if (gameP->player == 0)
                     {
                         gameP->armorType = 1; // Falcon Armor
-                    }
-                    if (isNightmare)
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
             }
@@ -450,11 +442,7 @@ void AreaDetermine(Game *gameP)
 
                     if (isRevist) // for Rainy Turtloid
                     {
-                        for (size_t i = 0; i < 20; i++)
-                        {
-                            gameP->seenTextBoxes[i] = 0xFFFF;
-                        }
-
+                        SetSeenText(2);
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
@@ -473,10 +461,6 @@ void AreaDetermine(Game *gameP)
                     if (gameP->player == 0)
                     {
                         gameP->armorType = 1; // Falcon Armor
-                    }
-                    if (isNightmare)
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
                 if ((gameP->clearedStages & 1) != 0) // give player sub tank + life up
@@ -510,20 +494,14 @@ void AreaDetermine(Game *gameP)
                         gameP->armorType = 1; // Falcon Armor
                         if (isRevist)
                         {
-                            for (size_t i = 0; i < 20; i++)
-                            {
-                                gameP->seenTextBoxes[i] = 0xFFFF;
-                            }
+                            SetSeenText(1);
+                            SetReploidStatus(0x7F,2);
                             gameP->clearedStages = 0x40;
                         }
                         else
                         {
                             gameP->bonusBoss = 0;
                         }
-                    }
-                    if (isNightmare)
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
             }
@@ -537,13 +515,6 @@ void AreaDetermine(Game *gameP)
                 }
                 else
                 {
-                    if (!isNightmare)
-                    {
-                    }
-                    else
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
-                    }
                 }
             }
             else if (practice.category == ALL_STAGES_UNARMORED)
@@ -569,13 +540,11 @@ void AreaDetermine(Game *gameP)
 
                     if (isRevist)
                     {
-                        for (size_t i = 0; i < 20; i++)
-                        {
-                            gameP->seenTextBoxes[i] = 0xFFFF;
-                        }
                         gameP->bonusBoss = 1;
                         if (gameP->stageId == 6)
                         {
+                            SetSeenText(2);
+                            SetReploidStatus(0x58,2);
                             gameP->clearedStages = 0xDF;
                             parts = 0x88018;
                             gameP->ranks[0] = GA;
@@ -584,17 +553,15 @@ void AreaDetermine(Game *gameP)
                         }
                         else
                         {
+                            SetReploidStatus(0x1C,2);
+                            SetReploidStatus(0x1E,2);
+                            SetReploidStatus(0x15,2);
                             gameP->clearedStages = 5;
                             parts = 0x80018;
                             gameP->ranks[0] = A;
                             gameP->nightmareEffects[2] = 7;
                             gameP->nightmareEffectId = 7;
                         }
-                    }
-
-                    if (isNightmare)
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
                 if ((gameP->clearedStages & 1) != 0) // give player sub tank
@@ -623,15 +590,9 @@ void AreaDetermine(Game *gameP)
                         }
                         else
                         {
-                            for (size_t i = 0; i < 20; i++)
-                            {
-                                gameP->seenTextBoxes[i] = 0xFFFF;
-                            }
+                            SetSeenText(1);
+                            SetReploidStatus(0x7F,2);
                         }
-                    }
-                    if (isNightmare)
-                    {
-                        CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
                     }
                 }
             }
@@ -663,14 +624,15 @@ void AreaDetermine(Game *gameP)
                         gameP->ranks[0] = GA;
                         gameP->nightmareEffects[2] = 3;
                         gameP->nightmareEffectId = 3;
-                        if (isNightmare)
-                        {
-                            CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
-                        }
                     }
                 }
             }
         }
+        if (isNightmare)
+        {
+            CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
+        }
+        
         gameP->equipedParts[gameP->player] = parts;
         /**************/
 
