@@ -556,7 +556,7 @@ void AreaDetermine(Game *gameP)
                             SetReploidStatus(0x1C,2);
                             SetReploidStatus(0x1E,2);
                             SetReploidStatus(0x15,2);
-                            gameP->clearedStages = 5;
+                            gameP->clearedStages = 0x45;
                             parts = 0x80018;
                             gameP->ranks[0] = A;
                             gameP->nightmareEffects[2] = 7;
