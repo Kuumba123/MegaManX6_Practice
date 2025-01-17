@@ -400,6 +400,12 @@ void CustomRoute(Game *gameP)
             break;
 
         case 4: // OTHER PAGE
+            int max = 4;
+            if (practice.orginStage != 0 && practice.orginStage < 9)
+            {
+                max = 5;
+            }
+            
             if ((buttonsPressed & PAD_DOWN) != 0)
             {
                 if (Cursor != 5)
@@ -505,7 +511,13 @@ void CustomRoute(Game *gameP)
             DrawDebugText(12, 3, 2, "OTHER PAGE");
             DrawDebugText(3, 5 + Cursor, 1, ">");
             DrawDebugText(4, 5, 0, "NIGHTMARE SOURCE\nSELECT MODE\nSEEN BOXES\nPLAYER RANK\nBONUS BOSS\nREPLOID-%d", gameP->mode4 + 1);
-            DrawDebugText(21, 5, 0, "%d\n%d\n%d\n%s\n%d\n%d", gameP->nightmareEffects[practice.orginStage], gameP->stageSelectMode, gameP->seenTextBoxes[0] != 0, rankText[gameP->ranks[gameP->player]], gameP->bonusBoss, GetReploidStatus((practice.orginStage - 1) * 16 + gameP->mode4) != 0);
+            DrawDebugText(21, 5, 0, "%d\n%d\n%d\n%s\n%d", gameP->nightmareEffects[practice.orginStage], gameP->stageSelectMode, gameP->seenTextBoxes[0] != 0, rankText[gameP->ranks[gameP->player]], gameP->bonusBoss);
+
+            if (practice.orginStage != 0 && practice.orginStage < 9)
+            {
+                DrawDebugText(21, 10, 0, "%d", GetReploidStatus((practice.orginStage - 1) * 16 + gameP->mode4) != 0);
+            }
+            
             break;
 
         default:
