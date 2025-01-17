@@ -21,6 +21,8 @@ static struct Size
     uint8_t height;
 };
 
+void * endFreeArcP;
+
 extern bool disableExtraFiles;
 
 extern uint16_t LevelOvlTable[46];
@@ -158,6 +160,7 @@ void LoadLevel()
         }
     }
     freeArcP = results;
+    endFreeArcP = results;
 }
 
 

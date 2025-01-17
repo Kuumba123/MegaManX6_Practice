@@ -15,6 +15,7 @@ extern uint32_t swapTextureFlag;
 extern int8_t checkPointNew;
 extern uint8_t exitType;
 extern uint8_t exitStage;
+extern void * endFreeArcP;
 
 static int8_t checkPointTextureFlags[] =
     {
@@ -86,6 +87,7 @@ void DetermineClear(Game *gameP)
 
             if ((uint8_t)gameP->clear == 0xC1)
             {
+                freeArcP = endFreeArcP;
                 gameP->point = checkPointNew;
                 gameP->weaponTemp = 0;
                 gameP->hpTemp = gameP->maxHPs[gameP->player];
