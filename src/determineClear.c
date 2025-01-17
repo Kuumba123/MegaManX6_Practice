@@ -15,18 +15,18 @@ extern uint32_t swapTextureFlag;
 extern int8_t checkPointNew;
 extern uint8_t exitType;
 extern uint8_t exitStage;
-extern void * endFreeArcP;
+extern void *endFreeArcP;
 
 static int8_t checkPointTextureFlags[] =
     {
         6, 0,    // ST00
-        0xE, 0,    // ST01
-        0x3C, 0,    // ST02
-        0xF8, 0,    // ST03
+        0xE, 0,  // ST01
+        0x3C, 0, // ST02
+        0xF8, 0, // ST03
         2, 6,    // ST04
         6, 0,    // ST05
-        0x38, 0,    // ST06
-        0xE, 0,    // ST07
+        0x38, 0, // ST06
+        0xE, 0,  // ST07
         2, 0,    // ST08
         0, 0,    // ST09
         0, 0,    // ST0A
@@ -35,16 +35,16 @@ static int8_t checkPointTextureFlags[] =
         0, 0,    // ST0D
         0, 0,    // ST0E
         0, 0,    // ST0F
-        0x1E, 0,    // ST10
-        0xC, 0,    // ST11
-        0x1E, 0,    // ST12
+        0x1E, 0, // ST10
+        0xC, 0,  // ST11
+        0x1E, 0, // ST12
         0, 0,    // ST13
         0, 0,    // ST14
         0, 0,    // ST15
         0, 0     // ST16
 };
 
-void SwapTexture(bool sync);
+uint32_t SwapTexture(bool sync);
 void LoadScreens();
 
 void DetermineClear(Game *gameP)
@@ -87,6 +87,13 @@ void DetermineClear(Game *gameP)
 
             if ((uint8_t)gameP->clear == 0xC1)
             {
+                if (practice.textureIndex != 0)
+                {
+                    while (SwapTexture(false) != 2)
+                    {
+                    }
+                }
+
                 freeArcP = endFreeArcP;
                 gameP->point = checkPointNew;
                 gameP->weaponTemp = 0;
@@ -100,6 +107,9 @@ void DetermineClear(Game *gameP)
                     if (practice.page != ((checkPointTextureFlags[gameP->stageId * 2 + gameP->mid] & (1 << gameP->point)) != 0))
                     {
                         swapTextureFlag = 1;
+                        while (SwapTexture(false) != 2)
+                        {
+                        }
                     }
                 }
             }
@@ -160,6 +170,7 @@ void ResetState()
 {
     practice.state.made = false;
     practice.page = 0;
+    practice.textureIndex = 0;
     practice.sigmaOvl = 0;
     LoadLevel();
 }

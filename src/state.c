@@ -11,6 +11,7 @@
 #define VariableSetsCount 21
 #define BuffersCount 8
 #define BSS_ADDR 0x8000E910
+#define SETS 8
 
 #if BUILD == 1395
 #define RNG *(uint16_t *)0x80090e70
@@ -92,7 +93,7 @@ void MemoryCopy(void *dest, const void *src, size_t size)
     }
 }
 
-void SwapTexture(bool sync)
+uint32_t SwapTexture(bool sync)
 {
     if (sync)
     {
@@ -100,10 +101,11 @@ void SwapTexture(bool sync)
     }
 
     void *p = DECOMPRESS_ADDR; // Decompressed Texture buffer (temporary storage)
-    void *p2 = swapTexturePointer;
+    void *p2 = (uint32_t)swapTexturePointer + practice.textureIndex * 0x2000 * (256 / SETS / 8);
     RECT rect = {320, 256, 512, 8};
+    rect.y += practice.textureIndex * (8 * (256 / SETS / 8));
 
-    for (size_t i = 0; i < 32; i++)
+    for (size_t i = 0; i < (256 / SETS / 8); i++)
     {
         StoreImage2(&rect, p);
         LoadImage2(&rect, p2);
@@ -113,7 +115,15 @@ void SwapTexture(bool sync)
         p2 = (int)p2 + 0x2000;
         rect.y += 8;
     }
-    practice.page ^= 1;
+    practice.textureIndex += 1;
+
+    if (practice.textureIndex == SETS)
+    {
+        practice.textureIndex = 0;
+        practice.page ^= 1;
+        return 2;
+    }
+    return 1;
 }
 void SaveState()
 {
@@ -197,7 +207,7 @@ void SaveState()
 }
 void LoadState()
 {
-    ThreadSleep(10); // Waiting before transfering
+    ThreadSleep(4); // Waiting before transfering
 
     // restore enemy data
     Enemy *p = enemyDataPointers[game.stageId * 2 + game.mid];
@@ -244,10 +254,13 @@ void LoadState()
         }
     }
 
-    if (practice.page != practice.state.page)
+    if (practice.page != practice.state.page || practice.textureIndex != 0)
     {
-        SwapTexture(false);
+        while (SwapTexture(false) != 2)
+        {
+        }
     }
+    ThreadSleep(5);
     practice.page = practice.state.page;
     swapTextureFlag = practice.state.textureFlag;
     PASTBRIGHT = practice.state.pastBright;
@@ -373,3 +386,4 @@ void StateCheck(Game *gameP)
 #undef EXPO_F
 
 #undef DECOMPRESS_ADDR
+#undef SETS
