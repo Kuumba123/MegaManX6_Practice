@@ -39,6 +39,7 @@ static uint8_t allStagesUnArmoredMavericksBonusBossTable[8] = {1, 0, 0, 1, 1, 0,
 static uint32_t allStagesUnArmoredMavericksPartsTable[8] = {0x80018, 0, 0, 0x80010, 0x80010, 0, 0, 0x80010};
 static uint8_t allStagesUnArmoredMavericksNightmareTable[8] = {6, 3, 0, 2, 4, 0, 0, 0};
 static uint8_t allStagesUnArmoredRankTable[8] = {A, B, D, SA, SA, D, B, GA};
+static bool allStagesExTankFlagTable[8] = {true, false, false, true, true, false, true, true};
 
 /*Minimalist X-Treme*/
 static uint8_t minimalistMavericksCleartedTable[8] = {0xB2, 0x90, 0xFB, 0xF3, 0, 0x92, 0xB3, 0x10};
@@ -537,6 +538,10 @@ void AreaDetermine(Game *gameP)
                     gameP->nightmareEffects[gameP->stageId] = allStagesUnArmoredMavericksNightmareTable[i];
                     gameP->nightmareEffectId = allStagesUnArmoredMavericksNightmareTable[i];
                     gameP->ranks[0] = allStagesUnArmoredRankTable[i];
+                    if (allStagesExTankFlagTable[i] == true)
+                    {
+                        gameP->tanks = 0x8000;
+                    }
 
                     if (isRevist)
                     {
@@ -546,6 +551,7 @@ void AreaDetermine(Game *gameP)
                             SetSeenText(2);
                             SetReploidStatus(0x58,2);
                             gameP->clearedStages = 0xDF;
+                            gameP->tanks = 0x8000;
                             parts = 0x88018;
                             gameP->ranks[0] = GA;
                             gameP->nightmareEffects[6] = 8;
@@ -557,6 +563,7 @@ void AreaDetermine(Game *gameP)
                             SetReploidStatus(0x1E,2);
                             SetReploidStatus(0x15,2);
                             gameP->clearedStages = 0x45;
+                            gameP->tanks = 0x8000;
                             parts = 0x80018;
                             gameP->ranks[0] = A;
                             gameP->nightmareEffects[2] = 7;
@@ -605,6 +612,7 @@ void AreaDetermine(Game *gameP)
                 {
                     gameP->clearedStages = 0xFF;
                     gameP->ranks[0] = GA;
+                    gameP->tanks = 0x8000;
                     if (gameP->stageId == 0x10)
                     {
                         parts = 8;
