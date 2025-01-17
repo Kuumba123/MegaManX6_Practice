@@ -19,6 +19,7 @@ static struct Restore
     uint32_t reploids[16];
     uint32_t hearts;
     uint16_t tanks;
+    uint16_t text[20];
     int8_t maxHP;
     int8_t maxAmmo;
     uint8_t armors;
@@ -26,7 +27,6 @@ static struct Restore
     int8_t stageId;
     int8_t mid;
     int8_t tanksAmmo[3];
-    bool seen;
 };
 static struct Restore restore;
 
@@ -71,10 +71,10 @@ void SaveRestore()
     restore.armorParts = game.armorParts;
     restore.stageId = game.stageId;
     restore.mid = game.mid;
-    restore.seen = game.seenTextBoxes[0];
     restore.tanksAmmo[0] = game.tanksAmmo[0];
     restore.tanksAmmo[1] = game.tanksAmmo[1];
     restore.tanksAmmo[2] = game.tanksAmmo[2];
+    memcpy(&restore.text, &game.seenTextBoxes, 2 * 20);
     memcpy(&restore.reploids, &game.reploids, 16 * 4);
 }
 void LoadRestore()
@@ -90,19 +90,10 @@ void LoadRestore()
     game.igt = 0;
     game.stageTime = 0;
     *(int8_t*)((int)&game + 1124) = 0;
-    
-    uint16_t val = 0;
-    if (restore.seen)
-    {
-        val = 0xFFFF;
-    }
-    for (size_t i = 0; i < 20; i++)
-    {
-        game.seenTextBoxes[i] = val;
-    }
     game.tanksAmmo[0] = restore.tanksAmmo[0];
     game.tanksAmmo[1] = restore.tanksAmmo[1];
     game.tanksAmmo[2] = restore.tanksAmmo[2];
+    memcpy(&game.seenTextBoxes, &restore.text, 2 * 20);
     memcpy(&game.reploids, &restore.reploids, 16 * 4);
 }
 
