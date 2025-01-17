@@ -37,7 +37,7 @@ static uint8_t allStagesMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C},
 static uint8_t allStagesUnArmoredMavericksClearedTable[8] = {0x44, 4, 0, 0x47, 0x4F, 0, 4, 0x5F};
 static uint8_t allStagesUnArmoredMavericksBonusBossTable[8] = {1, 0, 0, 1, 1, 0, 1, 1};
 static uint32_t allStagesUnArmoredMavericksPartsTable[8] = {0x80018, 0, 0, 0x80010, 0x80010, 0, 0, 0x80010};
-static uint8_t allStagesUnArmoredMavericksNightmareTable[8] = {6, 3, 4, 2, 4, 0, 1, 0};
+static uint8_t allStagesUnArmoredMavericksNightmareTable[8] = {6, 3, 0, 2, 4, 0, 1, 0};
 static uint8_t allStagesUnArmoredRankTable[8] = {A, B, D, SA, SA, D, B, GA};
 
 /*Minimalist X-Treme*/
