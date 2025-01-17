@@ -397,6 +397,7 @@ void AreaDetermine(Game *gameP)
                     if (isRevist) // for Rainy Turtloid
                     {
                         SetSeenText(2);
+                        SetReploidStatus(0x58,2);
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
@@ -444,6 +445,7 @@ void AreaDetermine(Game *gameP)
                     if (isRevist) // for Rainy Turtloid
                     {
                         SetSeenText(2);
+                        SetReploidStatus(0x58,2);
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
