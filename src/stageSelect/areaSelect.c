@@ -317,6 +317,7 @@ void AreaDetermine(Game *gameP)
         {
             gameP->nightmareEffects[i] = 0;
         }
+        gameP->nightmareEffectId = 0;
         // Pre-Clear Seen Text Boxes
         for (size_t i = 0; i < 20; i++)
         {
