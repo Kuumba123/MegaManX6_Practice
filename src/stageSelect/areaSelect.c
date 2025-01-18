@@ -34,10 +34,16 @@ static uint8_t allStagesMavericksNightmareTable[2][8] = {{8, 7, 4, 2, 4, 0, 0, 0
 static uint8_t allStagesMavericksRankTable[2][8] = {{B, SA, GA, SA, D, D, D, C}, {A, SA, D, SA, D, D, D, C}};
 
 /*100%*/
-static uint8_t hundoMavericksClearedTable[2][8] = {{0xC0, 0xF1, 0xFB, 0xF3, 0xE1, 0, 0, 0x40}, {0, 0xFF, 0xFF, 0xFF, 0xFF, 0xC1, 0xFF, 0xFF}}; 
-static uint8_t hundoMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 1, 0, 1, 1,},{0, 1, 0, 0, 0, 1, 0, 1,}};
+static uint8_t hundoMavericksClearedTable[2][8] = {{0xC0, 0xF1, 0xFB, 0xF3, 0xE1, 0, 0, 0x40}, {0, 0xFF, 0xFF, 0xFF, 0xFF, 0xC1, 0xFF, 0xFF}};
+static uint8_t hundoMavericksPlayerTable[2][8] = {{1, 1, 1, 1, 1, 0, 1, 1}, {0, 1, 0, 0, 0, 1, 0, 1}};
 static uint8_t hundoMavericksArmorTypeTable[2][8] = {{5, 5, 5, 5, 5, 1, 5, 5}, {0, 5, 3, 1, 3, 5, 1, 5}};
-static uint8_t hundMavericksArmorPartsTable[2][8] = {{0x40, 0x49, 0x49, 0x49, 0x48, 0, 0x40, 0x40,}, {0, 0x7F, 0x5F, 0x4D, 0x5F, 0x48, 0x49, 0x5D}};
+static uint8_t hundoMavericksArmorPartsTable[2][8] = {{0x40, 0x49, 0x49, 0x49, 0x48, 0, 0x40, 0x40}, {0, 0x7F, 0x5F, 0x4D, 0x5F, 0x48, 0x49, 0x5D}};
+static bool hundoMavericksHeartTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}};
+static uint8_t hundoMavericksNightmareTable[2][8] = {{8, 0, 4, 2, 6, 0, 0, 0}, {0, 3, 4, 2, 4, 8, 5, 4}};
+static uint8_t hundoMaverickHealthTable[2][8] = {{32, 32, 32, 32, 32, 32, 32, 32}, {32, 32, 32, 32, 32, 32, 32, 32}};
+static uint8_t hundoMaverickAmmoTable[2][8] = {{48, 48, 48, 48, 48, 48, 48, 48}, {48, 48, 48, 48, 48, 48, 48, 48}};
+static uint16_t hundoMaverickReploidTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
+static uint32_t hundMaverickPartsTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
 
 /*All Stages Un-Armored X*/
 static uint8_t allStagesUnArmoredMavericksClearedTable[8] = {0x44, 4, 0, 0x47, 0x4F, 0, 4, 0x5F};
@@ -404,7 +410,7 @@ void AreaDetermine(Game *gameP)
                     if (isRevist) // for Rainy Turtloid
                     {
                         SetSeenText(2);
-                        SetReploidStatus(0x58,2);
+                        SetReploidStatus(0x58, 2);
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
@@ -452,7 +458,7 @@ void AreaDetermine(Game *gameP)
                     if (isRevist) // for Rainy Turtloid
                     {
                         SetSeenText(2);
-                        SetReploidStatus(0x58,2);
+                        SetReploidStatus(0x58, 2);
                         gameP->ranks[1] = A;
                         gameP->player = 1;
                         gameP->nightmareEffects[6] = 8;
@@ -490,7 +496,7 @@ void AreaDetermine(Game *gameP)
                 {
                     gameP->armors |= 0x20;
                 }
-                
+
                 if (gameP->stageId > 8)
                 {
                     gameP->clearedStages = 0x40;
@@ -505,7 +511,7 @@ void AreaDetermine(Game *gameP)
                         if (isRevist)
                         {
                             SetSeenText(1);
-                            SetReploidStatus(0x7F,2);
+                            SetReploidStatus(0x7F, 2);
                             gameP->clearedStages = 0x40;
                         }
                         else
@@ -521,6 +527,7 @@ void AreaDetermine(Game *gameP)
                 {
                     gameP->clearedStages = 0xFF;
                     gameP->bonusBoss = 2;
+                    gameP->tanks = 0xF000;
                     if (gameP->stageId >= 0x10 || gameP->stageId <= 0x12)
                     {
                         gameP->player = 0;
@@ -536,7 +543,22 @@ void AreaDetermine(Game *gameP)
                     gameP->clearedStages = hundoMavericksClearedTable[isRevist][i];
                     gameP->player = hundoMavericksPlayerTable[isRevist][i];
                     gameP->armorType = hundoMavericksArmorTypeTable[isRevist][i];
-                    gameP->armorParts = hundMavericksArmorPartsTable[isRevist][i];
+                    gameP->armorParts = hundoMavericksArmorPartsTable[isRevist][i];
+                    gameP->hearts = hundoMavericksClearedTable[isRevist][i] << (gameP->stageId - 1);
+                    gameP->nightmareEffects[gameP->stageId] = hundoMavericksNightmareTable[isRevist][i];
+                    gameP->nightmareEffectId = hundoMavericksNightmareTable[isRevist][i];
+                    gameP->maxHPs[gameP->player] = hundoMaverickHealthTable[isRevist][i];
+                    gameP->maxAmmos[gameP->player] = hundoMaverickAmmoTable[isRevist][i];
+                    parts = hundMaverickPartsTable[isRevist][i];
+
+                    for (size_t r = 0; r < 16; r++)
+                    {
+                        if (((hundoMaverickReploidTable[isRevist][i] >> r) & 1) != 0)
+                        {
+                            SetReploidStatus(r + (gameP->stageId - 1) * 16,2);
+                        }
+                    }
+                    
 
                     if ((gameP->armorParts & 0xF) == 0xF)
                     {
@@ -546,7 +568,7 @@ void AreaDetermine(Game *gameP)
                     {
                         gameP->armors |= 4;
                     }
-                    
+
                     if (isRevist)
                     {
                         if (gameP->stageId == 6)
@@ -566,6 +588,20 @@ void AreaDetermine(Game *gameP)
                     if (gameP->clearedStages == 0xFF)
                     {
                         gameP->bonusBoss = 2;
+                    }
+
+                    if ((gameP->clearedStages & 1) != 0) // give player sub tank
+                    {
+                        gameP->tanks |= 0x1000;
+                        gameP->tanksAmmo[0] = 12;
+                    }
+                    if (isRevist && gameP->stageId != 6 && gameP->stageId != 7)
+                    {
+                        gameP->tanks |= 0x4000;
+                    }
+                    if (isRevist && gameP->stageId == 2)
+                    {
+                        gameP->tanks |= 0x2000;
                     }
                 }
             }
@@ -600,7 +636,7 @@ void AreaDetermine(Game *gameP)
                         if (gameP->stageId == 6)
                         {
                             SetSeenText(2);
-                            SetReploidStatus(0x58,2);
+                            SetReploidStatus(0x58, 2);
                             gameP->clearedStages = 0xDF;
                             gameP->tanks = 0x8000;
                             parts = 0x88018;
@@ -610,9 +646,9 @@ void AreaDetermine(Game *gameP)
                         }
                         else
                         {
-                            SetReploidStatus(0x1C,2);
-                            SetReploidStatus(0x1E,2);
-                            SetReploidStatus(0x15,2);
+                            SetReploidStatus(0x1C, 2);
+                            SetReploidStatus(0x1E, 2);
+                            SetReploidStatus(0x15, 2);
                             gameP->clearedStages = 0x45;
                             gameP->tanks = 0x8000;
                             parts = 0x80018;
@@ -649,7 +685,7 @@ void AreaDetermine(Game *gameP)
                         else
                         {
                             SetSeenText(1);
-                            SetReploidStatus(0x7F,2);
+                            SetReploidStatus(0x7F, 2);
                         }
                     }
                 }
@@ -691,7 +727,7 @@ void AreaDetermine(Game *gameP)
         {
             CalculateNightmareLevel(gameP->stageId, &gameP->stageId, &gameP->mid);
         }
-        
+
         gameP->equipedParts[gameP->player] = parts;
         /**************/
 
