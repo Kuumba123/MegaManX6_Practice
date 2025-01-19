@@ -14,6 +14,8 @@ american, exe , 0x8006d9d4 , 0x0 , src/debugfont/debugClutRect.c
 american, exe , 0x8005222c , 0x0 , src/textureFixes/cameraTextureHook.s
 american, exe , 0x80017cd8 , 0x0 , src/textureFixes/cameraTexture.c
 
+american, exe , 0x80052e94 , 0x0 , src/bonusOvlHook.s
+
 american NORELOAD, STAGE00 , 0x800f93f0 , 0x0 , src/textSkips/textSkip.s
 american NORELOAD, STAGE00 , 0x800f9f18 , 0x0 , src/textSkips/textSkip2.s
 american NORELOAD, STAGE00 , 0x800f23dc , 0x0 , src/textSkips/textSkip3.s
@@ -91,6 +93,8 @@ japanese, exe , 0x8006f0b8 , 0x0 , src/debugfont/debugClutRect.c
 
 japanese, exe , 0x80053830 , 0x0 , src/textureFixes/cameraTextureHook.s
 japanese, exe , 0x80019110 , 0x0 , src/textureFixes/cameraTexture.c
+
+japanese, exe , 0x80054498 , 0x0 , src/bonusOvlHook.s
 
 japanese NORELOAD, STAGE00 , 0x800faa20 , 0x0 , src/textSkips/textSkip.s
 japanese NORELOAD, STAGE00 , 0x800fb548 , 0x0 , src/textSkips/textSkip2.s

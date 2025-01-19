@@ -163,4 +163,9 @@ void ResetState()
     practice.sigmaOvl = 0;
     LoadLevel();
 }
+void BonusOvlSeek(int id,void *addr)
+{
+    EndSong(); //Cus of Stupid PS2 POPS
+    BinSeek(id,addr);
+}
 #undef RELOAD
