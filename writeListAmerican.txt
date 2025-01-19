@@ -15,3 +15,4 @@ ovl/american/OVL_2.BIN, output/textSkip5s.bin , 0x800f6580 - 0x800E9860
 ovl/american/OVL_F.BIN, output/textSkip6s.bin , 0x800eec2c - 0x800E9860
 ovl/american/OVL_F.BIN, output/textSkip7s.bin , 0x800f0720 - 0x800E9860
 ovl/american/OVL_F.BIN, output/textSkip8s.bin , 0x800f2364 - 0x800E9860
+ovl/american/OVL_2D.BIN, output/textSkip9s.bin , 0x800fb478 - 0x800fa000
