@@ -553,7 +553,7 @@ void AreaDetermine(Game *gameP)
                     gameP->player = hundoMavericksPlayerTable[isRevist][i];
                     gameP->armorType = hundoMavericksArmorTypeTable[isRevist][i];
                     gameP->armorParts = hundoMavericksArmorPartsTable[isRevist][i];
-                    gameP->hearts = hundoMavericksClearedTable[isRevist][i] << (gameP->stageId - 1);
+                    gameP->hearts = hundoMavericksHeartTable[isRevist][i] << (gameP->stageId - 1);
                     gameP->nightmareEffects[gameP->stageId] = hundoMavericksNightmareTable[isRevist][i];
                     gameP->nightmareEffectId = hundoMavericksNightmareTable[isRevist][i];
                     gameP->maxHPs[gameP->player] = hundoMaverickHealthTable[isRevist][i];
