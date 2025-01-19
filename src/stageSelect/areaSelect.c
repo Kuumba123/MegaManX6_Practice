@@ -42,7 +42,7 @@ static bool hundoMavericksHeartTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0
 static uint8_t hundoMavericksNightmareTable[2][8] = {{8, 0, 4, 2, 6, 0, 0, 0}, {0, 3, 4, 2, 4, 8, 5, 4}};
 static uint8_t hundoMaverickHealthTable[2][8] = {{32, 40, 46, 42, 38, 32, 32, 32}, {32, 50, 40, 38, 38, 36, 34, 46}};
 static uint8_t hundoMaverickAmmoTable[2][8] = {{48, 52, 54, 52, 50, 48, 48, 48}, {48, 56, 52, 52, 52, 50, 50, 54}};
-static uint16_t hundoMaverickReploidTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
+static uint16_t hundoMaverickReploidTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0xFC0, 0xE001, 0x737B, 0x7E60, 0xF368, 0, 0x72}};
 static uint32_t hundoMaverickPartsTable[2][8] = {{0x400010, 0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0}, {0, 0x2402650, 0x302E50, 0x430, 0x430, 0x400010, 0, 0x400010}};
 static uint8_t hundoMaverickRankTable[2][8] = {{A, SA, GA, GA, SA, D, D, C}, {0, GA, GA, A, GA, A, D, GA}};
 
