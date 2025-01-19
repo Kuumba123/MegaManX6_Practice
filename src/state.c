@@ -322,7 +322,7 @@ void LoadState()
     {
         SwapWeaponTexturesClut(&mega);
     }
-    LoadImage2(&clutRect, clutPointer);
+    UPDATECLUT = 1; // Update Clut
     MemoryCopy(*(uint32_t *)0x1F800008, SCREENBACKUP, practice.state.screenSize);
 }
 
