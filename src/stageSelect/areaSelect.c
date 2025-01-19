@@ -40,10 +40,10 @@ static uint8_t hundoMavericksArmorTypeTable[2][8] = {{5, 5, 5, 5, 5, 1, 5, 5}, {
 static uint8_t hundoMavericksArmorPartsTable[2][8] = {{0x40, 0x49, 0x49, 0x49, 0x48, 0, 0x40, 0x40}, {0, 0x7F, 0x5F, 0x4D, 0x5F, 0x48, 0x49, 0x5D}};
 static bool hundoMavericksHeartTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}};
 static uint8_t hundoMavericksNightmareTable[2][8] = {{8, 0, 4, 2, 6, 0, 0, 0}, {0, 3, 4, 2, 4, 8, 5, 4}};
-static uint8_t hundoMaverickHealthTable[2][8] = {{32, 32, 32, 32, 32, 32, 32, 32}, {32, 32, 32, 32, 32, 32, 32, 32}};
-static uint8_t hundoMaverickAmmoTable[2][8] = {{48, 48, 48, 48, 48, 48, 48, 48}, {48, 48, 48, 48, 48, 48, 48, 48}};
+static uint8_t hundoMaverickHealthTable[2][8] = {{32, 32, 32, 32, 32, 32, 32, 32}, {32, 32, 40, 38, 38, 32, 34, 32}};
+static uint8_t hundoMaverickAmmoTable[2][8] = {{48, 48, 48, 48, 48, 48, 48, 48}, {48, 48, 52, 52, 52, 48, 50, 48}};
 static uint16_t hundoMaverickReploidTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
-static uint32_t hundMaverickPartsTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
+static uint32_t hundMaverickPartsTable[2][8] = {{0x400010, 0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0}, {0, 0x2402650, 0x302E50, 0x430, 0x430, 0x400010, 0, 0x400010}};
 
 /*All Stages Un-Armored X*/
 static uint8_t allStagesUnArmoredMavericksClearedTable[8] = {0x44, 4, 0, 0x47, 0x4F, 0, 4, 0x5F};
@@ -532,9 +532,13 @@ void AreaDetermine(Game *gameP)
                     {
                         gameP->player = 0;
                         gameP->armorType = 3;
+                        parts = 0x302E50;
+                        gameP->maxHPs[0] = 44;
+                        gameP->maxAmmos[0] = 54;
                     }
                     else
                     {
+                        parts = 0x2402650;
                     }
                 }
                 else
