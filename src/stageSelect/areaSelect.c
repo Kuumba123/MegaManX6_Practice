@@ -43,7 +43,8 @@ static uint8_t hundoMavericksNightmareTable[2][8] = {{8, 0, 4, 2, 6, 0, 0, 0}, {
 static uint8_t hundoMaverickHealthTable[2][8] = {{32, 32, 32, 32, 32, 32, 32, 32}, {32, 32, 40, 38, 38, 32, 34, 32}};
 static uint8_t hundoMaverickAmmoTable[2][8] = {{48, 48, 48, 48, 48, 48, 48, 48}, {48, 48, 52, 52, 52, 48, 50, 48}};
 static uint16_t hundoMaverickReploidTable[2][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
-static uint32_t hundMaverickPartsTable[2][8] = {{0x400010, 0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0}, {0, 0x2402650, 0x302E50, 0x430, 0x430, 0x400010, 0, 0x400010}};
+static uint32_t hundoMaverickPartsTable[2][8] = {{0x400010, 0x400010, 0x400010, 0x400010, 0x400010, 0, 0, 0}, {0, 0x2402650, 0x302E50, 0x430, 0x430, 0x400010, 0, 0x400010}};
+static uint8_t hundoMaverickRankTable[2][8] = {{A, SA, GA, GA, SA, D, D, C}, {0, GA, GA, A, GA, A, D, GA}};
 
 /*All Stages Un-Armored X*/
 static uint8_t allStagesUnArmoredMavericksClearedTable[8] = {0x44, 4, 0, 0x47, 0x4F, 0, 4, 0x5F};
@@ -532,12 +533,14 @@ void AreaDetermine(Game *gameP)
                     {
                         gameP->player = 0;
                         gameP->armorType = 3;
+                        gameP->ranks[0] = GA;
                         parts = 0x302E50;
                         gameP->maxHPs[0] = 44;
                         gameP->maxAmmos[0] = 54;
                     }
                     else
                     {
+                        gameP->ranks[1] = GA;
                         parts = 0x2402650;
                     }
                 }
@@ -553,7 +556,8 @@ void AreaDetermine(Game *gameP)
                     gameP->nightmareEffectId = hundoMavericksNightmareTable[isRevist][i];
                     gameP->maxHPs[gameP->player] = hundoMaverickHealthTable[isRevist][i];
                     gameP->maxAmmos[gameP->player] = hundoMaverickAmmoTable[isRevist][i];
-                    parts = hundMaverickPartsTable[isRevist][i];
+                    parts = hundoMaverickPartsTable[isRevist][i];
+                    gameP->ranks[gameP->player] = hundoMaverickRankTable[isRevist][i];
 
                     for (size_t r = 0; r < 16; r++)
                     {
