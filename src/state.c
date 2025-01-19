@@ -334,11 +334,11 @@ void StateCheck(Game *gameP)
     int seconds = totalSeconds % 60;
     int frames = time % 60;
 
-    DrawDebugText(4, 3, 0, "%2d:%2d:%2d", minutes, seconds, frames);
+    DrawDebugText(5, 3, 0, "%2d:%2d:%2d", minutes, seconds, frames);
 
     if (loadState == 1)
     {
-        DrawDebugText(4, 4, 2, "(LOADING)");
+        DrawDebugText(5, 4, 2, "(LOADING)");
     }
 
     if (loadState != 1 && FADE_F == 0 && EXPO_F == 0)
