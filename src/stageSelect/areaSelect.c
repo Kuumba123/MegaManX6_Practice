@@ -529,7 +529,7 @@ void AreaDetermine(Game *gameP)
                     gameP->clearedStages = 0xFF;
                     gameP->bonusBoss = 2;
                     gameP->tanks = 0xF000;
-                    if (gameP->stageId >= 0x10 || gameP->stageId <= 0x12)
+                    if (gameP->stageId != 0xC)
                     {
                         gameP->player = 0;
                         gameP->armorType = 3;
