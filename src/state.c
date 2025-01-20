@@ -11,7 +11,7 @@
 #define VariableSetsCount 21
 #define BuffersCount 8
 #define BSS_ADDR 0x8000E910
-#define SETS 8
+#define SETS 4
 
 #if BUILD == 1395
 #define RNG *(uint16_t *)0x80090e70
@@ -101,19 +101,19 @@ uint32_t SwapTexture(bool sync)
     }
 
     void *p = DECOMPRESS_ADDR; // Decompressed Texture buffer (temporary storage)
-    void *p2 = (uint32_t)swapTexturePointer + practice.textureIndex * 0x2000 * (256 / SETS / 8);
-    RECT rect = {320, 256, 512, 8};
-    rect.y += practice.textureIndex * (8 * (256 / SETS / 8));
+    void *p2 = (uint32_t)swapTexturePointer + practice.textureIndex * 0x4000 * (256 / SETS / 16);
+    RECT rect = {320, 256, 512, 16};
+    rect.y += practice.textureIndex * (16 * (256 / SETS / 16));
 
-    for (size_t i = 0; i < (256 / SETS / 8); i++)
+    for (size_t i = 0; i < (256 / SETS / 16); i++)
     {
         StoreImage2(&rect, p);
         LoadImage2(&rect, p2);
 
-        MemoryCopy(p2, p, 0x2000);
+        MemoryCopy(p2, p, 0x4000);
 
-        p2 = (int)p2 + 0x2000;
-        rect.y += 8;
+        p2 = (int)p2 + 0x4000;
+        rect.y += 16;
     }
     practice.textureIndex += 1;
 
