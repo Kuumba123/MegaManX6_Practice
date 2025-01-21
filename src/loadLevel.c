@@ -49,6 +49,7 @@ void MemoryCopy(void *dest, const void *src, size_t size);
 
 void LoadLevel()
 {
+    EndSong();
     int stageId = game.stageId;
     int mid = game.mid;
 
