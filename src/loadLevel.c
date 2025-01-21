@@ -107,7 +107,6 @@ void LoadLevel()
     size_t screenLength = ((*(uint32_t *)0x1F80000C) - (*(uint32_t *)0x1F800008)); // getting screen count via pointers
     practice.state.screenSize = screenLength;
     SCREENBACKUP = freeArcP;
-    //Get Rid of this line for save states to carry over between deaths
     MemoryCopy(freeArcP,*(uint32_t *)0x1F800008,screenLength);
     void* results = (void*)((uint8_t*)freeArcP + practice.state.screenSize);
 
