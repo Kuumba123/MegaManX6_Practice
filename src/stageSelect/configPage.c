@@ -52,7 +52,7 @@ void ConfigPage(Game * gameP) //Mode 4-6
         DeleteThread();
     }
 
-    bool toggle = (buttonsPressed & CONFIRM) != 0;
+    bool toggle = (buttonsPressed & (PAD_LEFT + PAD_RIGHT + CONFIRM)) != 0;
 
     if ((buttonsPressed & PAD_DOWN) != 0)
     {
