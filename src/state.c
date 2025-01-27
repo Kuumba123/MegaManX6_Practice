@@ -101,17 +101,17 @@ void SwapTexture(bool sync)
 
     void *p = DECOMPRESS_ADDR; // Decompressed Texture buffer (temporary storage)
     void *p2 = swapTexturePointer;
-    RECT rect = {320, 256, 512, 8};
+    RECT rect = {320, 256, 512, 16};
 
-    for (size_t i = 0; i < 32; i++)
+    for (size_t i = 0; i < 16; i++)
     {
         StoreImage2(&rect, p);
         LoadImage2(&rect, p2);
 
-        MemoryCopy(p2, p, 0x2000);
+        MemoryCopy(p2, p, 0x4000);
 
-        p2 = (int)p2 + 0x2000;
-        rect.y += 8;
+        p2 = (int)p2 + 0x4000;
+        rect.y += 16;
     }
     practice.page ^= 1;
 }
