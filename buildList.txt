@@ -68,6 +68,8 @@ american , exe , 0x800246f4 , 0x0 , src/showPoint.s
 american , exe , 0x80024a14 , 0x0 , src/showPoint2.s
 
 american , exe , 0x80027a50 , 0x0 , src/swapTexture.c
+american , exe , 0x80012114 , 0x0 , src/swapTextureHook.s
+american , exe , 0x8001226c , 0x0 , src/swapTextureNop.s
 
 american , exe , 0x80071184 , 0x0 , src/modeTable.c
 
@@ -149,6 +151,8 @@ japanese , exe , 0x80025cf0 , 0x0 , src/showPoint.s
 japanese , exe , 0x80026010 , 0x0 , src/showPoint2.s
 
 japanese , exe , 0x8002904c , 0x0 , src/swapTexture.c
+japanese , exe , 0x8001354c , 0x0 , src/swapTextureHook.s
+japanese , exe , 0x800136a4 , 0x0 , src/swapTextureNop.s
 
 japanese , exe , 0x80072840 , 0x0 , src/modeTable.c
 

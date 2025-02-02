@@ -1,13 +1,14 @@
 #include <common.h>
+#include <gpu.h>
 
 extern uint32_t swapTextureFlag;
 
-void SwapTexture(bool sync);
+uint32_t SwapTexture();
 
 void SwapTextureCheck(){
     if (swapTextureFlag == 1)
     {
-        SwapTexture(true);
-        swapTextureFlag = 2;
+        swapTextureFlag = SwapTexture();
     }
+    PutDrawEnv(&drawP->draw);
 }

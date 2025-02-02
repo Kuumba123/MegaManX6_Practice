@@ -39,7 +39,6 @@
 #define FADE_F *(uint16_t *)0x801F8200
 #define EXPO_F *(uint16_t *)0x801F8280
 
-
 extern uint32_t swapTextureFlag;
 extern void *swapTexturePointer;
 extern void *clutPointer;
@@ -52,6 +51,13 @@ static void (*mode_A_Table[2])(Game *) = {0x8001ea28, 0x8001eb48};
 #else
 static void (*mode_A_Table[2])(Game *) = {0x8001fe78, 0x8001ff98};
 #endif
+
+static RECT blitRects[4] = {
+    {0, 0, 256, 256},     // to buffer
+    {320, 256, 256, 256}, // to texture
+    {0, 0, 256, 256},     // to buffer
+    {320, 256, 256, 256}  // to texture
+};
 
 void LoadCompressedImage(Object *objP, int16_t x, int16_t y);
 void LoadBossRefightsArc();
@@ -67,7 +73,7 @@ extern uint16_t maverickRefightBssSizes[];
 extern void *stageBssAddresses[];
 extern uint16_t *stageBssSizes[];
 
-extern void * bonusBossAddresses[];
+extern void *bonusBossAddresses[];
 extern uint16_t bonusBossAddressesSize[];
 
 void DrawDebugText(uint16_t x, uint16_t y, uint8_t clut, char *textP, ...);
@@ -76,7 +82,7 @@ void SwapWeaponTexturesClut(Mega *megaP);
 
 void LoadSigmaOverlay(int ovl);
 
-void CheckPointCheck(Game* gameP);
+void CheckPointCheck(Game *gameP);
 
 void MemoryCopy(void *dest, const void *src, size_t size)
 {
@@ -92,28 +98,33 @@ void MemoryCopy(void *dest, const void *src, size_t size)
     }
 }
 
-void SwapTexture(bool sync)
+uint32_t SwapTexture()
 {
-    if (sync)
+    if (buffer != 0)
     {
-        DrawSync(0); // Wait for Images & Clut to finish transfering before doing texture swap
+        return 1;
     }
+    uint8_t* p = (uint8_t*)swapTexturePointer;
 
-    void *p = DECOMPRESS_ADDR; // Decompressed Texture buffer (temporary storage)
-    void *p2 = swapTexturePointer;
-    RECT rect = {320, 256, 512, 16};
-
-    for (size_t i = 0; i < 16; i++)
+    for (size_t i = 0; i < 2; i++)
     {
-        StoreImage2(&rect, p);
-        LoadImage2(&rect, p2);
-
-        MemoryCopy(p2, p, 0x4000);
-
-        p2 = (int)p2 + 0x4000;
-        rect.y += 16;
+        blitRects[1 + i * 2].x = 320 + i * 256;
+        blitRects[1 + i * 2].y = 256;
+        blitRects[1 + i * 2].h = 240;
+        blitRects[0 + i * 2].h = 240;
+        MoveImage(&blitRects[1 + i * 2], 0, 0);
+        LoadImage(&blitRects[1 + i * 2], p);
+        StoreImage(&blitRects[0 + i * 2], p);
+        blitRects[1 + i * 2].y = 256 + 240;
+        blitRects[1 + i * 2].h = 256 - 240;
+        blitRects[0 + i * 2].h = 256 - 240;
+        MoveImage(&blitRects[1 + i * 2], 0, 0);
+        LoadImage(&blitRects[1 + i * 2], p + 0x1E000);
+        StoreImage(&blitRects[0 + i * 2], p + 0x1E000);
+        p += 0x20000;
     }
     practice.page ^= 1;
+    return 2;
 }
 void SaveState()
 {
@@ -188,9 +199,9 @@ void SaveState()
     {
         MemoryCopy(BSS_ADDR, stageBssAddresses[game.stageId * 2 + game.mid], stageBssSizes[game.stageId * 2 + game.mid]);
     }
-    else if(game.stageId > 0x12)
+    else if (game.stageId > 0x12)
     {
-        MemoryCopy(BSS_ADDR, bonusBossAddresses[*((uint8_t*)((int)&game + 1083))], bonusBossAddressesSize[*((uint8_t*)((int)&game + 1083))]);
+        MemoryCopy(BSS_ADDR, bonusBossAddresses[*((uint8_t *)((int)&game + 1083))], bonusBossAddressesSize[*((uint8_t *)((int)&game + 1083))]);
     }
     UPDATECLUT = 1; // Update Clut
     MemoryCopy(SCREENBACKUP, *(uint32_t *)0x1F800008, practice.state.screenSize);
@@ -244,12 +255,17 @@ void LoadState()
         }
     }
 
+    swapTextureFlag = practice.state.textureFlag;
+
     if (practice.page != practice.state.page)
     {
-        SwapTexture(false);
+        if(buffer != 0)
+        {
+            ThreadSleep(1);
+        }
+        swapTextureFlag = 1;
     }
-    practice.page = practice.state.page;
-    swapTextureFlag = practice.state.textureFlag;
+
     PASTBRIGHT = practice.state.pastBright;
     PASTBRIGHT2 = practice.state.pastBright2;
     PASTBRIGHT3 = practice.state.pastBright3;
@@ -305,9 +321,9 @@ void LoadState()
     {
         MemoryCopy(stageBssAddresses[game.stageId * 2 + game.mid], BSS_ADDR, stageBssSizes[game.stageId * 2 + game.mid]);
     }
-    else if(game.stageId > 0x12)
+    else if (game.stageId > 0x12)
     {
-        MemoryCopy(bonusBossAddresses[*((uint8_t*)((int)&game + 1083))], BSS_ADDR, bonusBossAddressesSize[*((uint8_t*)((int)&game + 1083))]);
+        MemoryCopy(bonusBossAddresses[*((uint8_t *)((int)&game + 1083))], BSS_ADDR, bonusBossAddressesSize[*((uint8_t *)((int)&game + 1083))]);
     }
 
     if (refightsBss)

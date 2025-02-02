@@ -1,4 +1,5 @@
 #include <common.h>
+#include <gpu.h>
 #include <object.h>
 #include <misc.h>
 #include "practice.h"
@@ -100,6 +101,10 @@ void DetermineClear(Game *gameP)
                     if (practice.page != ((checkPointTextureFlags[gameP->stageId * 2 + gameP->mid] & (1 << gameP->point)) != 0))
                     {
                         swapTextureFlag = 1;
+                        if (buffer != 0)
+                        {
+                            ThreadSleep(1);
+                        }
                     }
                 }
             }
