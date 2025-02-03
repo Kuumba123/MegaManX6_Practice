@@ -37,14 +37,14 @@ def process_text_file(text_file_path, output_file_name, doubleSector,skipPadding
     
     #Loop through each line of the text file
     for line in lines:
-        cleaned_line = line.strip().replace(' ','').replace('\t','')
+        cleaned_line = line.strip().replace('  ',' ').replace('\t','')
         if not cleaned_line or cleaned_line.startswith("//"):
             continue
         words = cleaned_line.split(',')
         entry = Entry()
         #add all files to the entry
         for file in words:
-            entry.addFile(file)
+            entry.addFile(file.strip())
         entries.append(entry)
 
     if len(entries) == 0:
