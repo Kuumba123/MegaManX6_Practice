@@ -42,7 +42,7 @@ def process_arc_file(input_file_path):
 #Start of Program
 if len(sys.argv) != 2:
     print("Made by PogChampGuy AKA Kuumba")
-    print("This is a simple program for re")
+    print("This is a simple program for re-arranging the\nextra texture entry in megaman x arc files")
     sys.exit(0)
 else:
     arc_file_path = sys.argv[1]
