@@ -52,11 +52,9 @@ static void (*mode_A_Table[2])(Game *) = {0x8001ea28, 0x8001eb48};
 static void (*mode_A_Table[2])(Game *) = {0x8001fe78, 0x8001ff98};
 #endif
 
-static RECT blitRects[4] = {
+static RECT blitRects[2] = {
     {0, 0, 256, 256},     // to buffer
-    {320, 256, 256, 256}, // to texture
-    {0, 0, 256, 256},     // to buffer
-    {320, 256, 256, 256}  // to texture
+    {320, 256, 256, 256} // to texture
 };
 
 void LoadCompressedImage(Object *objP, int16_t x, int16_t y);
@@ -108,19 +106,19 @@ uint32_t SwapTexture()
 
     for (size_t i = 0; i < 2; i++)
     {
-        blitRects[1 + i * 2].x = 320 + i * 256;
-        blitRects[1 + i * 2].y = 256;
-        blitRects[1 + i * 2].h = 240;
-        blitRects[0 + i * 2].h = 240;
-        MoveImage(&blitRects[1 + i * 2], 0, 0);
-        LoadImage(&blitRects[1 + i * 2], p);
-        StoreImage(&blitRects[0 + i * 2], p);
-        blitRects[1 + i * 2].y = 256 + 240;
-        blitRects[1 + i * 2].h = 256 - 240;
-        blitRects[0 + i * 2].h = 256 - 240;
-        MoveImage(&blitRects[1 + i * 2], 0, 0);
-        LoadImage(&blitRects[1 + i * 2], p + 0x1E000);
-        StoreImage(&blitRects[0 + i * 2], p + 0x1E000);
+        blitRects[1].x = 320 + i * 256;
+        blitRects[1].y = 256;
+        blitRects[1].h = 240;
+        blitRects[0].h = 240;
+        MoveImage(&blitRects[1], 0, 0);
+        LoadImage(&blitRects[1], p);
+        StoreImage(&blitRects[0], p);
+        blitRects[1].y = 256 + 240;
+        blitRects[1].h = 256 - 240;
+        blitRects[0].h = 256 - 240;
+        MoveImage(&blitRects[1], 0, 0);
+        LoadImage(&blitRects[1], p + 0x1E000);
+        StoreImage(&blitRects[0], p + 0x1E000);
         p += 0x20000;
     }
     practice.page ^= 1;
@@ -208,7 +206,7 @@ void SaveState()
 }
 void LoadState()
 {
-    ThreadSleep(10); // Waiting before transfering
+    ThreadSleep(9); // Waiting before transfering
 
     // restore enemy data
     Enemy *p = enemyDataPointers[game.stageId * 2 + game.mid];
@@ -253,17 +251,6 @@ void LoadState()
             freeP += dumpSize;
             freeSize -= dumpSize;
         }
-    }
-
-    swapTextureFlag = practice.state.textureFlag;
-
-    if (practice.page != practice.state.page)
-    {
-        if(buffer != 0)
-        {
-            ThreadSleep(1);
-        }
-        swapTextureFlag = 1;
     }
 
     PASTBRIGHT = practice.state.pastBright;
@@ -330,6 +317,14 @@ void LoadState()
     {
         MemoryCopy(maverickRefightBssAddresses[game.point - 2], BSS_ADDR, maverickRefightBssSizes[game.point - 2]);
     }
+    if (practice.page != practice.state.page)
+    {
+        swapTextureFlag = 1;
+    }
+    else
+    {
+        swapTextureFlag = practice.state.textureFlag;
+    }
     practice.sigmaOvl = practice.state.sigmaOvl;
     STARTSELECT_FLAG = 1;
     mega.newAnimeF = -1;
@@ -340,6 +335,7 @@ void LoadState()
     }
     UPDATECLUT = 1; // Update Clut
     MemoryCopy(*(uint32_t *)0x1F800008, SCREENBACKUP, practice.state.screenSize);
+    ThreadSleep(1);
 }
 
 void StateCheck(Game *gameP)
