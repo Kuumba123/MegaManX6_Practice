@@ -22,7 +22,6 @@
 #define STARTSELECT_FLAG *(uint32_t *)0x8008ec0c
 #define SCREENBACKUP *(uint32_t *)0x800a21b0
 #define VABP *(int *)0x800e4490
-#define DECOMPRESS_ADDR 0x800c8868
 #else
 #define RNG *(uint16_t *)0x80092530
 #define RELOAD *(uint8_t *)0x800cdf28
@@ -33,7 +32,6 @@
 #define STARTSELECT_FLAG *(uint32_t *)0x800902cc
 #define SCREENBACKUP *(uint32_t *)0x800a3870
 #define VABP *(int *)0x800e5ac0
-#define DECOMPRESS_ADDR 0x800C9F28
 #endif
 
 #define FADE_F *(uint16_t *)0x801F8200
@@ -383,5 +381,3 @@ void StateCheck(Game *gameP)
 #undef UPDATECLUT
 #undef FADE_F
 #undef EXPO_F
-
-#undef DECOMPRESS_ADDR
