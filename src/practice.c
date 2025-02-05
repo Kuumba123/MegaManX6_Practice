@@ -21,6 +21,7 @@ typedef struct
 typedef struct{
     State state;
     uint8_t page;
+    uint8_t textureIndex;
     uint8_t sigmaOvl;
     uint8_t category;
     bool keepRng;

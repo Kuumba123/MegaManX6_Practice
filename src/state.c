@@ -96,28 +96,26 @@ void MemoryCopy(void *dest, const void *src, size_t size)
 
 uint32_t SwapTexture()
 {
-    if (buffer != 0)
+    uint8_t *p = (uint8_t *)swapTexturePointer + practice.textureIndex * 0x20000;
+    int destY = buffer * 240;
+    blitRects[1].x = 320 + practice.textureIndex * 256;
+    blitRects[1].y = 256;
+    blitRects[1].h = 240;
+    blitRects[0].h = 240;
+    blitRects[0].y = destY;
+    MoveImage(&blitRects[1], 0, destY);
+    LoadImage(&blitRects[1], p);
+    StoreImage(&blitRects[0], p);
+    blitRects[1].y = 256 + 240;
+    blitRects[1].h = 256 - 240;
+    blitRects[0].h = 256 - 240;
+    MoveImage(&blitRects[1], 0, destY);
+    LoadImage(&blitRects[1], p + 0x1E000);
+    StoreImage(&blitRects[0], p + 0x1E000);
+    practice.textureIndex ^= 1;
+    if (practice.textureIndex != 0)
     {
         return 1;
-    }
-    uint8_t* p = (uint8_t*)swapTexturePointer;
-
-    for (size_t i = 0; i < 2; i++)
-    {
-        blitRects[1].x = 320 + i * 256;
-        blitRects[1].y = 256;
-        blitRects[1].h = 240;
-        blitRects[0].h = 240;
-        MoveImage(&blitRects[1], 0, 0);
-        LoadImage(&blitRects[1], p);
-        StoreImage(&blitRects[0], p);
-        blitRects[1].y = 256 + 240;
-        blitRects[1].h = 256 - 240;
-        blitRects[0].h = 256 - 240;
-        MoveImage(&blitRects[1], 0, 0);
-        LoadImage(&blitRects[1], p + 0x1E000);
-        StoreImage(&blitRects[0], p + 0x1E000);
-        p += 0x20000;
     }
     practice.page ^= 1;
     return 2;
@@ -204,7 +202,7 @@ void SaveState()
 }
 void LoadState()
 {
-    ThreadSleep(9); // Waiting before transfering
+    ThreadSleep(7); // Waiting before transfering
 
     // restore enemy data
     Enemy *p = enemyDataPointers[game.stageId * 2 + game.mid];
@@ -333,7 +331,7 @@ void LoadState()
     }
     UPDATECLUT = 1; // Update Clut
     MemoryCopy(*(uint32_t *)0x1F800008, SCREENBACKUP, practice.state.screenSize);
-    ThreadSleep(1);
+    ThreadSleep(3);
 }
 
 void StateCheck(Game *gameP)

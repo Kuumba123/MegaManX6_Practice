@@ -101,10 +101,6 @@ void DetermineClear(Game *gameP)
                     if (practice.page != ((checkPointTextureFlags[gameP->stageId * 2 + gameP->mid] & (1 << gameP->point)) != 0))
                     {
                         swapTextureFlag = 1;
-                        if (buffer != 0)
-                        {
-                            ThreadSleep(1);
-                        }
                     }
                 }
             }
@@ -160,11 +156,17 @@ void DetermineClear(Game *gameP)
     gameP->mode2 = 0;
     gameP->mode3 = 0;
     gameP->mode4 = 0;
+    
+    if (swapTextureFlag != 0)
+    {
+        ThreadSleep(2);
+    }
 }
 void ResetState()
 {
     practice.state.made = false;
     practice.page = 0;
+    practice.textureIndex = 0;
     practice.sigmaOvl = 0;
     LoadLevel();
 }
