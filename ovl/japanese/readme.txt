@@ -1,0 +1,1 @@
+put the Japanese ROCK_X6.BIN in this folder

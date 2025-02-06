@@ -1,0 +1,1 @@
+put the North American ROCK_X6.BIN in this folder
