@@ -10,5 +10,5 @@ void SwapTextureCheck(){
     {
         swapTextureFlag = SwapTexture();
     }
-    PutDrawEnv(&drawP->draw);
+    PutDrawEnv(&drawP->drawenv);
 }
